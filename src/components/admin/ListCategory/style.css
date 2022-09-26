@@ -1,0 +1,11 @@
+.ant-image-preview-img-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ant-table-thead>tr>th {
+  color: #154c79;
+}
+.ant-table table { 
+  font-size: 1.6rem;
+}

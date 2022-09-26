@@ -1,0 +1,11 @@
+.product-images-slider .swiper-button-prev{
+    left: 0;
+    color: #000;
+}
+.product-images-slider .swiper-button-next{
+    right: 0;
+    color: #000;
+}
+.product-images-slider-thumbs .swiper-wrapper .swiper-slide-thumb-active .image-wrap{
+    border-color: #000;
+}
