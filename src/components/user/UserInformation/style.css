@@ -1,0 +1,18 @@
+.ant-modal-footer .ant-btn.ant-btn-primary{
+  background-color: #154c79;
+  border-color: #154c79;
+  height: 40px;
+  font-size: 1.6rem;
+}
+.ant-modal-footer .ant-btn.ant-btn-primary:hover{
+  opacity: 0.9;
+}
+.ant-modal-footer .ant-btn.ant-btn-default{
+  height: 40px;
+  font-size: 1.6rem;
+}
+.ant-modal-footer .ant-btn.ant-btn-default:hover{
+  border-color: #154c79 !important;
+  color: #154c79 !important;
+  opacity: 0.9;
+}

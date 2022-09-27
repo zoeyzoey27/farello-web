@@ -8,7 +8,7 @@ const BannerImages = () => {
   if (loading) return <p>Loading ...</p>
   if (error) return <p>Error!</p>
   return (
-    <Carousel autoplay>
+    <Carousel autoplay className="-mx-[50px]">
         {
             data.bannerImages.map(bannerImage => (
                 <img

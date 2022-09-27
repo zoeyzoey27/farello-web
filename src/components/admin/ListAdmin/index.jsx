@@ -16,6 +16,10 @@ const ListAdmin = () => {
       dataIndex: 'name',
     },
     {
+      title: 'Ngày sinh',
+      dataIndex: 'birthday',
+    },
+    {
       title: 'Email',
       dataIndex: 'email'
     },

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Layout, Grid, Drawer } from 'antd'
+import { Layout, Grid, Drawer, BackTop, Row } from 'antd'
 import Topbar from '../../components/admin/Topbar'
 import MenuAdmin from '../../components/admin/MenuAdmin'
 import AddCategoryForm from '../../components/admin/AddCategoryForm'
+import { AiOutlineToTop } from 'react-icons/ai'
 
 const AddCategory = () => {
   const { useBreakpoint } = Grid
@@ -40,6 +41,11 @@ const AddCategory = () => {
         <AddCategoryForm />
       </Layout>
       </Layout>
+      <BackTop>
+          <Row className="w-[40px] h-[40px] rounded-full border-2 border-[#154c79] text-[#154c79] flex justify-center items-center hover:bg-[#154c79] hover:text-white hover:shadow-lg">
+             <AiOutlineToTop className="text-[2rem] font-semibold" />
+          </Row>
+       </BackTop>
     </Layout>
   )
 }

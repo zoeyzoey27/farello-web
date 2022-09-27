@@ -1,3 +1,32 @@
 .ant-breadcrumb ol{
    width: 100% !important;
 }
+.ant-radio-button-wrapper-checked:not([class*=" ant-radio-button-wrapper-disabled"]).ant-radio-button-wrapper:first-child {
+    border-right-color: #154c79;
+}
+.ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+    background: #154c79;
+    border-color: #154c79;
+}
+.ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+   background: #154c79;
+   border-color: #154c79;
+}
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):before {
+    background-color: #154c79;
+}
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    color: #154c79;
+    border-color: #154c79;
+}
+.ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    background: #154c79;
+    border-color: #154c79;
+}
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    color: #154c79;
+    border-color: #154c79;
+}
+.ant-radio-button-wrapper:hover {
+    color: #154c79;
+}

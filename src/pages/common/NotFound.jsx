@@ -10,7 +10,7 @@ const NotFound = () => {
         title="404"
         subTitle="Xin lỗi, trang bạn đã truy cập không tồn tại."
         extra={
-           <Button type="primary" className="bg-[#1890ff]" onClick={()=> navigate("/")}>
+           <Button type="primary" className="bg-[#1890ff]" size="large" onClick={()=> navigate("/")}>
               Trở lại trang chủ
            </Button>
         }

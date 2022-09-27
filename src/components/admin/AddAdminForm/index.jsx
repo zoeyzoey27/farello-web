@@ -8,7 +8,8 @@ import {
     Button, 
     Select,
     Col,
-    message
+    message,
+    DatePicker
 } from 'antd'
 import { schemaValidate } from '../../../validation/AddAdmin'
 import { converSchemaToAntdRule } from '../../../validation'
@@ -81,6 +82,112 @@ const AddAdminForm = () => {
                 <Input size="large" placeholder="Admin" className="rounded" />
             </Form.Item>
             <Form.Item
+                name="birthday"
+                className="w-full md:w-1/2 lg:w-1/3"
+                required={false}
+                label={
+                  <Row className="font-semibold text-[1.6rem]">
+                     Ngày sinh
+                  </Row>
+                }>
+                <DatePicker size="large" format="DD/MM/YYYY" placeholder="01/01/1990" className="w-full" />
+            </Form.Item>
+            <Form.Item 
+              className="mb-0 w-full xl:w-[60%]"
+              label={
+                  <Row className="font-semibold text-[1.6rem]">
+                     Địa chỉ
+                     <Row className="text-red-500 ml-3">*</Row>
+                  </Row>
+                }>
+              <Row gutter={{xs: 0, md: 16}}>
+                <Col xs={24} md={8}>
+                  <Form.Item
+                      name="province"
+                      required={false}
+                      rules={[yupSync]}>
+                      <Select
+                          showSearch
+                          size="large"
+                          className="w-full text-[1.6rem]"
+                          placeholder="Tỉnh/Thành Phố"
+                          optionFilterProp="children"
+                          onChange={onChangeProvince}
+                          filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
+                          filterSort={(optionA, optionB) =>
+                            optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                          }>
+                          {
+                            provinceList.map((item) => (
+                              <Option key={item.code} value={item.code} className="text-[1.6rem]">{item.name}</Option>
+                            ))
+                          }
+                        </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24} md={8}>
+                  <Form.Item
+                    name="district"
+                    required={false}
+                    rules={[yupSync]}>
+                    <Select
+                        showSearch
+                        size="large"
+                        className="w-full text-[1.6rem]"
+                        placeholder="Quận/Huyện"
+                        optionFilterProp="children"
+                        onChange={onChangeDistrict}
+                        filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
+                        filterSort={(optionA, optionB) =>
+                          optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                        }>
+                        {
+                          districtList.map((item) => (
+                            <Option key={item.code} value={item.code} className="text-[1.6rem]">{item.name}</Option>
+                          ))
+                        }
+                      </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24} md={8}>
+                  <Form.Item
+                    name="commune"
+                    required={false}
+                    rules={[yupSync]}>
+                    <Select
+                        showSearch
+                        size="large"
+                        className="w-full text-[1.6rem]"
+                        placeholder="Phường/Xã"
+                        optionFilterProp="children"
+                        filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
+                        filterSort={(optionA, optionB) =>
+                          optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                        }>
+                        {
+                          communeList.map((item) => (
+                            <Option key={item.code} value={item.code} className="text-[1.6rem]">{item.name}</Option>
+                          ))
+                        }
+                      </Select>
+                  </Form.Item>
+                </Col>
+              </Row>
+           </Form.Item>
+           <Form.Item
+                name="phone"
+                className="w-full md:w-1/2 lg:w-1/3"
+                required={false}
+                rules={[yupSync]}
+                label={
+                  <Row className="font-semibold text-[1.6rem]">
+                     Số điện thoại
+                     <Row className="text-red-500 ml-3">*</Row>
+                  </Row>
+                }>
+                <Input size="large" placeholder="0366057503" className="rounded" />
+            </Form.Item>
+           <Form.Item
                 name="email"
                 className="w-full md:w-1/2 lg:w-1/3"
                 required={false}
@@ -119,101 +226,6 @@ const AddAdminForm = () => {
                 }>
                 <Input.Password size="large" placeholder="admin@123" className="rounded" />
             </Form.Item>
-            <Form.Item
-                name="phone"
-                className="w-full md:w-1/2 lg:w-1/3"
-                required={false}
-                rules={[yupSync]}
-                label={
-                  <Row className="font-semibold text-[1.6rem]">
-                     Số điện thoại
-                     <Row className="text-red-500 ml-3">*</Row>
-                  </Row>
-                }>
-                <Input size="large" placeholder="0366057503" className="rounded" />
-            </Form.Item>
-           <Form.Item 
-              className="mb-0 w-full xl:w-[60%]"
-              label={
-                  <Row className="font-semibold text-[1.6rem]">
-                     Địa chỉ
-                     <Row className="text-red-500 ml-3">*</Row>
-                  </Row>
-                }>
-              <Row gutter={{xs: 0, md: 16}}>
-                <Col xs={24} md={8}>
-                  <Form.Item
-                      name="province"
-                      required={false}
-                      rules={[yupSync]}>
-                      <Select
-                          showSearch
-                          size="large"
-                          className="w-full"
-                          placeholder="Tỉnh/Thành Phố"
-                          optionFilterProp="children"
-                          onChange={onChangeProvince}
-                          filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
-                          filterSort={(optionA, optionB) =>
-                            optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-                          }>
-                          {
-                            provinceList.map((item) => (
-                              <Option key={item.code} value={item.code}>{item.name}</Option>
-                            ))
-                          }
-                        </Select>
-                  </Form.Item>
-                </Col>
-                <Col xs={24} md={8}>
-                  <Form.Item
-                    name="district"
-                    required={false}
-                    rules={[yupSync]}>
-                    <Select
-                        showSearch
-                        size="large"
-                        className="w-full"
-                        placeholder="Quận/Huyện"
-                        optionFilterProp="children"
-                        onChange={onChangeDistrict}
-                        filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
-                        filterSort={(optionA, optionB) =>
-                          optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-                        }>
-                        {
-                          districtList.map((item) => (
-                            <Option key={item.code} value={item.code}>{item.name}</Option>
-                          ))
-                        }
-                      </Select>
-                  </Form.Item>
-                </Col>
-                <Col xs={24} md={8}>
-                  <Form.Item
-                    name="commune"
-                    required={false}
-                    rules={[yupSync]}>
-                    <Select
-                        showSearch
-                        size="large"
-                        className="w-full"
-                        placeholder="Phường/Xã"
-                        optionFilterProp="children"
-                        filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
-                        filterSort={(optionA, optionB) =>
-                          optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-                        }>
-                        {
-                          communeList.map((item) => (
-                            <Option key={item.code} value={item.code}>{item.name}</Option>
-                          ))
-                        }
-                      </Select>
-                  </Form.Item>
-                </Col>
-              </Row>
-           </Form.Item>
             <Row className="flex flex-col md:flex-row !mt-10">
               <Form.Item>
                   <Button 

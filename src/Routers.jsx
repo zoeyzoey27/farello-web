@@ -18,6 +18,17 @@ import DeleteAccount from './pages/admin/DeleteAccount'
 import DeleteAccountComfirm from './pages/admin/DeleteAccountComfirm'
 import OrderManagement from './pages/admin/OrderManagement'
 import OrderDetail from './pages/admin/OrderDetail'
+import UserManagement from './pages/admin/UserManagement'
+import Login from './pages/user/Login'
+import Register from './pages/user/Register'
+import UserInfo from './pages/user/UserInfo'
+import ListOrderUser from './pages/user/ListOrderUser'
+import UserOrderDetail from './pages/user/UserOrderDetail'
+import UserDeleteAccount from './pages/user/UserDeleteAccount'
+import UserDeleteAccountCompleted from './pages/user/UserDeleteAccountCompleted'
+import UserOrderPage from './pages/user/UserOrderPage'
+import UserPaymentCompleted from './pages/user/UserPaymentCompleted'
+import AboutUsPage from './pages/user/AboutUsPage'
 
 const Routers = () => {
   return (
@@ -36,9 +47,20 @@ const Routers = () => {
               <Route path="/admin/deleteAccountConfirm" element = {<DeleteAccountComfirm />} />
               <Route path="/admin/orderManagement" element = {<OrderManagement />} />
               <Route path="/admin/orderDetail" element = {<OrderDetail />} />
+              <Route path="/admin/userList" element = {<UserManagement />} />
               <Route path="/product" element = {<ProductDetailPage/>} />
               <Route path="/cart" element = {<Cart/>} />
               <Route path="/products" element = {<Product/>} />
+              <Route path="/login" element = {<Login/>} />
+              <Route path="/signup" element = {<Register/>} />
+              <Route path="/userInfo" element = {<UserInfo/>} />
+              <Route path="/userDeleteAccount" element = {<UserDeleteAccount />} />
+              <Route path="/userDeleteAccountCompleted" element = {<UserDeleteAccountCompleted />} />
+              <Route path="/listOrderUser" element = {<ListOrderUser/>} />
+              <Route path="/orderDetail" element = {<UserOrderDetail/>} />
+              <Route path="/userOrderProduct" element = {<UserOrderPage/>} />
+              <Route path="/paymentCompleted" element = {<UserPaymentCompleted/>} />
+              <Route path="/aboutus" element = {<AboutUsPage/>} />
               <Route path="/" element = {<Home/>} />
               <Route path="*" element = {<NotFound/>} />
           </Routes>

@@ -7,18 +7,18 @@ import showroom4 from '../../../assets/images/show-room4.jpg'
 
 const Showroom = () => {
   return (
-    <Row gutter={16} className="my-[50px] !mx-[100px]">
-        <Col span={12}>
+    <Row gutter={16} className="my-[50px] lg:!mx-[50px] xl:!mx-[100px]">
+        <Col xs={24} md={12} className="mb-3 md:mb-0">
            <img src={showroom1} alt="" className="w-full h-full !object-center !object-cover" />
         </Col>
-        <Col span={12}>
+        <Col xs={24} md={12}>
            <Row>
               <Col span={24}>
                  <img src={showroom2} alt='' className="w-full h-full !object-center !object-cover" />
               </Col>
               <Col 
                   span={24} 
-                  className="text-[1.6rem] font-semibold tracking-[1px] my-3 flex items-center justify-center p-3 bg-[rgba(30,30,30,.77)] text-white uppercase"
+                  className="text-[1.6rem] text-center font-semibold tracking-[1px] my-3 flex items-center justify-center p-3 bg-[rgba(30,30,30,.77)] text-white uppercase"
               >
                   ĐẾN FARELLO ĐỂ ĐƯỢC KHÁM MẮT MIỄN PHÍ
               </Col>

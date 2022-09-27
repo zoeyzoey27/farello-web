@@ -1,0 +1,228 @@
+import React, { useState, useEffect} from 'react'
+import { Row, Button, Form, Input, DatePicker, Select, Col, message  } from 'antd'
+import { schemaValidate } from '../../../validation/Register'
+import { converSchemaToAntdRule } from '../../../validation'
+import { useNavigate } from 'react-router-dom'
+import axiosClient from '../../../api/axiosClient'
+
+const EditUserInfo = () => {
+  const { Option } = Select
+  const [form] = Form.useForm()
+  const navigate = useNavigate()
+  const [provinceList, setProvinceList] = useState([])
+  const [districtList, setDistrictList] = useState([])
+  const [communeList, setCommuneList] = useState([])
+  const yupSync = converSchemaToAntdRule(schemaValidate)
+
+  const onFinish = (values) => {
+    if (values.password !== values.rePassword) {
+      message.error('Mật khẩu không khớp!');
+    }
+    else {
+      const province = provinceList.find((item) => item.code === form.getFieldsValue().province).name
+      const district = districtList.find((item) => item.code === form.getFieldsValue().district).name
+      const commune = communeList.find((item) => item.code === form.getFieldsValue().commune).name
+      const adminAddress = `${commune} - ${district} - ${province}`
+      console.log(adminAddress)
+      console.log('Received values of form: ', values)
+      navigate('/login')
+    }
+  }
+  useEffect(() => {
+     axiosClient.get('province').then((res) => {
+      setProvinceList(res.data.results)
+     })
+  },[])
+  const onChangeProvince = async (value) => {
+    await axiosClient.get(`district?province=${value}`).then((res) => {
+      setDistrictList(res.data.results)
+    })
+  }
+  const onChangeDistrict = async (value) => {
+    await axiosClient.get(`commune?district=${value}`).then((res) => {
+      setCommuneList(res.data.results)
+    })
+  }
+  return (
+    <Row className="w-fullflex flex-col">
+        <Row className="text-[1.6rem]">Vui lòng nhập thông tin vào các trường bên dưới.</Row>
+        <Row className="mb-5 text-[1.6rem]">(*) là thông tin bắt buộc.</Row>
+        <Form
+          layout="vertical"
+          form={form}
+          autoComplete="off"
+          onFinish={onFinish}
+          className="w-full">
+          <Form.Item
+            name="name"
+            label={
+              <Row className="font-semibold text-[1.6rem]">
+                  Họ tên
+                  <Row className="text-red-500 ml-3">*</Row>
+              </Row>
+            }
+            required={false}
+            rules={[yupSync]}>
+            <Input size="large" placeholder="User" className="rounded" />
+          </Form.Item>
+          <Form.Item
+            name="birthday"
+            label={
+              <Row className="font-semibold text-[1.6rem]">
+                  Ngày sinh
+              </Row>
+            }
+            required={false}>
+            <DatePicker size="large" placeholder="01/01/1990" className="rounded w-full" />
+          </Form.Item>
+          <Form.Item 
+              label={
+                  <Row className="font-semibold text-[1.6rem]">
+                     Địa chỉ
+                     <Row className="text-red-500 ml-3">*</Row>
+                  </Row>
+                }>
+              <Row gutter={{xs: 0, md: 16}}>
+                <Col xs={24}>
+                  <Form.Item
+                      name="province"
+                      required={false}
+                      rules={[yupSync]}>
+                      <Select
+                          showSearch
+                          size="large"
+                          className="w-full text-[1.6rem]"
+                          placeholder="Tỉnh/Thành Phố"
+                          optionFilterProp="children"
+                          onChange={onChangeProvince}
+                          filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
+                          filterSort={(optionA, optionB) =>
+                            optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                          }>
+                          {
+                            provinceList.map((item) => (
+                              <Option key={item.code} value={item.code} className="text-[1.6rem]">{item.name}</Option>
+                            ))
+                          }
+                        </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24}>
+                  <Form.Item
+                    name="district"
+                    required={false}
+                    rules={[yupSync]}>
+                    <Select
+                        showSearch
+                        size="large"
+                        className="w-full text-[1.6rem]"
+                        placeholder="Quận/Huyện"
+                        optionFilterProp="children"
+                        onChange={onChangeDistrict}
+                        filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
+                        filterSort={(optionA, optionB) =>
+                          optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                        }>
+                        {
+                          districtList.map((item) => (
+                            <Option key={item.code} value={item.code} className="text-[1.6rem]">{item.name}</Option>
+                          ))
+                        }
+                      </Select>
+                  </Form.Item>
+                </Col>
+                <Col xs={24}>
+                  <Form.Item
+                    name="commune"
+                    className="mb-0"
+                    required={false}
+                    rules={[yupSync]}>
+                    <Select
+                        showSearch
+                        size="large"
+                        className="w-full text-[1.6rem]"
+                        placeholder="Phường/Xã"
+                        optionFilterProp="children"
+                        filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
+                        filterSort={(optionA, optionB) =>
+                          optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                        }>
+                        {
+                          communeList.map((item) => (
+                            <Option key={item.code} value={item.code} className="text-[1.6rem]">{item.name}</Option>
+                          ))
+                        }
+                      </Select>
+                  </Form.Item>
+                </Col>
+              </Row>
+           </Form.Item>
+          <Form.Item
+            name="email"
+            label={
+              <Row className="font-semibold text-[1.6rem]">
+                  Email đăng nhập
+                  <Row className="text-red-500 ml-3">*</Row>
+              </Row>
+            }
+            required={false}
+            rules={[yupSync]}>
+            <Input size="large" placeholder="user@gmail.com" className="rounded" />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            label={
+              <Row className="font-semibold text-[1.6rem]">
+                  Mật khẩu
+                  <Row className="text-red-500 ml-3">*</Row>
+              </Row>
+            }
+            required={false}
+            rules={[yupSync]}>
+            <Input.Password size="large" placeholder="user@123" className="rounded" />
+          </Form.Item>
+          <Form.Item
+            name="rePassword"
+            label={
+              <Row className="font-semibold text-[1.6rem]">
+                  Nhập lại mật khẩu
+                  <Row className="text-red-500 ml-3">*</Row>
+              </Row>
+            }
+            required={false}
+            rules={[yupSync]}>
+            <Input.Password size="large" placeholder="user@123" className="rounded" />
+          </Form.Item>
+          <Form.Item
+            name="phone"
+            label={
+              <Row className="font-semibold text-[1.6rem]">
+                  Số điện thoại
+                  <Row className="text-red-500 ml-3">*</Row>
+              </Row>
+            }
+            required={false}
+            rules={[yupSync]}>
+            <Input size="large" placeholder="0366057503" className="rounded" />
+          </Form.Item>
+          <Form.Item>
+            <Button 
+              htmlType="submit" 
+              size="large" 
+              className="bg-[#154c79] text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
+              Lưu thay đổi
+            </Button>
+          </Form.Item>
+          <Form.Item>
+            <Button 
+              size="large" 
+              className="border-[#154c79] border-1 text-[#154c79] hover:text-[#154c79] hover:border-[#154c79] w-full font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
+              Xóa thay đổi
+            </Button>
+          </Form.Item>
+        </Form> 
+      </Row>
+  )
+}
+
+export default EditUserInfo

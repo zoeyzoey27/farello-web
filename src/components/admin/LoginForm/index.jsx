@@ -1,6 +1,5 @@
 import React from 'react'
-import { Row, Space, Image, Button, Form, Input, Typography  } from 'antd'
-import logo from '../../../assets/images/logo.png'
+import { Row, Space, Button, Form, Input, Typography  } from 'antd'
 import { schemaValidate } from '../../../validation/AdminLogin'
 import { converSchemaToAntdRule } from '../../../validation'
 import { useNavigate } from 'react-router-dom'
@@ -11,17 +10,12 @@ const LoginForm = () => {
   const navigate= useNavigate()
   const onFinish = (values) => {
     console.log('Received values of form: ', values)
-    navigate('/admin/dashboard')
+    navigate('/admin/categoryManagement')
   }
   return (
     <Space direction="vertical" size="middle" className="w-full h-full">
-       <Row className="!bg-white h-[65px] flex items-center justify-center mb-10 ">
-          <Image
-            width={160}
-            src={logo}
-            className="block cursor-pointer"
-            preview={false}
-          /> 
+       <Row className="!bg-[#154c79] h-[65px] flex items-center justify-center mb-10 ">
+          <Row className="logo text-[3.5rem] text-white">Farello</Row>
        </Row>
        <Row className="w-full flex justify-center">
           <Row className="py-10 px-20 rounded bg-white w-full md:w-[60%] lg:w-[40%] xl:w-[35%] 2xl:w-[30%] flex flex-col shadow-lg">

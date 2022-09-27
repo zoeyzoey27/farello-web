@@ -1,16 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Header } from 'antd/lib/layout/layout'
 import { useQuery } from '@apollo/client'
-import { Image, Row, Input, Badge, Menu } from 'antd'
+import { Row, Input, Badge, Menu, Grid, Drawer, Dropdown } from 'antd'
 import { UserOutlined, ShoppingOutlined } from '@ant-design/icons'
-import logo from '../../../assets/images/logo.png'
-import { Link} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { getCategories } from '../../../graphqlClient/queries'
 import './style.css'
-
-const { Search } = Input;
+import { AiOutlineMenuFold } from 'react-icons/ai'
+import { menu } from './menu'
 
 const Topbar = () => {
+  const { Search } = Input
+  const { useBreakpoint } = Grid
+  const navigate = useNavigate()
+  const screens = useBreakpoint()
+  const [ visible, setVisible ] = useState(false)
+  const onOpen = () => {
+    setVisible(true)
+  }
+  const onClose = () => {
+    setVisible(false)
+  }
   const onSearch = (value) => console.log(value)
   const { loading, error, data } = useQuery(getCategories)
   if (loading) return <p>Loading....</p>
@@ -23,15 +33,23 @@ const Topbar = () => {
           Trang chủ
         </Link>
       ),
-      key: 'homepage',
+      key: '/',
     },
     {
       label: (
-        <Link to="/" className="link mx-3 text-[1.6rem] font-medium">
-          Sản phẩm
+        <Link to="/aboutus" className="link mx-3 text-[1.6rem] font-medium">
+          Giới thiệu
         </Link>
       ),
-      key: 'products',
+      key: '/aboutus',
+    },
+    {
+      label: (
+        <Row className="link mx-3 text-[1.6rem] font-medium">
+          Sản phẩm
+        </Row>
+      ),
+      key: '/products',
       children: [
         {
           type: 'group',
@@ -44,7 +62,7 @@ const Topbar = () => {
                     {item.name}
                   </Link>
                 ),
-                key: `cate${item.id}`,
+                key: `/products?id=${item.id}`,
               }
             ))
           ,
@@ -53,41 +71,43 @@ const Topbar = () => {
     },
     {
       label: (
-        <Link to="/" className="link mx-3 text-[1.6rem] font-medium">
+        <Link to="/service" className="link mx-3 text-[1.6rem] font-medium">
           Dịch vụ
         </Link>
       ),
-      key: 'service',
-    },
-    {
-      label: (
-        <Link to="/" className="link mx-3 text-[1.6rem] font-medium">
-          Tin tức
-        </Link>
-      ),
-      key: 'news',
+      key: '/service',
     },
   ];
   return (
-    <Header className="flex items-center justify-between bg-white">
+    <Header className="flex items-center justify-between bg-white px-[20px] md:px-[35px] lg:px-[50px]">
       <Row className="flex items-center justify-between">
-        <Link to ="/" className="h-full flex items-center mr-10">
-          <Image
-            width={160}
-            src={logo}
-            className="block cursor-pointer"
-            preview={false}
-          />
+        <Link to ="/" className="h-full flex items-center md:mr-10 hover:text-black">
+          <Row className="text-[2.8rem] md:text-[3.5rem] logo hover:text-black">Farello</Row>
         </Link>
-        <Menu mode="horizontal" items={itmainNavems} />
+        {screens.lg && (
+          <Menu mode="horizontal" items={itmainNavems} />
+        )}
+        {!screens.lg && (
+          <Drawer
+            title="Menu"
+            placement="right"
+            width={320}
+            onClose={onClose}
+            visible={visible}>
+            <Menu mode="inline" items={itmainNavems} />
+          </Drawer>
+        )}
       </Row>
       <Row className="flex items-center justify-between gap-5">
         <Search 
           placeholder="Tìm kiếm" 
           onSearch={onSearch} 
-          style={{ width: 200 }} 
+          style={{ width: 200 }}
+          className="hidden md:block" 
         />
-        <UserOutlined className="text-[1.8rem] cursor-pointer border-l-2 pl-3" />
+        <Dropdown overlay={menu}>
+          <UserOutlined className="text-[1.8rem] cursor-pointer md:border-l-2 md:pl-3" />
+        </Dropdown>
         <Badge 
           count={0} 
           size="default" 
@@ -97,8 +117,9 @@ const Topbar = () => {
           className="text-black"
           style={{ backgroundColor: '#F3F3F7', color: '#000' }}
         >
-          <ShoppingOutlined className="text-[1.8rem] cursor-pointer" />
+          <ShoppingOutlined className="text-[1.8rem] cursor-pointer" onClick={() => navigate('/cart')}  />
         </Badge>
+        <AiOutlineMenuFold className="text-[2.5rem] ml-5 md:ml-10 cursor-pointer block lg:hidden" onClick={onOpen} />
       </Row>
     </Header>
   )

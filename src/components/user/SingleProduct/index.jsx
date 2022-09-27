@@ -21,12 +21,12 @@ const SingleProduct = ({productId}) => {
        <Row className="flex flex-col items-center justify-center">
             <img src={product.imageMain} alt="" className="mb-3" />
             <Title level={5} className="uppercase">{product.name}</Title>
-            <Row className="flex items-center">
-                <Text className="mr-3 text-[#606060] text-[1.7rem] font-semibold tracking-[1px]">
-                   {`${numberWithCommas(Number(product.priceSale))} đ`}
+            <Row className="flex items-center justify-center">
+                <Text className="mr-3 text-[#606060] text-[1.6rem] font-semibold">
+                   {`${numberWithCommas(Number(product.priceSale))} VND`}
                 </Text>
-                <Text className="line-through text-[1.2rem] tracking-[1px] text-[#afaaaa]">
-                   {`${numberWithCommas(Number(product.priceOrigin))} đ`}
+                <Text className="line-through text-[1.2rem] text-[#afaaaa]">
+                   {`${numberWithCommas(Number(product.priceOrigin))} VND`}
                 </Text>
             </Row>
        </Row>

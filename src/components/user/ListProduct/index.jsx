@@ -9,9 +9,9 @@ const ListProduct = ({products}) => {
         <Row gutter={16} className="!my-[50px]">
              {products.map(item => (
                 <Col 
-                   className="gutter-row cursor-pointer" 
+                   className="gutter-row cursor-pointer mb-5 lg:mb-0" 
                    key={item.id} 
-                   span={6} 
+                   xs={24} md={12} lg={6}
                    onClick={() => navigate(`/product?id=${item.id}`)}
                 >
                    <SingleProduct productId={item.id} />

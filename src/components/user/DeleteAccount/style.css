@@ -1,0 +1,14 @@
+.ant-modal-confirm-btns .ant-btn.ant-btn-primary{
+    border-color: #154c79;
+    background: #154c79;
+}
+.ant-modal-confirm-btns .ant-btn.ant-btn-primary:hover{
+    border-color: #154c79;
+    background: #154c79;
+    opacity: 0.9;
+}
+.ant-modal-confirm-btns .ant-btn.ant-btn-default:hover{
+    border-color: #154c79;
+    color: #154c79;
+    opacity: 0.9;
+}

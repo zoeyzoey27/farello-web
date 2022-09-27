@@ -6,7 +6,6 @@ import './style.css'
 
 const ProductImageSlider = ({images}) => {
   const [activeThumb, setActiveThumb] = useState(null)
-  console.log(images)
   return (
     <>
         <Swiper

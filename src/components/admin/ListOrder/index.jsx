@@ -1,5 +1,5 @@
 import React from 'react'
-import { Space, Typography, Row, Button, Table, Col, Form, Input, Pagination } from 'antd'
+import { Space, Typography, Row, Button, Table, Col, Form, Input, Pagination, Select } from 'antd'
 import { data } from './DataTable'
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, TOTAL_DEFAULT } from '../../../constant'
 import { FiSearch } from 'react-icons/fi'
@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 const ListOrder = () => {
   const { Title } = Typography
+  const { Option } = Select
   const navigate = useNavigate()
   const columns = [
     {
@@ -59,7 +60,7 @@ const ListOrder = () => {
        <Row className="p-10 bg-[#F8F8F8] w-full rounded">
           <Form layout="vertical" autoComplete="off" className="w-full">
             <Row gutter={{xs: 0, md: 20, xl: 50}}>
-                <Col className="gutter-row" xs={24} md={6}>
+                <Col className="gutter-row" xs={24} md={8}>
                   <Form.Item name="orderId" label={<Row className="font-semibold text-[1.6rem]">Mã đơn hàng</Row>}>
                       <Input 
                          size="large" 
@@ -70,8 +71,8 @@ const ListOrder = () => {
                          } />
                   </Form.Item>
                 </Col>
-                <Col className="gutter-row" xs={24} md={6}>
-                  <Form.Item name="name" label={<Row className="font-semibold text-[1.6rem]">Họ tên người nhận</Row>}>
+                <Col className="gutter-row" xs={24} md={8}>
+                  <Form.Item name="name" label={<Row className="font-semibold text-[1.6rem]">Người nhận</Row>}>
                       <Input 
                          size="large" 
                          className="rounded"
@@ -81,7 +82,7 @@ const ListOrder = () => {
                          } />
                   </Form.Item>
                 </Col>
-                <Col className="gutter-row" xs={24} md={6}>
+                <Col className="gutter-row" xs={24} md={8}>
                   <Form.Item name="phone" label={<Row className="font-semibold text-[1.6rem]">Số điện thoại</Row>}>
                       <Input 
                          size="large" 
@@ -92,7 +93,7 @@ const ListOrder = () => {
                          } />
                   </Form.Item>
                 </Col>
-                <Col className="gutter-row" xs={24} md={6}>
+                <Col className="gutter-row" xs={24} md={8}>
                   <Form.Item name="address" label={<Row className="font-semibold text-[1.6rem]">Địa chỉ người nhận</Row>}>
                       <Input 
                          size="large" 
@@ -101,6 +102,18 @@ const ListOrder = () => {
                          suffix={
                            <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                          } />
+                  </Form.Item>
+                </Col>
+                <Col className="gutter-row" xs={24} md={8}>
+                  <Form.Item name="address" label={<Row className="font-semibold text-[1.6rem]">Trạng thái</Row>}>
+                      <Select size="large" className="rounded w-[220px] self-end mb-10" placeholder="Chờ xác nhận">
+                          <Option value={1} className="text-[1.6rem]">Chờ xác nhận</Option>
+                          <Option value={2} className="text-[1.6rem]">Đã xác nhận</Option>
+                          <Option value={3} className="text-[1.6rem]">Đã đóng gói</Option>
+                          <Option value={4} className="text-[1.6rem]">Đã giao cho ĐVVC</Option>
+                          <Option value={5} className="text-[1.6rem]">Giao hàng thành công</Option>
+                          <Option value={6} className="text-[1.6rem]">Hủy</Option>
+                      </Select>
                   </Form.Item>
                 </Col>
               </Row>

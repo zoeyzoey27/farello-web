@@ -82,7 +82,7 @@ const OrderDetailAdmin = () => {
                 header={<Row className="text-[1.6rem]">1 sản phẩm</Row>}
                 footer={false}
                 bordered>
-                <List.Item className="flex flex-col md:flex-row md:items-start md:justify-between">
+                <List.Item className="flex flex-col md:flex-row items-start md:justify-between">
                     <Row className="flex flex-col text-[1.6rem]">
                         <Row>Tên sản phẩm: Agape - Lava Silver</Row>
                         <Row>Số lượng: 1</Row>
@@ -111,7 +111,7 @@ const OrderDetailAdmin = () => {
                 </List.Item>
             </List>       
             </Row>
-            </Row>
+        </Row>
     </Space>
   )
 }

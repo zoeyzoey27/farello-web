@@ -1,7 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { Row, Col, Button } from 'antd'
-import logo from '../../../assets/images/logo.png'
 import { FaFacebookF } from 'react-icons/fa'
 import { BsInstagram } from 'react-icons/bs'
 import { getCategories } from '../../../graphqlClient/queries'
@@ -13,10 +12,10 @@ const Footer = () => {
 	if (error) return <p>Error!</p>
   const categories = data?.categories
   return (
-    <Row className="!bg-[rgb(247, 247, 247)] p-[50px] w-full">
+    <Row className="!bg-[rgb(247, 247, 247)] p-[20px] md:p-[50px] w-full">
         <Row gutter={16} className="w-full">
-          <Col className="gutter-row" span={10}>
-              <img src={logo} alt='' width={150} />
+          <Col className="gutter-row" xs={24} lg={10}>
+              <Row className="text-[3.5rem] logo">Farello</Row>
               <Row className="my-3 text-[1.6rem]">
                  <Row className="font-semibold mr-3">Email:</Row> 
                  contact@farello.vn
@@ -54,9 +53,9 @@ const Footer = () => {
                      className="mr-3 hover:bg-black hover:border-black hover:text-white flex items-center" />
               </Row>
           </Col>
-          <Col className="gutter-row" span={14}>
+          <Col className="gutter-row mt-10 lg:mt-0 w-full" xs={24} lg={14}>
              <Row gutter={16} className="w-full">
-               <Col className="gutter-row" span={8}>
+               <Col className="gutter-row mb-5 md:mb-0" xs={24} md={8}>
                   <Col className="font-semibold text-[1.6rem]">Sản phẩm</Col>
                   {
                      categories.map((item) => (
@@ -64,7 +63,7 @@ const Footer = () => {
                      ))
                   }
                </Col>
-               <Col className="gutter-row" span={8}>
+               <Col className="gutter-row mb-5 md:mb-0" xs={24} md={8}>
                   <Col className="font-semibold text-[1.6rem]">Các chính sách</Col>
                   <Col className="my-3 text-[1.6rem]">Khám mắt miễn phí</Col>
                   <Col className="my-3 text-[1.6rem]">Bảo hành</Col>
@@ -72,18 +71,18 @@ const Footer = () => {
                   <Col className="my-3 text-[1.6rem]">Vận chuyển</Col>
                   <Col className="my-3 text-[1.6rem]">Thả cũ - Đổi mới</Col>
                </Col>
-               <Col className="gutter-row" span={8}>
+               <Col className="gutter-row mb-5 md:mb-0" xs={24} md={8}>
                   <Col className="font-semibold text-[1.6rem]">Tin tức</Col>
                   <Col className="my-3 text-[1.6rem]">Bảo vệ mắt</Col>
                   <Col className="my-3 text-[1.6rem]">Kiến thức</Col>
                   <Col className="my-3 text-[1.6rem]">Sức khỏe</Col>
                   <Col className="my-3 text-[1.6rem]">Thời trang</Col>
                </Col>
-               <Col className="gutter-row" span={8}>
+               <Col className="gutter-row mb-5 md:mb-0" xs={24} md={8}>
                   <img src={image} alt='' className='my-5' width={130} />
                </Col>
-               <Col className="gutter-row" span={16}>
-                  <Col className="my-5 text-[1.6rem]">
+               <Col className="gutter-row" xs={24} md={16}>
+                  <Col className="my-5 text-[1.6rem] text-justify block">
                        Đại diện pháp luật: Nguyễn Tiến Dũng. Ngày cấp giấy phép: 14/08/2019. Ngày hoạt động: 14/08/2019
                   </Col>
                </Col>
