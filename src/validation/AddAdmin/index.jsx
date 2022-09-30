@@ -33,4 +33,15 @@ export const schemaValidate = Yup.object().shape({
     .required('Vui lòng nhập quận/huyện!'),
   commune: Yup.string()
     .required('Vui lòng nhập xã/phường!'),
+  idcard: Yup.string()
+    .required('Vui lòng nhập số CMT hoặc CCCD!')
+    .matches(PHONE_REG_EXP, 'Số CMT/CCCD không hợp lệ!')
+    .min(
+      9,
+      'CMT/CCCD phải có ít nhất 9 số!',
+    )
+    .max(
+      12,
+      'CMT/CCCD có tối đa 12 số!',
+    )
 })

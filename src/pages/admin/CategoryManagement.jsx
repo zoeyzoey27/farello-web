@@ -18,7 +18,7 @@ const CategoryManagement = () => {
   }
   return (
     <Layout className="max-w-screen min-h-screen">
-      <Topbar onClick={onOpen} />
+      <Topbar onClick={onOpen}  />
       <Layout className="w-hull h-full">
       {screens.lg && (
         <Sider

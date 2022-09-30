@@ -17,8 +17,13 @@ import { useSearchParams } from 'react-router-dom'
 import { MdDeleteOutline } from 'react-icons/md'
 import { FiSave } from 'react-icons/fi'
 import axiosClient from '../../../api/axiosClient'
+import { ADD_ADMIN } from './graphql'
+import { useMutation } from '@apollo/client'
+import moment from 'moment'
+import { DATE_TIME_FORMAT, convertTimeToString } from '../../../constant'
 
 const AddAdminForm = () => {
+  const [addAdmin] = useMutation(ADD_ADMIN)
   const { Option } = Select
   const [form] = Form.useForm()
   const [searchParams] = useSearchParams()
@@ -28,18 +33,40 @@ const AddAdminForm = () => {
   const [communeList, setCommuneList] = useState([])
   const { Title } = Typography
   const yupSync = converSchemaToAntdRule(schemaValidate)
-
   const onFinish = (values) => {
     if (values.password !== values.rePassword) {
-      message.error('Mật khẩu không khớp!');
+      message.error('Mật khẩu không khớp!')
     }
     else {
       const province = provinceList.find((item) => item.code === form.getFieldsValue().province).name
       const district = districtList.find((item) => item.code === form.getFieldsValue().district).name
       const commune = communeList.find((item) => item.code === form.getFieldsValue().commune).name
       const adminAddress = `${commune} - ${district} - ${province}`
-      console.log(adminAddress)
-      console.log('Received values of form: ', values)
+      const customId = 'NV' + Math.floor(Math.random() * Date.now())
+      addAdmin({
+        variables: {
+          adminRegisterInput: {
+            adminId: customId,
+            fullName: values.fullName,
+            email: values.email,
+            password: values.password,
+            phoneNumber: values.phone,
+            address: adminAddress,
+            idCard: values.idcard,
+            birthday: convertTimeToString(values.birthday),
+            status: "AVAILABLE",
+            createdAt: moment().format(DATE_TIME_FORMAT),
+            updatedAt: moment().format(DATE_TIME_FORMAT),
+          },
+        },
+        onCompleted: () => {
+          message.success('Tạo tài khoản thành công!')
+          form.resetFields()
+        },
+        onError: (error) => {
+          message.error(error)
+        },
+      })
     }
   }
   useEffect(() => {
@@ -226,10 +253,24 @@ const AddAdminForm = () => {
                 }>
                 <Input.Password size="large" placeholder="admin@123" className="rounded" />
             </Form.Item>
+            <Form.Item
+                name="idcard"
+                className="w-full md:w-1/2 lg:w-1/3"
+                required={false}
+                rules={[yupSync]}
+                label={
+                  <Row className="font-semibold text-[1.6rem]">
+                     Số CMT/CCCD
+                     <Row className="text-red-500 ml-3">*</Row>
+                  </Row>
+                }>
+                <Input size="large" placeholder="0123456789" className="rounded" />
+            </Form.Item>
             <Row className="flex flex-col md:flex-row !mt-10">
               <Form.Item>
                   <Button 
                       size="large" 
+                      onClick={() => form.resetFields()}
                       className="flex items-center justify-center md:mr-5 w-full md:w-[100px] bg-inherit text-black hover:bg-inherit hover:text-black hover:border-inherit border-inherit hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                       <MdDeleteOutline className="mr-3 text-[2rem]" />
                       Xóa

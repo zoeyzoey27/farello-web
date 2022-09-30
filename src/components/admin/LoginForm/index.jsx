@@ -1,16 +1,33 @@
 import React from 'react'
-import { Row, Space, Button, Form, Input, Typography  } from 'antd'
+import { Row, Space, Button, Form, Input, Typography, message  } from 'antd'
 import { schemaValidate } from '../../../validation/AdminLogin'
 import { converSchemaToAntdRule } from '../../../validation'
 import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@apollo/client'
+import { ADMIN_LOGIN } from './graphql'
 
 const LoginForm = () => {
   const { Title } = Typography
   const yupSync = converSchemaToAntdRule(schemaValidate)
   const navigate= useNavigate()
+  const [login] = useMutation(ADMIN_LOGIN)
   const onFinish = (values) => {
-    console.log('Received values of form: ', values)
-    navigate('/admin/categoryManagement')
+    login({
+      variables: {
+        loginInput: {
+          email: values.email,
+          password: values.password
+        }
+      },
+      onCompleted: (data) => {
+        localStorage.setItem('token_admin', data?.loginAdmin?.token)
+        navigate('/admin/categoryManagement')
+        message.success('Đăng nhập thành công!')
+      },
+      onError: (err) => {
+        message.error(`${err.message}`)
+      }
+    })
   }
   return (
     <Space direction="vertical" size="middle" className="w-full h-full">
@@ -53,7 +70,7 @@ const LoginForm = () => {
                 <Button 
                   htmlType="submit" 
                   size="large" 
-                  className="bg-[#154c79] text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
+                  className="!bg-[#154c79] !text-white !border-[#154c79] hover:bg-[#154c79] hover:text-white hover:border-[#154c79] w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
                   Đăng nhập
                 </Button>
               </Form.Item>
