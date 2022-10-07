@@ -14,7 +14,7 @@ import EditUserInfo from '../EditUserInfo'
 import './style.css'
 import { HiOutlineClipboardList } from 'react-icons/hi'
 
-const UserInformation = () => {
+const UserInformation = ({userInfo}) => {
   const navigate = useNavigate()
   const { useBreakpoint } = Grid
   const screens = useBreakpoint()
@@ -29,13 +29,15 @@ const UserInformation = () => {
             <Breadcrumb.Item className="text-[1.6rem]">
                Thông tin tài khoản
             </Breadcrumb.Item>
-            <Breadcrumb.Item className="text-[1.6rem] font-semibold">User (ID: 12345)</Breadcrumb.Item>
+            <Breadcrumb.Item className="text-[1.6rem] font-semibold">
+               {`${userInfo?.fullName} (ID: ${userInfo?.userId})`}
+            </Breadcrumb.Item>
          </Breadcrumb>
         <Row className="w-full flex justify-end mb-5">
             <Button 
                 size="large" 
                 onClick={() => setModalOpen(true)}
-                className="flex items-center justify-center text-[1.6rem] text-white bg-[#154c79] rounded hover:opacity-90 hover:border-[#154c79] hover:bg-[#154c79] hover:text-white hover:shadow-md">
+                className="flex items-center justify-center text-[1.6rem] !text-white !bg-[#154c79] !border-[#154c79] rounded hover:opacity-90 hover:border-[#154c79] hover:bg-[#154c79] hover:text-white hover:shadow-md">
                 <FiEdit className="mr-3 text-[2rem]" />
                  Chỉnh sửa
             </Button>
@@ -45,49 +47,43 @@ const UserInformation = () => {
                label={<Row className="font-semibold">Họ tên</Row>} 
                span={12} 
                className="text-[1.6rem] w-[200px]">
-               User
+               {userInfo?.fullName}
             </Descriptions.Item>
             <Descriptions.Item 
                label={<Row className="font-semibold">User ID</Row>}  
                span={12} 
                className="text-[1.6rem]">
-               ID: 12345
+               {`ID: ${userInfo?.userId}`}
             </Descriptions.Item>
             <Descriptions.Item 
                label={<Row className="font-semibold">Ngày sinh</Row>}  
                span={12} 
                className="text-[1.6rem]">
-               27/10/2000
+               {userInfo?.birthday}
             </Descriptions.Item>
             <Descriptions.Item 
                label={<Row className="font-semibold">Email</Row>}
                span={12} 
                className="text-[1.6rem]">
-               user@gmail.com
+               {userInfo?.email}
             </Descriptions.Item>
             <Descriptions.Item 
                label={<Row className="font-semibold">Số điện thoại</Row>}
                span={12} 
                className="text-[1.6rem]">
-               0366057503
+               {userInfo?.phoneNumber}
             </Descriptions.Item>
             <Descriptions.Item 
-               label={<Row className="font-semibold">Tỉnh/Thành Phố</Row>}
+               label={<Row className="font-semibold">Số CMT/CCCD</Row>}
                span={12} 
                className="text-[1.6rem]">
-               Thành phố Hà Nội
+               {userInfo?.idCard}
             </Descriptions.Item>
             <Descriptions.Item 
-               label={<Row className="font-semibold">Quận/Huyện</Row>}
+               label={<Row className="font-semibold">Địa chỉ</Row>}
                span={12} 
                className="text-[1.6rem]">
-               Quận Hà Đông
-            </Descriptions.Item>
-            <Descriptions.Item 
-               label={<Row className="font-semibold">Xã/Phường</Row>}
-               span={12} 
-               className="text-[1.6rem]">
-               Nguyễn Trãi
+               {userInfo?.address}
             </Descriptions.Item>
             <Descriptions.Item 
                label={<Row className="font-semibold">Đơn mua</Row>}
@@ -104,7 +100,7 @@ const UserInformation = () => {
         <Row className="flex justify-end mb-10">
             <Button 
                size="large"
-               onClick={() => navigate('/userDeleteAccount')}
+               onClick={() => navigate(`/userDeleteAccount?id=${userInfo?.id}`)}
                className="w-full md:w-fit bg-white text-black border-[#154c79] rounded hover:text-black hover:bg-white hover:border-[#154c79] hover:opacity-90 text-[1.6rem] hover:shadow-md">
                Xóa tài khoản
             </Button>

@@ -10,6 +10,12 @@ import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 const MenuAdmin = () => {
     const navigate = useNavigate()
     const location = useLocation()
+    const logout = () => {
+        localStorage.removeItem("token_admin")
+        localStorage.removeItem("id_token_admin")
+        navigate("/admin/login")
+    }
+    const id = localStorage.getItem("id_token_admin")
     return (
         <Menu
             selectedKeys={[location.pathname]}
@@ -52,13 +58,13 @@ const MenuAdmin = () => {
                 </Row>
             </Menu.Item>
             <Divider />
-            <Menu.Item key="/admin/adminInfo" onClick={() => navigate('/admin/adminInfo')}>
+            <Menu.Item key="/admin/adminInfo" onClick={() => navigate(`/admin/adminInfo?id=${id}`)}>
                 <Row className="flex items-center">
                     <FiUser className="mr-3 text-[2rem]" />
                     Thông tin tài khoản
                 </Row>
             </Menu.Item>
-            <Menu.Item key="logout">
+            <Menu.Item key="/admin/login" onClick={logout}>
                 <Row className="flex items-center">
                     <FiLogOut className="mr-3 text-[2rem]" />
                     Đăng xuất

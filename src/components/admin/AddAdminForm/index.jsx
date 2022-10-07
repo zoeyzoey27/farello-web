@@ -9,31 +9,47 @@ import {
     Select,
     Col,
     message,
-    DatePicker
+    DatePicker, 
+    Spin
 } from 'antd'
 import { schemaValidate } from '../../../validation/AddAdmin'
 import { converSchemaToAntdRule } from '../../../validation'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { MdDeleteOutline } from 'react-icons/md'
 import { FiSave } from 'react-icons/fi'
 import axiosClient from '../../../api/axiosClient'
-import { ADD_ADMIN } from './graphql'
-import { useMutation } from '@apollo/client'
+import { ADD_ADMIN, GET_ADMIN, UPDATE_ADMIN_INFO } from './graphql'
+import { useMutation, useQuery } from '@apollo/client'
 import moment from 'moment'
 import { DATE_TIME_FORMAT, convertTimeToString } from '../../../constant'
 
 const AddAdminForm = () => {
+  const navigate = useNavigate()
   const [addAdmin] = useMutation(ADD_ADMIN)
+  const [updateAdmin] = useMutation(UPDATE_ADMIN_INFO)
   const { Option } = Select
   const [form] = Form.useForm()
   const [searchParams] = useSearchParams()
   const action = searchParams.get('action')
+  const id = searchParams.get('id')
+  const [loading, setLoading] = useState(action === 'edit' ? true : false)
   const [provinceList, setProvinceList] = useState([])
   const [districtList, setDistrictList] = useState([])
   const [communeList, setCommuneList] = useState([])
   const { Title } = Typography
   const yupSync = converSchemaToAntdRule(schemaValidate)
+
+  const { data } = useQuery(GET_ADMIN, {
+    variables: {
+      adminId: id
+    },
+    skip: id === null,
+    onCompleted: () => {
+      setLoading(false)
+    }
+  })
   const onFinish = (values) => {
+    setLoading(true)
     if (values.password !== values.rePassword) {
       message.error('Mật khẩu không khớp!')
     }
@@ -52,6 +68,9 @@ const AddAdminForm = () => {
             password: values.password,
             phoneNumber: values.phone,
             address: adminAddress,
+            provinceCode: values.province,
+            districtCode: values.district,
+            communeCode: values.commune,
             idCard: values.idcard,
             birthday: convertTimeToString(values.birthday),
             status: "AVAILABLE",
@@ -60,14 +79,50 @@ const AddAdminForm = () => {
           },
         },
         onCompleted: () => {
+          setLoading(false)
           message.success('Tạo tài khoản thành công!')
           form.resetFields()
         },
         onError: (error) => {
-          message.error(error)
+          setLoading(false)
+          message.error(`${error.message}`)
         },
       })
     }
+  }
+  const onUpdate = (values) => {
+    setLoading(true)
+    const province = provinceList.find((item) => item.code === form.getFieldsValue().province).name
+    const district = districtList.find((item) => item.code === form.getFieldsValue().district).name
+    const commune = communeList.find((item) => item.code === form.getFieldsValue().commune).name
+    const adminAddress = `${commune} - ${district} - ${province}`
+    updateAdmin({
+      variables: {
+        updateAdminId: id,
+        adminUpdateInput: {
+          fullName: values.fullName,
+          email: values.email,
+          phoneNumber: values.phone,
+          address: adminAddress,
+          provinceCode: values.province,
+          districtCode: values.district,
+          communeCode: values.commune,
+          idCard: values.idcard,
+          birthday: convertTimeToString(values.birthday),
+          status: "AVAILABLE",
+          updatedAt: moment().format(DATE_TIME_FORMAT),
+        },
+      },
+      onCompleted: () => {
+        setLoading(false)
+        message.success('Chỉnh sửa thông tin thành công!')
+        navigate("/admin/adminList")
+      },
+      onError: (error) => {
+        setLoading(false)
+        message.error(`${error.message}`)
+      },
+    })
   }
   useEffect(() => {
      axiosClient.get('province').then((res) => {
@@ -84,8 +139,33 @@ const AddAdminForm = () => {
       setCommuneList(res.data.results)
     })
   }
+  useEffect(() => {
+    if (data) {
+       form.setFieldsValue({
+          fullName: data?.admin?.fullName,
+          phone: data?.admin?.phoneNumber,
+          email: data?.admin?.email,
+          idcard: data?.admin?.idCard,
+          province: data?.admin?.provinceCode,
+       })
+       if (data?.admin?.birthday) {
+        form.setFieldsValue({
+          birthday: moment(data?.admin?.birthday, "DD/MM/YYYY"),
+        })
+       }
+       onChangeProvince(data?.admin?.provinceCode)
+       form.setFieldsValue({
+            district: data?.admin?.districtCode,
+       })
+       onChangeDistrict(data?.admin?.districtCode)
+       form.setFieldsValue({
+          commune: data?.admin?.communeCode,
+       })
+    }
+  }, [data, form])
   return (
-    <Space 
+    <Spin spinning={loading} size="large">
+      <Space 
         direction="vertical" 
         size="middle" 
         className="w-full h-full bg-white p-10">
@@ -94,7 +174,11 @@ const AddAdminForm = () => {
         </Title>
         <Row className="text-[1.6rem]">Vui lòng nhập thông tin vào các trường bên dưới.</Row>
         <Row className="mb-5 text-[1.6rem]">(*) là thông tin bắt buộc.</Row>
-        <Form layout='vertical' autoComplete='off' onFinish={onFinish} form={form}>
+        <Form 
+            layout='vertical'
+            autoComplete='off' 
+            onFinish={action === 'edit' ? onUpdate : onFinish} 
+            form={form}>
             <Form.Item
                 name="fullName"
                 className="w-full md:w-1/2 lg:w-1/3"
@@ -117,7 +201,11 @@ const AddAdminForm = () => {
                      Ngày sinh
                   </Row>
                 }>
-                <DatePicker size="large" format="DD/MM/YYYY" placeholder="01/01/1990" className="w-full" />
+                <DatePicker 
+                   size="large" 
+                   format="DD/MM/YYYY" 
+                   placeholder="01/01/1990" 
+                   className="w-full" />
             </Form.Item>
             <Form.Item 
               className="mb-0 w-full xl:w-[60%]"
@@ -227,32 +315,38 @@ const AddAdminForm = () => {
                 }>
                 <Input size="large" placeholder="admin@gmail.com" className="rounded" />
             </Form.Item>
-            <Form.Item
-                name="password"
-                className="w-full md:w-1/2 lg:w-1/3"
-                required={false}
-                rules={[yupSync]}
-                label={
-                  <Row className="font-semibold text-[1.6rem]">
-                     Mật khẩu
-                     <Row className="text-red-500 ml-3">*</Row>
-                  </Row>
-                }>
-                <Input.Password size="large" placeholder="admin@123" className="rounded" />
-            </Form.Item>
-            <Form.Item
-                name="rePassword"
-                className="w-full md:w-1/2 lg:w-1/3"
-                required={false}
-                rules={[yupSync]}
-                label={
-                  <Row className="font-semibold text-[1.6rem]">
-                     Nhập lại mật khẩu
-                     <Row className="text-red-500 ml-3">*</Row>
-                  </Row>
-                }>
-                <Input.Password size="large" placeholder="admin@123" className="rounded" />
-            </Form.Item>
+            {
+              action !== 'edit' && (
+                <>
+                <Form.Item
+                    name="password"
+                    className="w-full md:w-1/2 lg:w-1/3"
+                    required={false}
+                    rules={[yupSync]}
+                    label={
+                      <Row className="font-semibold text-[1.6rem]">
+                        Mật khẩu
+                        <Row className="text-red-500 ml-3">*</Row>
+                      </Row>
+                    }>
+                    <Input.Password size="large" placeholder="admin@123" className="rounded" />
+                </Form.Item>
+                <Form.Item
+                    name="rePassword"
+                    className="w-full md:w-1/2 lg:w-1/3"
+                    required={false}
+                    rules={[yupSync]}
+                    label={
+                      <Row className="font-semibold text-[1.6rem]">
+                        Nhập lại mật khẩu
+                        <Row className="text-red-500 ml-3">*</Row>
+                      </Row>
+                    }>
+                    <Input.Password size="large" placeholder="admin@123" className="rounded" />
+                </Form.Item>
+                </>
+              )
+            }
             <Form.Item
                 name="idcard"
                 className="w-full md:w-1/2 lg:w-1/3"
@@ -288,6 +382,7 @@ const AddAdminForm = () => {
             </Row>
         </Form>
     </Space>
+    </Spin>
   )
 }
 

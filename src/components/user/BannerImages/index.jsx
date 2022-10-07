@@ -1,16 +1,14 @@
 import React from 'react'
-import { Carousel } from 'antd';
-import { useQuery } from '@apollo/client';
-import { getBannerImages } from '../../../graphqlClient/queries';
+import { Carousel } from 'antd'
+import { useQuery } from '@apollo/client'
+import { GET_BANNER_IMAGES } from './graphql'
 
 const BannerImages = () => {
-  const {loading, error, data} = useQuery(getBannerImages)
-  if (loading) return <p>Loading ...</p>
-  if (error) return <p>Error!</p>
+  const {data} = useQuery(GET_BANNER_IMAGES)
   return (
     <Carousel autoplay className="-mx-[50px]">
         {
-            data.bannerImages.map(bannerImage => (
+            data?.bannerImages.map(bannerImage => (
                 <img
                    key={bannerImage.id}
                    src={bannerImage.urlImage}

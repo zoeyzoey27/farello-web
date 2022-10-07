@@ -21,6 +21,7 @@ const LoginForm = () => {
       },
       onCompleted: (data) => {
         localStorage.setItem('token_admin', data?.loginAdmin?.token)
+        localStorage.setItem('id_token_admin', data?.loginAdmin?.id)
         navigate('/admin/categoryManagement')
         message.success('Đăng nhập thành công!')
       },

@@ -1,25 +1,34 @@
-import React from 'react'
-import { Space, Typography, Row, Button, Breadcrumb, Descriptions, PageHeader, Grid  } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Space, Typography, Row, Button, Breadcrumb, Descriptions, PageHeader, Grid, Spin  } from 'antd'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import ProductImageSlider from './ProductImageSlider'
 import { FiEdit } from 'react-icons/fi'
 import { LeftOutlined } from '@ant-design/icons'
+import { useQuery } from '@apollo/client'
+import { GET_PRODUCT } from './graphql'
+import numberWithCommas from '../../../utils/NumberWithCommas'
 
 const ProductDetailAdmin = () => {
+  const [searchParams] = useSearchParams()
+  const id = searchParams.get('id')
   const { Title } = Typography
   const { useBreakpoint } = Grid
   const screens = useBreakpoint()
   const navigate = useNavigate()
-  const images = [
-    "https://cdn.kinhmatlily.com/farello01/2022/2/adagio_grey_mau_nu-1639216094000-1644634465000.png",
-    "https://cdn.kinhmatlily.com/farello01/2022/2/Adagio_black_mau_nam-1644634465000.jpeg",
-    "https://cdn.kinhmatlily.com/farello01/2022/2/Adagio%20grey%201-1644295754000.jpeg",
-    "https://cdn.kinhmatlily.com/farello01/2022/2/Adagio_grey_goc_nghieng-1639216094000-1644634442000.jpeg",
-    "https://cdn.kinhmatlily.com/farello01/2022/2/Adagio_black_goc_nghieng-1644634442000.jpeg",
-  ]
-  const listColor = ['Đen', 'Xám']
+  const [loading, setLoading] = useState(true)
+  const [images, setImages] = useState([])
+  const { data } = useQuery(GET_PRODUCT, {
+    variables: {
+        productId: id,
+    },
+    onCompleted: (resData) => {
+        setImages(resData?.product?.images)
+        setLoading(false)
+    }
+  })
   return (
-    <Space 
+    <Spin spinning={loading} size="large">
+        <Space 
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
@@ -37,7 +46,7 @@ const ProductDetailAdmin = () => {
                className="hover:text-black cursor-pointer">
                Danh sách sản phẩm
             </Breadcrumb.Item>
-            <Breadcrumb.Item>ADAGIO</Breadcrumb.Item>
+            <Breadcrumb.Item>{data?.product?.name}</Breadcrumb.Item>
         </Breadcrumb>
         <Row className="flex">
             <Row className="w-full mb-10 xl:mb-0 xl:w-[40%] !mr-32">
@@ -58,43 +67,43 @@ const ProductDetailAdmin = () => {
                        label={<Row className="w-[150px] !font-normal !normal-case">Tên sản phẩm</Row>} 
                        span={3} 
                        className="!text-[1.6rem] font-semibold uppercase">
-                       ADAGIO
+                       {data?.product?.name}
                     </Descriptions.Item>
-                    <Descriptions.Item label="Mã sản phẩm" span={3} className="!text-[1.6rem]">62bd79b51328e231cc39f30c</Descriptions.Item>
-                    <Descriptions.Item label="Loại sản phẩm" span={3} className="!text-[1.6rem]">Gọng kính cận</Descriptions.Item>
-                    <Descriptions.Item label="Số lượng" span={3} className="!text-[1.6rem]">10</Descriptions.Item>
-                    <Descriptions.Item label="Giá nhập" span={3} className="!text-[1.6rem]"></Descriptions.Item>
+                    <Descriptions.Item label="Mã sản phẩm" span={3} className="!text-[1.6rem]">{data?.product?.productId}</Descriptions.Item>
+                    <Descriptions.Item label="Loại sản phẩm" span={3} className="!text-[1.6rem]">{data?.product?.category?.name}</Descriptions.Item>
+                    <Descriptions.Item label="Số lượng" span={3} className="!text-[1.6rem]">{data?.product?.quantity}</Descriptions.Item>
+                    <Descriptions.Item label="Giá nhập" span={3} className="!text-[1.6rem]">
+                      {`${data?.product?.priceIn ? `${numberWithCommas(data?.product?.priceIn)} VND` : ''}`}
+                    </Descriptions.Item>
                     <Descriptions.Item 
                        label={<Row className="!text-black">Giá bán</Row>}  
                        span={3} 
                        className="!text-[1.6rem] text-sky-500">
-                       1.750.000 VND
+                       {`${data?.product?.priceOut ? `${numberWithCommas(data?.product?.priceOut)} VND` : ''}`}
                     </Descriptions.Item>
                     <Descriptions.Item 
                        label={<Row className="!text-black">Giá khuyến mại</Row>} 
                        span={3} 
                        className="!text-[1.6rem] text-red-500">
-                       1.050.000 VND
+                       {`${data?.product?.priceSale ? `${numberWithCommas(data?.product?.priceSale)} VND` : ''}`}
                     </Descriptions.Item>
                     <Descriptions.Item label="Màu sắc" span={3} className="!text-[1.6rem]">
                         <Row className="whitespace-pre-wrap">
                             {
-                                listColor.map((color, index) => (
-                                   <Row key={index}>{`${color}${index===listColor.length-1 ? '' : ', '}`}</Row>
+                                data?.product?.colours.map((color, index) => (
+                                   <Row key={index}>{`${color}${index===data?.product?.colours.length-1 ? '' : ', '}`}</Row>
                                 ))
                             }
                         </Row>
                     </Descriptions.Item>
-                    <Descriptions.Item label="Mô tả sản phẩm" span={3} className="!text-[1.6rem]">
-                        Một bản nhạc nhẹ nhàng, trầm lắng nhưng đầy sâu sắc hay mở rộng hơn là lời nhắn nhủ sống chậm rãi để nhìn lại và trân quý những gì đang có.
-                        Đây chính là thông điệp chính của những chiếc kính Adagio.
-                        Sử dụng Acetate cho phần khung kính và càng kính, Stainless Steel cho phần cầu kính,
-                        Farello mong muốn đem tới cho khách hàng những chiếc kính tối ưu nhất về cả kiểu dáng lẫn chất liệu.
+                    <Descriptions.Item label="Mô tả sản phẩm" span={3} className="!text-[1.6rem] whitespace-pre-wrap">
+                        {data?.product?.description}
                     </Descriptions.Item>
                 </Descriptions>
             </Row>
         </Row>
     </Space>
+    </Spin>
   )
 }
 

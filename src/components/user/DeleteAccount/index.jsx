@@ -1,19 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { 
     Space,  
     Button, 
     Select,
     Breadcrumb,
     Row, 
-    Modal
+    Modal, 
+    Spin,
+    message
 } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import './style.css'
+import { useMutation } from '@apollo/client'
+import { USER_DELETE_ACCOUNT } from './graphql'
 
 const DeleteAccount = () => {
   const { Option } = Select
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const id = searchParams.get('id')
+  const [loading, setLoading] = useState(false)
+  const [deleteAccount] = useMutation(USER_DELETE_ACCOUNT)
+
+  const onConfirm = () => {
+     setLoading(true)
+     deleteAccount({
+       variables: {
+         deleteUserAccountId: id,
+       },
+       onCompleted: () => {
+         setLoading(false)
+         navigate('/userDeleteAccountCompleted')
+         localStorage.removeItem("token")
+         localStorage.removeItem("id_token")
+       },
+       onError: (err) => {
+          message.error(`${err.message}`)
+       }
+     })
+  }
 
   const confirm = () => {
     Modal.confirm({
@@ -23,11 +49,12 @@ const DeleteAccount = () => {
       okText: 'Xóa',
       cancelText: 'Hủy',
       centered: true,
-      onOk: () => navigate('/userDeleteAccountCompleted')
+      onOk: onConfirm,
     });
   }
   return (
-    <Space 
+    <Spin spinning={loading} size="large">
+      <Space 
         direction="vertical" 
         size="middle" 
         className="w-full h-full">
@@ -54,18 +81,19 @@ const DeleteAccount = () => {
            <Button 
               size="large"
               onClick={() => navigate('/userInfo')}
-              className="md:mr-5 w-full md:w-[150px] bg-white text-black border-[#154c79] rounded hover:text-black hover:bg-white hover:border-[#154c79] hover:opacity-90 text-[1.6rem] hover:shadow-md">
+              className="md:mr-5 w-full md:w-[150px] !bg-white !text-black !border-[#154c79] rounded hover:text-black hover:bg-white hover:border-[#154c79] hover:opacity-90 text-[1.6rem] hover:shadow-md">
               Quay lại
             </Button>
            <Button 
               size="large"
               onClick={confirm}
-              className="w-full md:w-fit bg-[#154c79] text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+              className="w-full md:w-fit !bg-[#154c79] !border-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
               Tiếp tục xóa tài khoản
             </Button>
         </Row>
         
     </Space>
+    </Spin>
   )
 }
 

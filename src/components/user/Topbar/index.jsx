@@ -4,10 +4,10 @@ import { useQuery } from '@apollo/client'
 import { Row, Input, Badge, Menu, Grid, Drawer, Dropdown } from 'antd'
 import { UserOutlined, ShoppingOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
-import { getCategories } from '../../../graphqlClient/queries'
 import './style.css'
 import { AiOutlineMenuFold } from 'react-icons/ai'
 import { menu } from './menu'
+import { GET_CATEGORIES, GET_TOTAL_CART } from './graphql'
 
 const Topbar = () => {
   const { Search } = Input
@@ -22,9 +22,23 @@ const Topbar = () => {
     setVisible(false)
   }
   const onSearch = (value) => console.log(value)
-  const { loading, error, data } = useQuery(getCategories)
-  if (loading) return <p>Loading....</p>
-  if (error) return <p>Error!</p>
+  const { data } = useQuery(GET_CATEGORIES, {
+    variables: {
+      categorySearchInput: {},
+      skip: null,
+      take: null,
+      orderBy: {
+          createdAt: "asc"
+      }
+    }
+  })
+
+  const { data: dataCart } = useQuery(GET_TOTAL_CART, {
+    variables: {
+      userId: localStorage.getItem("id_token")
+    },
+    skip: localStorage.getItem("id_token") === null || undefined
+  })
 
   const itmainNavems = [
     {
@@ -55,7 +69,7 @@ const Topbar = () => {
           type: 'group',
           label: 'Danh mục sản phẩm',
           children: 
-            data.categories.map((item) => (
+            data?.categories.map((item) => (
               {
                 label: (
                   <Link to={`/products?id=${item.id}`} key={item.id} className="link mx-3 text-[1.5rem]">
@@ -109,7 +123,7 @@ const Topbar = () => {
           <UserOutlined className="text-[1.8rem] cursor-pointer md:border-l-2 md:pl-3" />
         </Dropdown>
         <Badge 
-          count={0} 
+          count={dataCart?.getProductsAddedToCart?.length || 0} 
           size="default" 
           showZero
           overflowCount={99} 

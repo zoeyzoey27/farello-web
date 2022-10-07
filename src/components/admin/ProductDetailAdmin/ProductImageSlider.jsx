@@ -17,7 +17,7 @@ const ProductImageSlider = ({images}) => {
             thumbs={{swiper: activeThumb && !activeThumb.destroyed ? activeThumb : null}}
             className="product-images-slider">
             {
-                images.map((item, index) => (
+                images?.map((item, index) => (
                     <SwiperSlide key={index} >
                         <img src={item} alt="" className="w-full h-full object-cover object-center" />
                     </SwiperSlide>
@@ -32,7 +32,7 @@ const ProductImageSlider = ({images}) => {
             modules={[Navigation, Thumbs]}
             className="product-images-slider-thumbs">
             {
-                images.map((item, index) => (
+                images?.map((item, index) => (
                     <SwiperSlide key={index} className="mt-3">
                         <Row className="border-2 border-[#dddbdb] cursor-pointer image-wrap">
                             <img src={item} alt="" className="w-full h-full object-cover object-center"  />

@@ -2,20 +2,17 @@ import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Row, Breadcrumb } from 'antd'
 import { useQuery } from '@apollo/client'
-import { getCategory } from '../../../graphqlClient/queries'
+import { GET_CATEGORY } from './graphql'
 
 const CategoryDetail = () => {
   const [searchParams] = useSearchParams()
   const id = searchParams.get('id')
-  const { loading, error, data } = useQuery(getCategory, {
+  const { data } = useQuery(GET_CATEGORY, {
     variables: {
-        id: id
+      categoryId: id
     },
     skip: id === null
   })
-
-if (loading) return <p>Loading...</p>
-if (error) return <p>Error!</p>
   return (
     <Row className="flex flex-col">
       <Breadcrumb className="my-10 px-10 py-2 bg-[#f8f8f8]">
@@ -27,7 +24,7 @@ if (error) return <p>Error!</p>
               <Row className="text-[2.2rem] font-semibold block mb-5">{data?.category?.name}</Row>
               <Row className="text-[1.6rem] text-justify">{data?.category?.description}</Row>
           </Row>
-          <img src={data?.category?.imageURL} alt='' className="h-[300px] object-cover object-center" />
+          <img src={data?.category?.imageKey} alt='' className="h-[300px] object-cover object-center" />
       </Row>
     </Row>
   )

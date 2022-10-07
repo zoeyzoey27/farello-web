@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Space, Typography, Row, Button, Table, Col, Form, Input, Pagination } from 'antd'
+import { Space, Typography, Row, Button, Table, Col, Form, Input, Pagination, Spin } from 'antd'
 import { columns } from './DataTable'
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { FiSearch} from 'react-icons/fi'
@@ -9,6 +9,7 @@ import { GET_ADMIN_LIST } from './graphql'
 const ListAdmin = () => {
   const { Title } = Typography
   const [form] = Form.useForm()
+  const [loading, setLoading] = useState(true)
   const [dataTable, setDataTable] = useState([])
   const [searchCondition, setSearchCondition] = useState({
     items: {},
@@ -21,7 +22,7 @@ const ListAdmin = () => {
       skip: null,
       take: null,
       orderBy: {
-        createdAt: "desc"
+        createdAt: "asc"
       }
     }
   })
@@ -33,8 +34,11 @@ const ListAdmin = () => {
       : SKIP_DEFAULT,
       take: searchCondition?.pageSize || PAGE_SIZE_DEFAULT,
       orderBy: {
-        createdAt: "desc"
+        createdAt: "asc"
       }
+    },
+    onCompleted: () => {
+      setLoading(false)
     }
   })
   const resetFields = () => {
@@ -82,7 +86,8 @@ const ListAdmin = () => {
      }
   },[data])
   return (
-    <Space 
+    <Spin spinning={loading} size="large">
+      <Space 
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
@@ -205,6 +210,7 @@ const ListAdmin = () => {
           locale={{items_per_page: 'kết quả / trang'}}
           className="mt-10 w-full flex justify-center" />  
     </Space>
+    </Spin>
   )
 }
 

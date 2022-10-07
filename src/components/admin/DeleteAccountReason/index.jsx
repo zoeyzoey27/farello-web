@@ -8,13 +8,14 @@ import {
     Row
 } from 'antd'
 import { LeftOutlined } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 const DeleteAccountReason = () => {
   const { Option } = Select
   const { Title } = Typography
   const navigate = useNavigate()
-
+  const [searchParams] = useSearchParams()
+  const id = searchParams.get('id')
   return (
     <Space 
         direction="vertical" 
@@ -41,14 +42,14 @@ const DeleteAccountReason = () => {
         <Row>
            <Button 
               size="large"
-              onClick={() => navigate('/admin/adminInfo')}
-              className="md:mr-5 w-full md:w-[150px] bg-white text-black border-[#154c79] rounded hover:text-black hover:bg-white hover:border-[#154c79] hover:opacity-90 text-[1.6rem] hover:shadow-md">
+              onClick={() => navigate(`/admin/adminInfo?id=${id}`)}
+              className="md:mr-5 w-full md:w-[150px] !bg-white !text-black !border-[#154c79] rounded hover:text-black hover:bg-white hover:border-[#154c79] hover:opacity-90 text-[1.6rem] hover:shadow-md">
               Quay lại
             </Button>
            <Button 
               size="large"
-              onClick={() => navigate('/admin/deleteAccountConfirm')}
-              className="w-full md:w-[150px] bg-[#154c79] text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+              onClick={() => navigate(`/admin/deleteAccountConfirm?id=${id}`)}
+              className="w-full md:w-[150px] !bg-[#154c79] !border-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
               Tiếp tục
             </Button>
         </Row>

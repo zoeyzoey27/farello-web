@@ -1,5 +1,5 @@
-import React from 'react'
-import { Layout, Row, BackTop } from 'antd'
+import React, { useState } from 'react'
+import { Layout, Row, BackTop, Spin } from 'antd'
 import Topbar from '../../components/user/Topbar'
 import VideoBanner from '../../components/user/VideoBanner'
 import BannerImages from '../../components/user/BannerImages'
@@ -9,24 +9,50 @@ import CategoriesList from '../../components/user/CategoriesList'
 import PolicyList from '../../components/user/PolicyList'
 import Footer from '../../components/user/Footer'
 import { useQuery } from '@apollo/client'
-import { getProducts } from '../../graphqlClient/queries'
 import { AiOutlineToTop } from 'react-icons/ai'
+import { gql } from '@apollo/client'
 
 const { Content} = Layout
+const GET_PRODUCTS = gql `
+    query Products($productSearchInput: ProductSearchInput, $skip: Int, $take: Int, $orderBy: ProductOrderByInput) {
+      products(productSearchInput: $productSearchInput, skip: $skip, take: $take, orderBy: $orderBy) {
+        id
+        productId
+        name
+        priceOut
+        priceSale
+        colours
+        images
+        status
+      }
+    }
+  `
 
 const Home = () => {
-  const { loading, error, data } = useQuery(getProducts)
-
-	if (loading) return <p>Loading....</p>
-	if (error) return <p>Error!</p>
-  const products = data.products.slice(0,4)
+  const [loading, setLoading] = useState(true)
+  const { data } = useQuery(GET_PRODUCTS, {
+    variables: {
+      productSearchInput: {
+        status: "STOCKING"
+      },
+      skip: null,
+      take: 4,
+      orderBy: {
+        updatedAt: "desc"
+      }
+    },
+    onCompleted: () => {
+      setLoading(false)
+    }
+  })
   return (
-    <Layout className="layout !max-w-screen min-h-screen !overflow-x-hidden">
+    <Spin spinning={loading} size="large">
+      <Layout className="layout !max-w-screen min-h-screen !overflow-x-hidden">
        <Topbar />
        <VideoBanner />
        <Content className="px-[20px] md:px-[35px] lg:px-[50px] bg-white">
            <Row className="title-header">BEST SELLERS</Row>
-           <ListProduct products={products} />
+           <ListProduct products={data?.products} />
            <BannerImages />
            <Showroom />
            <CategoriesList />
@@ -39,6 +65,7 @@ const Home = () => {
           </Row>
        </BackTop>
     </Layout>
+    </Spin>
   )
 }
 

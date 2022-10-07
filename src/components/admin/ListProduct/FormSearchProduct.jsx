@@ -1,13 +1,33 @@
 import React from 'react'
 import { Row, Button, Col, Form, Input, Select } from 'antd'
 import { FiSearch } from 'react-icons/fi'
+import { GET_CATEGORIES } from './graphql'
+import { useQuery } from '@apollo/client'
+import { schemaValidate } from '../../../validation/FormSearchProduct'
+import { converSchemaToAntdRule } from '../../../validation'
 
-const FormSearchProduct = () => {
+const FormSearchProduct = ({form, resetFields, onSubmit}) => {
   const { Option } = Select
+  const yupSync = converSchemaToAntdRule(schemaValidate)
+  const { data } = useQuery(GET_CATEGORIES, {
+    variables: {
+      categorySearchInput: {},
+      skip: null,
+      take: null,
+      orderBy: {
+        createdAt: "desc"
+      }
+    }
+  })
   return (
     <Row className="p-10 bg-[#F8F8F8] w-full rounded">
-        <Form layout="vertical" autoComplete="off" className="w-full">
-        <Row gutter={{xs: 0, md: 20, xl: 50}}>
+        <Form 
+            form={form}
+            onFinish={onSubmit}
+            layout="vertical" 
+            autoComplete="off" 
+            className="w-full">
+            <Row gutter={{xs: 0, md: 20, xl: 50}}>
             <Col className="gutter-row" xs={24} md={8}>
                 <Form.Item name="productId" label={<Row className="font-semibold text-[1.6rem]">Mã sản phẩm</Row>}>
                     <Input 
@@ -33,14 +53,20 @@ const FormSearchProduct = () => {
             <Col className="gutter-row" xs={24} md={8}>
                 <Form.Item name="category" label={<Row className="font-semibold text-[1.6rem]">Danh mục sản phẩm</Row>}>
                     <Select size="large" placeholder="Gọng kính cận" className="text-[1.6rem] rounded">
-                        <Option value="62bd786b1328e231cc39f306" className="text-[1.6rem]">Gọng kính cận</Option>
-                        <Option value="62bd78a61328e231cc39f308" className="text-[1.6rem]">Tròng kính</Option>
-                        <Option value="62bd78af1328e231cc39f30a" className="text-[1.6rem]">Phụ kiện</Option>
+                        {
+                            data?.categories.map((item) => (
+                                <Option key={item.id} value={item.id} className="text-[1.6rem]">{item.name}</Option>
+                            ))
+                        }
                     </Select>
                 </Form.Item>
             </Col>
             <Col className="gutter-row" xs={24} md={8}>
-                <Form.Item name="priceOrigin" label={<Row className="font-semibold text-[1.6rem]">Giá nhập</Row>}>
+                <Form.Item 
+                    name="priceIn" 
+                    required={false}
+                    rules={[yupSync]}
+                    label={<Row className="font-semibold text-[1.6rem]">Giá nhập</Row>}>
                     <Input 
                         size="large" 
                         placeholder="Tìm kiếm" 
@@ -51,7 +77,11 @@ const FormSearchProduct = () => {
                 </Form.Item>
             </Col>
             <Col className="gutter-row" xs={24} md={8}>
-                <Form.Item name="price" label={<Row className="font-semibold text-[1.6rem]">Giá bán</Row>}>
+                <Form.Item 
+                    name="priceOut" 
+                    required={false}
+                    rules={[yupSync]}
+                    label={<Row className="font-semibold text-[1.6rem]">Giá bán</Row>}>
                     <Input 
                         size="large" 
                         placeholder="Tìm kiếm" 
@@ -62,7 +92,11 @@ const FormSearchProduct = () => {
                 </Form.Item>
             </Col>
             <Col className="gutter-row" xs={24} md={8}>
-                <Form.Item name="productSale" label={<Row className="font-semibold text-[1.6rem]">Giá khuyến mại</Row>}>
+                <Form.Item 
+                    name="priceSale" 
+                    required={false}
+                    rules={[yupSync]}
+                    label={<Row className="font-semibold text-[1.6rem]">Giá khuyến mại</Row>}>
                     <Input 
                         size="large" 
                         placeholder="Tìm kiếm" 
@@ -73,7 +107,11 @@ const FormSearchProduct = () => {
                 </Form.Item>
             </Col>
             <Col className="gutter-row" xs={24} md={8}>
-                <Form.Item name="quantity" label={<Row className="font-semibold text-[1.6rem]">Số lượng</Row>}>
+                <Form.Item 
+                    name="quantity" 
+                    required={false}
+                    rules={[yupSync]}
+                    label={<Row className="font-semibold text-[1.6rem]">Số lượng</Row>}>
                     <Input 
                         size="large" 
                         placeholder="Tìm kiếm" 
@@ -86,8 +124,8 @@ const FormSearchProduct = () => {
             <Col className="gutter-row" xs={24} md={8}>
                 <Form.Item name="status" label={<Row className="font-semibold text-[1.6rem]">Trạng thái</Row>}>
                     <Select size="large" placeholder="Còn hàng" className="text-[1.6rem] rounded">
-                        <Option value="true" className="text-[1.6rem]">Còn hàng</Option>
-                        <Option value="false" className="text-[1.6rem]">Hết hàng</Option>
+                        <Option value="STOCKING" className="text-[1.6rem]">Còn hàng</Option>
+                        <Option value="OUT_OF_STOCK" className="text-[1.6rem]">Hết hàng</Option>
                     </Select>
                 </Form.Item>
             </Col>
@@ -96,7 +134,8 @@ const FormSearchProduct = () => {
                  <Form.Item className="md:mb-0">
                     <Button 
                         size="large" 
-                        className="md:mr-5 w-full md:w-[100px] bg-inherit text-black hover:bg-inherit hover:text-black hover:border-inherit border-inherit hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                        onClick={resetFields}
+                        className="md:mr-5 w-full md:w-[100px] !bg-inherit !text-black hover:bg-inherit hover:text-black hover:border-inherit !border-inherit hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                         Xóa
                     </Button>
                  </Form.Item>
@@ -104,7 +143,7 @@ const FormSearchProduct = () => {
                     <Button 
                       size="large"
                       htmlType="submit"
-                      className="w-full md:w-[100px] bg-[#154c79] text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                      className="w-full md:w-[100px] !bg-[#154c79] !border-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                       Tìm kiếm
                     </Button>
                  </Form.Item>

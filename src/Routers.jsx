@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/user/HomePage'
 import Product from './pages/user/Products'
 import ProductDetailPage from './pages/user/ProductDetailPage'
@@ -31,23 +31,24 @@ import UserPaymentCompleted from './pages/user/UserPaymentCompleted'
 import AboutUsPage from './pages/user/AboutUsPage'
 
 const Routers = () => {
+  const token_admin =  localStorage.getItem("token_admin")
   return (
       <BrowserRouter>
           <Routes>
               <Route path="/admin/login" element = {<AdminLogin />} />
-              <Route path="/admin/categoryManagement" element = {<CategoryManagement />} />
-              <Route path="/admin/addCategory" element = {<AddCategory />} />
-              <Route path="/admin/productManagement" element = {<ProductManagement />} />
-              <Route path="/admin/addProduct" element = {<AddProduct />} />
-              <Route path="/admin/productDetail" element = {<ProductDetail />} />
-              <Route path="/admin/adminList" element = {<AdminManagement />} />
-              <Route path="/admin/addAdmin" element = {<AddAdmin />} />
-              <Route path="/admin/adminInfo" element = {<AdminInformation />} />
-              <Route path="/admin/deleteAccount" element = {<DeleteAccount />} />
-              <Route path="/admin/deleteAccountConfirm" element = {<DeleteAccountComfirm />} />
-              <Route path="/admin/orderManagement" element = {<OrderManagement />} />
-              <Route path="/admin/orderDetail" element = {<OrderDetail />} />
-              <Route path="/admin/userList" element = {<UserManagement />} />
+              <Route path="/admin/categoryManagement" element = {token_admin ? <CategoryManagement /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/addCategory" element = {token_admin ? <AddCategory /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/productManagement" element = {token_admin ? <ProductManagement /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/addProduct" element = {token_admin ? <AddProduct /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/productDetail" element = {token_admin ? <ProductDetail /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/adminList" element = {token_admin ? <AdminManagement /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/addAdmin" element = {token_admin ? <AddAdmin /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/adminInfo" element = {token_admin ? <AdminInformation /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/deleteAccount" element = {token_admin ? <DeleteAccount /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/deleteAccountConfirm" element = {token_admin ? <DeleteAccountComfirm /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/orderManagement" element = {token_admin ? <OrderManagement /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/orderDetail" element = {token_admin ? <OrderDetail /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/userList" element = {token_admin ? <UserManagement /> : <Navigate to="/admin/login" />} />
               <Route path="/product" element = {<ProductDetailPage/>} />
               <Route path="/cart" element = {<Cart/>} />
               <Route path="/products" element = {<Product/>} />

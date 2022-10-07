@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { 
     Space, 
     Form, 
@@ -9,7 +9,9 @@ import {
     Upload, 
     Modal, 
     PageHeader,
-    Breadcrumb 
+    Breadcrumb,
+    message, 
+    Spin 
 } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import './style.css'
@@ -19,6 +21,10 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { LeftOutlined } from '@ant-design/icons'
 import { MdDeleteOutline } from 'react-icons/md'
 import { FiSave } from 'react-icons/fi'
+import { useMutation, useQuery } from '@apollo/client'
+import { CREATE_CATEGORY, GET_CATEGORY, UPDATE_CATEGORY } from './graphql'
+import moment from 'moment'
+import { DATE_TIME_FORMAT } from '../../../constant'
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -36,16 +42,28 @@ const uploadButton = (
 )
 
 const AddCategoryForm = () => {
+  const [loading, setLoading] = useState(false)
+  const [form] = Form.useForm()
   const [searchParams] = useSearchParams()
   const action = searchParams.get('action')
+  const id = searchParams.get('id')
   const navigate = useNavigate()
   const { Title } = Typography
   const { TextArea } = Input
+  const [createCategory] = useMutation(CREATE_CATEGORY)
+  const [updateCategory] = useMutation(UPDATE_CATEGORY)
   const yupSync = converSchemaToAntdRule(schemaValidate)
   const [fileList, setFileList] = useState([])
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
+
+  const { data } = useQuery (GET_CATEGORY, {
+    variables: {
+      categoryId: id
+    },
+    skip: id === null
+  })
 
   const handleCancel = () => setPreviewOpen(false)
 
@@ -57,112 +75,189 @@ const AddCategoryForm = () => {
     setPreviewImage(file.url || file.preview);
     setPreviewOpen(true);
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
-    console.log('clicked')
   }
   const handleChange = ({ fileList: newFileList }) => setFileList(newFileList)
-  
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values)
+
+  const resetFields = () => {
+    form.resetFields()
+    setFileList([])
   }
+  
+  const onFinish = async (values) => {
+    setLoading(true)
+    const customId = 'CA' + Math.floor(Math.random() * Date.now())
+    const file = values.image.fileList[0]
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj)
+    }
+    await createCategory({
+      variables: {
+        categoryInput: {
+          categoryId: customId,
+          name: values.categoryName,
+          imageKey: file.preview,
+          description: values.description,
+          createdAt: moment().format(DATE_TIME_FORMAT),
+          updatedAt: moment().format(DATE_TIME_FORMAT),
+        }
+      },
+      onCompleted: () => {
+        message.success('Thêm danh mục sản phẩm thành công!')
+        resetFields()
+        setLoading(false)
+      },
+      onError: (error) => {
+        message.error(`${error.message}`)
+        setLoading(false)
+      },
+    })
+  }
+  const onUpdate = async (values) => {
+    setLoading(true)
+    if (values.image && fileList.length>0) {
+      if (!values.image.fileList[0].url && !values.image.fileList[0].preview) {
+        values.image.fileList[0].preview = await getBase64(values.image.fileList[0].originFileObj)
+      }
+    }
+    await updateCategory({
+      variables: {
+        updateCategoryId: id,
+        categoryUpdateInput: {
+          name: values.categoryName,
+          imageKey: values.image ? values.image.fileList[0].preview : data?.category?.imageKey,
+          description: values.description,
+          updatedAt: moment().format(DATE_TIME_FORMAT),
+        }
+      },
+      onCompleted: () => {
+        navigate("/admin/categoryManagement")
+        message.success('Chỉnh sửa danh mục sản phẩm thành công!')
+        setLoading(false)
+      },
+      onError: (error) => {
+        message.error(`${error.message}`)
+        setLoading(false)
+      },
+    })
+  }
+  useEffect (() => {
+    if (data) {
+      form.setFieldsValue({
+        categoryName: data?.category?.name,
+        description: data?.category?.description,
+      })
+      setFileList([{
+        name: 'Ảnh minh họa',
+        url: data?.category?.imageKey,
+      }])
+    }
+  },[data, form])
   return (
-    <Space 
-        direction="vertical" 
-        size="middle" 
-        className="w-full h-full bg-white p-10">
-        <PageHeader
-            className="p-0"
-            backIcon={<LeftOutlined className="mb-3" />}
-            onBack={() => navigate('/admin/categoryManagement')}
-            title={
-               <Title level={4} className="whitespace-pre-wrap">
-                  {action === 'edit' ? 'Chỉnh sửa danh mục sản phẩm' : 'Thêm danh mục sản phẩm'}
-               </Title>
-            }
-        />
-        <Breadcrumb className="text-[1.6rem] mb-5">
-            <Breadcrumb.Item 
-               onClick={() => navigate('/admin/categoryManagement')}
-               className="hover:text-black cursor-pointer">
-               Danh sách danh mục sản phẩm
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              {action === 'edit' ? 'Chỉnh sửa danh mục sản phẩm' : 'Thêm danh mục sản phẩm'}
-            </Breadcrumb.Item>
-        </Breadcrumb>
-        <Row className="text-[1.6rem]">Vui lòng nhập thông tin vào các trường bên dưới.</Row>
-        <Row className="mb-5 text-[1.6rem]">(*) là thông tin bắt buộc.</Row>
-        <Form layout='vertical' autoComplete='off' onFinish={onFinish}>
-            <Form.Item
-                name="categoryName"
-                className="w-full md:w-1/2 lg:w-1/3"
-                required={false}
-                rules={[yupSync]}
-                label={
-                  <Row className="font-semibold text-[1.6rem]">
-                     Tên danh mục
-                     <Row className="text-red-500 ml-3">*</Row>
-                  </Row>
-                }>
-                <Input size="large" placeholder="Gọng kính" className="rounded" />
-            </Form.Item>
-            <Form.Item
-                name="description"
-                className="w-full lg:w-[45%]"
-                required={false}
-                rules={[yupSync]}
-                label={
-                  <Row className="font-semibold text-[1.6rem]">
-                     Mô tả chi tiết
-                     <Row className="text-red-500 ml-3">*</Row>
-                  </Row>
-                }>
-                <TextArea placeholder="Mô tả chi tiết" className="resize-none text-[1.6rem] !h-[150px] rounded" />
-            </Form.Item>
-            <Form.Item
-                name="image"
-                className="w-full md:w-1/3"
-                required={false}
-                rules={[yupSync]}
-                label={
-                  <Row className="font-semibold text-[1.6rem]">
-                     Ảnh minh họa
-                     <Row className="text-red-500 ml-3">*</Row>
-                  </Row>
-                }>
-                 <Upload
-                    listType="picture-card"
-                    fileList={fileList}
-                    beforeUpload={() => false}
-                    onPreview={handlePreview}
-                    onChange={handleChange}
-                    maxCount={1}>
-                    {fileList.length === 1 ? null : uploadButton}
-                </Upload>
-            </Form.Item>
-            <Row className="flex flex-col md:flex-row">
-              <Form.Item>
-                  <Button 
-                      size="large" 
-                      className="flex items-center justify-center md:mr-5 w-full md:w-[100px] bg-inherit text-black hover:bg-inherit hover:text-black hover:border-inherit border-inherit hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                      <MdDeleteOutline className="mr-3 text-[2rem]" />
-                      Xóa
-                  </Button>
+    <Spin spinning={loading} size="large">
+        <Space 
+          direction="vertical" 
+          size="middle" 
+          className="w-full h-full bg-white p-10">
+          <PageHeader
+              className="p-0"
+              backIcon={<LeftOutlined className="mb-3" />}
+              onBack={() => navigate('/admin/categoryManagement')}
+              title={
+                <Title level={4} className="whitespace-pre-wrap">
+                    {action === 'edit' ? 'Chỉnh sửa danh mục sản phẩm' : 'Thêm danh mục sản phẩm'}
+                </Title>
+              }
+          />
+          <Breadcrumb className="text-[1.6rem] mb-5">
+              <Breadcrumb.Item 
+                onClick={() => navigate('/admin/categoryManagement')}
+                className="hover:text-black cursor-pointer">
+                Danh sách danh mục sản phẩm
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                {action === 'edit' ? 'Chỉnh sửa danh mục sản phẩm' : 'Thêm danh mục sản phẩm'}
+              </Breadcrumb.Item>
+          </Breadcrumb>
+          <Row className="text-[1.6rem]">Vui lòng nhập thông tin vào các trường bên dưới.</Row>
+          <Row className="mb-5 text-[1.6rem]">(*) là thông tin bắt buộc.</Row>
+          <Form 
+              form={form} 
+              layout='vertical' 
+              autoComplete='off' 
+              onFinish={action === 'edit' ? onUpdate : onFinish}>
+              <Form.Item
+                  name="categoryName"
+                  className="w-full md:w-1/2 lg:w-1/3"
+                  required={false}
+                  rules={[yupSync]}
+                  label={
+                    <Row className="font-semibold text-[1.6rem]">
+                      Tên danh mục
+                      <Row className="text-red-500 ml-3">*</Row>
+                    </Row>
+                  }>
+                  <Input size="large" placeholder="Gọng kính" className="rounded" />
               </Form.Item>
-              <Form.Item>
-                  <Button 
-                      size="large" 
-                      htmlType="submit"
-                      className="flex items-center justify-center w-full md:min-w-[100px] bg-[#154c79] text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                      <FiSave className="mr-3 text-[2rem]" />
-                      {action === 'edit' ? 'Lưu thay đổi' : 'Lưu'}
-                  </Button>
+              <Form.Item
+                  name="description"
+                  className="w-full lg:w-[45%]"
+                  required={false}
+                  rules={[yupSync]}
+                  label={
+                    <Row className="font-semibold text-[1.6rem]">
+                      Mô tả chi tiết
+                      <Row className="text-red-500 ml-3">*</Row>
+                    </Row>
+                  }>
+                  <TextArea placeholder="Mô tả chi tiết" className="resize-none text-[1.6rem] !h-[150px] rounded" />
               </Form.Item>
-            </Row>
-        </Form>
-        <Modal centered visible={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel} width={1000}>
-            <img src={previewImage} alt="" className="w-full h-full object-contain object-center"/>
-      </Modal>
-    </Space>
+              <Form.Item
+                  name="image"
+                  className="w-full md:w-1/3"
+                  required={false}
+                  rules={fileList.length === 0 ? [yupSync] : false}
+                  label={
+                    <Row className="font-semibold text-[1.6rem]">
+                      Ảnh minh họa
+                      <Row className="text-red-500 ml-3">*</Row>
+                    </Row>
+                  }>
+                  <Upload
+                      listType="picture-card"
+                      fileList={fileList}
+                      beforeUpload={() => false}
+                      onPreview={handlePreview}
+                      onChange={handleChange}
+                      maxCount={1}>
+                      {fileList.length === 1 ? null : uploadButton}
+                  </Upload>
+              </Form.Item>
+              <Row className="flex flex-col md:flex-row">
+                <Form.Item>
+                    <Button 
+                        size="large" 
+                        onClick={resetFields}
+                        className="flex items-center justify-center md:mr-5 w-full md:w-[100px] !bg-inherit !text-black hover:bg-inherit hover:text-black hover:border-inherit !border-inherit hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                        <MdDeleteOutline className="mr-3 text-[2rem]" />
+                        Xóa
+                    </Button>
+                </Form.Item>
+                <Form.Item>
+                    <Button 
+                        size="large" 
+                        htmlType="submit"
+                        className="flex items-center justify-center w-full md:min-w-[100px] !border-[#154c79] !bg-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                        <FiSave className="mr-3 text-[2rem]" />
+                        {action === 'edit' ? 'Lưu thay đổi' : 'Lưu'}
+                    </Button>
+                </Form.Item>
+              </Row>
+          </Form>
+          <Modal centered visible={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel} width={1000}>
+              <img src={previewImage} alt="" className="w-full h-full object-contain object-center"/>
+        </Modal>
+      </Space>
+    </Spin>
   )
 }
 

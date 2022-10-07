@@ -1,34 +1,91 @@
-import React from 'react'
-import { Layout, Row, BackTop, Divider } from 'antd'
+import React, { useState, useEffect } from 'react'
+import { Layout, Row, BackTop, Divider, Spin } from 'antd'
 import Topbar from '../../components/user/Topbar'
 import Footer from '../../components/user/Footer'
 import { useQuery } from '@apollo/client'
-import { getProducts, getSingleProduct } from '../../graphqlClient/queries'
 import ListProduct from '../../components/user/ListProduct'
 import { useSearchParams } from 'react-router-dom'
 import ProductDetail from '../../components/user/ProductDetail'
 import { AiOutlineToTop } from 'react-icons/ai'
+import { gql } from '@apollo/client'
 
 const { Content } = Layout
 
+const GET_PRODUCT = gql`
+  query Product($productId: ID!) {
+    product(id: $productId) {
+      id
+      productId
+      name
+      priceOut
+      priceSale
+      colours
+      images
+      description
+      category {
+        id
+        name
+      }
+      status
+      quantity
+    }
+  }
+`
+
+const GET_PRODUCTS = gql`
+  query Products($productSearchInput: ProductSearchInput, $skip: Int, $take: Int, $orderBy: ProductOrderByInput) {
+    products(productSearchInput: $productSearchInput, skip: $skip, take: $take, orderBy: $orderBy) {
+      id
+      productId
+      name
+      priceOut
+      priceSale
+      colours
+      images
+      status
+    }
+  }
+`
+
 const ProductDetailPage = () => {
+  const [loading, setLoading] = useState(true)
   const [searchParams] = useSearchParams()
   const id = searchParams.get('id')
-  const { data: productData } = useQuery(getSingleProduct, {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },[id])
+  const { data } = useQuery(GET_PRODUCT, {
       variables: {
-          id: id
+        productId: id
       },
-      skip: id === null
+      skip: id === null,
+      onCompleted: () => {
+        setLoading(false)
+      }
   })
-  const { loading, error, data  } = useQuery(getProducts)
-  const products = data?.products.filter((item) => item.category.id === productData?.product?.category?.id && item.id !== id);
-	if (loading) return <p>Loading....</p>
-	if (error) return <p>Error!</p>
+  const { data: dataProducts  } = useQuery(GET_PRODUCTS, {
+    variables: {
+      productSearchInput: {
+        status: "STOCKING",
+        categoryId: data?.product?.category?.id
+      },
+      skip: null,
+      take: 8,
+      orderBy: {
+        updatedAt: "desc"
+      }
+    },
+    onCompleted: () => {
+      setLoading(false)
+    }
+  })
+  const products = dataProducts?.products.filter((item) => item.id !== id);
   return (
-    <Layout className="layout max-w-screen min-h-screen overflow-x-hidden">
+    <Spin spinning={loading} size="large">
+      <Layout className="layout max-w-screen min-h-screen overflow-x-hidden">
        <Topbar />
        <Content className="px-[20px] md:px-[35px] lg:px-[50px] bg-white">
-           <ProductDetail />
+           <ProductDetail product={data?.product} />
            <Divider />
            <Row className="title-header">Có thể bạn quan tâm</Row>
            <ListProduct products={products} />
@@ -40,6 +97,7 @@ const ProductDetailPage = () => {
           </Row>
        </BackTop>
     </Layout>
+    </Spin>
   )
 }
 

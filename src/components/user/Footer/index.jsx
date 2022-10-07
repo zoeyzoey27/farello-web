@@ -3,14 +3,20 @@ import { useQuery } from '@apollo/client'
 import { Row, Col, Button } from 'antd'
 import { FaFacebookF } from 'react-icons/fa'
 import { BsInstagram } from 'react-icons/bs'
-import { getCategories } from '../../../graphqlClient/queries'
 import image from '../../../assets/images/dangkybct.png'
+import { GET_CATEGORIES } from './graphql'
 
 const Footer = () => {
-   const { loading, error, data } = useQuery(getCategories)
-  if (loading) return <p>Loading....</p>
-	if (error) return <p>Error!</p>
-  const categories = data?.categories
+   const { data } = useQuery(GET_CATEGORIES, {
+      variables: {
+         categorySearchInput: {},
+         skip: null,
+         take: null,
+         orderBy: {
+             createdAt: "asc"
+         }
+     }
+   })
   return (
     <Row className="!bg-[rgb(247, 247, 247)] p-[20px] md:p-[50px] w-full">
         <Row gutter={16} className="w-full">
@@ -58,7 +64,7 @@ const Footer = () => {
                <Col className="gutter-row mb-5 md:mb-0" xs={24} md={8}>
                   <Col className="font-semibold text-[1.6rem]">Sản phẩm</Col>
                   {
-                     categories.map((item) => (
+                     data?.categories?.map((item) => (
                         <Col className="my-3 cursor-pointer text-[1.6rem]" key={item.id}>{item.name}</Col>
                      ))
                   }

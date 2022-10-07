@@ -9,3 +9,25 @@
 .ant-table table { 
   font-size: 1.6rem;
 }
+.ant-popover-buttons .ant-btn.ant-btn-primary.ant-btn-sm{
+  background-color: #154c79;
+  border-color: #154c79;
+  color: #fff;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+.ant-popover-buttons .ant-btn.ant-btn-primary.ant-btn-sm:hover{
+  background-color: #154c79;
+  border-color: #154c79;
+  color: #fff;
+  opacity: .9;
+}
+.ant-popover-buttons .ant-btn.ant-btn-default.ant-btn-sm{
+  border-radius: 4px;
+}
+.ant-popover-buttons .ant-btn.ant-btn-default.ant-btn-sm:hover{
+  background-color: #fff;
+  border-color: #d9d9d9;
+  color: rgba(0,0,0,.85);
+  opacity: .9;
+}

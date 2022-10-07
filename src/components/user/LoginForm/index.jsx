@@ -1,19 +1,42 @@
-import React from 'react'
-import { Row, Button, Form, Input, Typography, Divider  } from 'antd'
+import React, { useState } from 'react'
+import { Row, Button, Form, Input, Typography, Divider, message, Spin  } from 'antd'
 import { schemaValidate } from '../../../validation/AdminLogin'
 import { converSchemaToAntdRule } from '../../../validation'
 import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@apollo/client'
+import { LOGIN_USER } from './graphql'
 
 const LoginForm = () => {
   const { Title } = Typography
   const yupSync = converSchemaToAntdRule(schemaValidate)
   const navigate= useNavigate()
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values)
-    navigate('/')
+  const [loginUser] = useMutation(LOGIN_USER)
+  const [loading, setLoading] = useState(false)
+  const onFinish = async (values) => {
+    setLoading(true)
+    await loginUser({
+      variables: {
+        loginInput: {
+          email: values.email,
+          password: values.password
+        }
+      },
+      onCompleted: (data) => {
+          setLoading(false)
+          navigate("/")
+          message.success('Đăng nhập thành công!')
+          localStorage.setItem("token", data?.loginUser?.token)
+          localStorage.setItem("id_token", data?.loginUser?.id)
+      },
+      onError: (err) => {
+        setLoading(false)
+        message.error(`${err.message}`)
+      }
+    })
   }
   return (
-    <Row className="w-full flex justify-center mb-20">
+    <Spin spinning={loading} size="large">
+      <Row className="w-full flex justify-center mb-20">
       <Row className="py-10 px-20 rounded bg-white w-full md:w-[60%] lg:w-[40%] xl:w-[35%] 2xl:w-[30%] flex flex-col border-2 border-[#154c79]">
         <Title level={3} className="block !mb-10 !text-[#343a40]">Đăng nhập</Title>
         <Row className="text-[1.6rem]">Vui lòng nhập thông tin vào các trường bên dưới.</Row>
@@ -67,6 +90,7 @@ const LoginForm = () => {
         </Form> 
       </Row>
     </Row>
+    </Spin>
   )
 }
 

@@ -7,7 +7,7 @@ const ListProduct = ({products}) => {
     const navigate = useNavigate()
     return (
         <Row gutter={16} className="!my-[50px]">
-             {products.map(item => (
+             {products?.map(item => (
                 <Col 
                    className="gutter-row cursor-pointer mb-5 lg:mb-0" 
                    key={item.id} 
