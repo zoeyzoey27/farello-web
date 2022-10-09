@@ -1,21 +1,55 @@
 import React, { useState, useEffect } from 'react'
-import { Space, Breadcrumb, Typography, Row, Col, Form, Input, Select, List, Button, Radio } from 'antd'
+import { Space, Breadcrumb, Typography, Row, Col, Form, Input, Select, List, Button, Radio, Spin, message } from 'antd'
 import { schemaValidate } from '../../../validation/UserOrderProduct'
 import { converSchemaToAntdRule } from '../../../validation'
 import axiosClient from '../../../api/axiosClient'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useQuery, useMutation } from '@apollo/client'
+import { GET_USER_INFO, GET_PRODUCT_ADDED, CREATE_ORDER } from './graphql'
+import moment from 'moment'
+import { DATE_TIME_FORMAT } from '../../../constant' 
 
 const OrderPage = () => {
   const { Title } = Typography
   const { Option } = Select
   const { TextArea } = Input
+  const [form] = Form.useForm()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const id = searchParams.get('id')
+  const [createOrder] = useMutation(CREATE_ORDER)
   const yupSync = converSchemaToAntdRule(schemaValidate)
+  const [loading, setLoading] = useState(true)
   const [provinceList, setProvinceList] = useState([])
   const [districtList, setDistrictList] = useState([])
   const [communeList, setCommuneList] = useState([])
-  const [value, setValue] = useState(1)
+  const [totalPayment, setTotalPayment] = useState(0)
+  const [transferFee, setTransferFee] = useState(0)
+  const [totalPaymentWithoutShip, setTotalPaymentWithoutShip] = useState(0)
+  const [value, setValue] = useState("PAYMENT_ON_DELIVERY")
 
+  const { data } = useQuery(GET_USER_INFO,{
+    variables: {
+        userId: id,
+    },
+    onCompleted: () => {
+       setLoading(false)
+    }
+  })
+  const { data: dataProducts } = useQuery(GET_PRODUCT_ADDED, {
+    variables: {
+      userId: id,
+    },
+    onCompleted: (resData) => {
+      for (let i=0; i<resData?.getProductsAddedToCart?.length; i++) {
+        setTotalPaymentWithoutShip((pre) => pre + resData.getProductsAddedToCart[i].totalPayment)
+      }
+      resData?.getProductsAddedToCart[0]?.addedBy?.provinceCode === "01" ? setTransferFee(30000) : setTransferFee(45000)
+    }
+  })
+  useEffect(() => {
+    if (dataProducts) setTotalPayment(transferFee + totalPaymentWithoutShip)
+  },[dataProducts, transferFee, totalPaymentWithoutShip])
   const onChange = (e) => {
     console.log('radio checked', e.target.value);
     setValue(e.target.value);
@@ -36,13 +70,64 @@ const OrderPage = () => {
      setCommuneList(res.data.results)
    })
  }
- const onSubmit = (values) => {
-    console.log(values)
+ const onSubmit = async (values) => {
+    setLoading(true)
+    const customId = 'DH' + Math.floor(Math.random() * Date.now())
+    const province = provinceList.find((item) => item.code === form.getFieldsValue().province).name
+    const district = districtList.find((item) => item.code === form.getFieldsValue().district).name
+    const commune = communeList.find((item) => item.code === form.getFieldsValue().commune).name
+    const userAddress = `${values.address} - ${commune} - ${district} - ${province}`
+    await createOrder({
+        variables: {
+            orderInput: {
+                orderId: customId,
+                receiverName: values.name,
+                address: userAddress,
+                email: values.email,
+                phoneNumber: values.phone,
+                userId: id,
+                status: "WAITING_FOR_CONFIRMATION",
+                paymentMethod: value,
+                userNote: values.note,
+                transferFee: transferFee,
+                totalPaymentWithoutShipment: totalPaymentWithoutShip,
+                totalPayment: totalPayment,
+                createdAt: moment().format(DATE_TIME_FORMAT),
+                updatedAt: moment().format(DATE_TIME_FORMAT),
+            }
+        },
+        onCompleted: (data) => {
+            setLoading(false)
+            navigate(`/paymentCompleted?id=${data?.createOrder?.id}`)
+        },
+        onError: (err) => {
+            message.error(`${err.message}`)
+        }
+    })
     navigate("/paymentCompleted")
  } 
+ useEffect(() => {
+    if (data) {
+      form.setFieldsValue({
+        name: data?.user?.fullName,
+        phone: data?.user?.phoneNumber,
+        email: data?.user?.email,
+        province: data?.user?.provinceCode,
+     })
+     onChangeProvince(data?.user?.provinceCode)
+     form.setFieldsValue({
+          district: data?.user?.districtCode,
+     })
+     onChangeDistrict(data?.user?.districtCode)
+     form.setFieldsValue({
+        commune: data?.user?.communeCode,
+     })
+    }
+  },[data, form])
  
   return (
-    <Space 
+    <Spin spinning={loading} size="large">
+        <Space 
         direction="vertical" 
         size="middle" 
         className="w-full h-full mb-10">
@@ -58,6 +143,7 @@ const OrderPage = () => {
         <Form
             layout="vertical"
             autoComplete="off"
+            form = {form}
             onFinish={onSubmit}
             className="w-full flex flex-col lg:flex-row">
             <Row className="w-full lg:w-[55%] lg:mr-20">
@@ -215,9 +301,9 @@ const OrderPage = () => {
                    <Title level={4} className="!mb-10 block">Phương thức thanh toán</Title>
                    <Radio.Group onChange={onChange} value={value}>
                         <Space direction="vertical">
-                            <Radio value={1} className="!text-[1.6rem]">Thanh toán trực tiếp khi nhận hàng</Radio>
-                            <Radio value={2} className="!text-[1.6rem]">Thanh toán bằng thẻ ATM nội địa/Internet Banking</Radio>
-                            <Radio value={3} className="!text-[1.6rem]">Thanh toán bằng thẻ quốc tế Visa/Master/JCP</Radio>
+                            <Radio value="PAYMENT_ON_DELIVERY" className="!text-[1.6rem]">Thanh toán trực tiếp khi nhận hàng</Radio>
+                            <Radio value="ATM_OR_BANKING" className="!text-[1.6rem]">Thanh toán bằng thẻ ATM nội địa/Internet Banking</Radio>
+                            <Radio value="VISA_OR_MASTER_CART" className="!text-[1.6rem]">Thanh toán bằng thẻ quốc tế Visa/Master/JCP</Radio>
                         </Space>
                     </Radio.Group>
                 </Col>
@@ -231,15 +317,15 @@ const OrderPage = () => {
                     bordered>
                     <List.Item className="flex items-start justify-between">
                         <Row className="text-[1.6rem]">Đơn hàng:</Row>
-                        <Row className="text-[1.6rem]">1.750.000</Row>
+                        <Row className="text-[1.6rem]">{totalPaymentWithoutShip}</Row>
                     </List.Item>
                     <List.Item className="flex items-start justify-between">
                         <Row className="text-[1.6rem]">Ship:</Row>
-                        <Row className="text-[1.6rem]">30.000</Row>
+                        <Row className="text-[1.6rem]">{transferFee}</Row>
                     </List.Item>
                     <List.Item className="flex items-start justify-between">
                         <Row className="text-[2rem] font-semibold uppercase">Tổng đơn:</Row>
-                        <Row className="text-[2rem] font-semibold">1.750.000</Row>
+                        <Row className="text-[2rem] font-semibold">{totalPayment}</Row>
                     </List.Item>
                     <Form.Item className="mb-0 mt-20">
                         <Button 
@@ -253,6 +339,7 @@ const OrderPage = () => {
             </Col>
         </Form> 
     </Space>
+    </Spin>
   )
 }
 

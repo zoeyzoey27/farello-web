@@ -33,7 +33,6 @@ const ProductDetail = ({product}) => {
     const handleClick = () => {
        setLoading(true)
        const priceProduct = product?.priceSale ? product?.priceSale : product?.priceOut
-       console.log(valueColor)
        addProductToCart({
          variables: {
             productsAddedToCartInput: {

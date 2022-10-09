@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import { Space, Breadcrumb, List, Row, InputNumber, Button, Spin, Form  } from 'antd'
+import { Space, Breadcrumb, List, Row, InputNumber, Button, Spin, Form, message  } from 'antd'
 import { ShoppingOutlined } from '@ant-design/icons'
 import { MdOutlineDelete } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import { useMutation, useQuery } from '@apollo/client'
-import { GET_USER_CART, UPDATE_CART } from './graphql'
+import { DELETE_PRODUCT, GET_USER_CART, UPDATE_CART } from './graphql'
 import numberWithCommas from '../../../utils/NumberWithCommas'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant'
@@ -16,6 +16,7 @@ const UserCart = () => {
   const [transferFee, setTransferFee] = useState(0)
   const id = localStorage.getItem("id_token")
   const [updateCart] = useMutation(UPDATE_CART)
+  const [deleteProduct] = useMutation(DELETE_PRODUCT)
   const { data } = useQuery(GET_USER_CART, {
     variables: {
       userId: id,
@@ -45,6 +46,23 @@ const UserCart = () => {
         setLoading(false)
       }
     })
+  }
+  const handleDelete = async (id) => {
+     setLoading(true)
+     await deleteProduct({
+       variables: {
+        deleteProductFromCartId: id,
+       },
+       onCompleted: () => {
+         setLoading(false)
+         message.success("Đã xóa sản phẩm khỏi giỏ hàng!")
+         window.location.reload()
+       },
+       onError: (err) => {
+         setLoading(false)
+         message.error(`${err.message}`)
+       },
+     })
   }
   return (
     <Spin spinning={loading} size="large">
@@ -91,6 +109,7 @@ const UserCart = () => {
                       </Form>
                       <Button 
                         size="small"
+                        onClick={() => handleDelete(item.id)}
                         className="rounded self-end !border-red-500 !text-red-500 hover:border-red-500 hover:text-red-500 hover:opacity-90 hover:shadow-lg flex items-center justify-center">
                         <MdOutlineDelete className="text-[1.7rem] mr-2" />
                         Xóa
@@ -123,7 +142,7 @@ const UserCart = () => {
           </List.Item>
           <Button 
             size="large" 
-            onClick={() => navigate('/userOrderProduct')}
+            onClick={() => navigate(`/userOrderProduct?id=${id}`)}
             className="mt-20 w-full border-b-0 border-x-0 text-white bg-[#154c79] text-[1.6rem] font-semibold hover:opacity-90 hover:bg-[#154c79] hover:text-white hover:border-[#154c79]">
             Tiếp tục thanh toán
           </Button>
