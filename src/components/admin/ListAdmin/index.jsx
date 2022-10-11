@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Space, Typography, Row, Button, Table, Col, Form, Input, Pagination, Spin } from 'antd'
+import { Space, Typography, Row, Button, Table, Col, Form, Input, Pagination, Spin, Breadcrumb } from 'antd'
 import { columns } from './DataTable'
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { FiSearch} from 'react-icons/fi'
 import { useQuery } from '@apollo/client'
 import { GET_ADMIN_LIST } from './graphql'
+import { useNavigate } from 'react-router-dom'
 
 const ListAdmin = () => {
   const { Title } = Typography
+  const navigate = useNavigate()
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(true)
   const [dataTable, setDataTable] = useState([])
@@ -92,6 +94,16 @@ const ListAdmin = () => {
        size="middle" 
        className="w-full h-full bg-white p-10">
        <Title level={4} className="whitespace-pre-wrap">Quản lý admin</Title>
+       <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-[#f8f8f8]">
+          <Breadcrumb.Item 
+            onClick={() => navigate('/admin/dashboard')}
+            className="hover:text-black cursor-pointer">
+            Bảng điều khiển
+          </Breadcrumb.Item>
+          <Breadcrumb.Item className="font-semibold">
+            Danh sách Admin
+          </Breadcrumb.Item>
+        </Breadcrumb>
        <Row className="p-10 bg-[#F8F8F8] w-full rounded">
           <Form 
             layout="vertical" 

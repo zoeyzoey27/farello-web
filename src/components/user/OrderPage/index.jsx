@@ -8,6 +8,8 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GET_USER_INFO, GET_PRODUCT_ADDED, CREATE_ORDER } from './graphql'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant' 
+import numberWithCommas from '../../../utils/NumberWithCommas'
+import { PaymentMethod } from '../../../constant/paymentMethod'
 
 const OrderPage = () => {
   const { Title } = Typography
@@ -96,15 +98,15 @@ const OrderPage = () => {
                 updatedAt: moment().format(DATE_TIME_FORMAT),
             }
         },
-        onCompleted: (data) => {
+        onCompleted: async (data) => {
             setLoading(false)
-            navigate(`/paymentCompleted?id=${data?.createOrder?.id}`)
+            const id = data?.createOrder?.id
+            await navigate(`/paymentCompleted?id=${id}`)
         },
         onError: (err) => {
             message.error(`${err.message}`)
         }
     })
-    navigate("/paymentCompleted")
  } 
  useEffect(() => {
     if (data) {
@@ -301,9 +303,13 @@ const OrderPage = () => {
                    <Title level={4} className="!mb-10 block">Phương thức thanh toán</Title>
                    <Radio.Group onChange={onChange} value={value}>
                         <Space direction="vertical">
-                            <Radio value="PAYMENT_ON_DELIVERY" className="!text-[1.6rem]">Thanh toán trực tiếp khi nhận hàng</Radio>
-                            <Radio value="ATM_OR_BANKING" className="!text-[1.6rem]">Thanh toán bằng thẻ ATM nội địa/Internet Banking</Radio>
-                            <Radio value="VISA_OR_MASTER_CART" className="!text-[1.6rem]">Thanh toán bằng thẻ quốc tế Visa/Master/JCP</Radio>
+                            {
+                               PaymentMethod.map((item) => (
+                                 <Radio key={item.value} value={item.value} className="!text-[1.6rem]">
+                                    {item.name}
+                                  </Radio>
+                               ))
+                            }
                         </Space>
                     </Radio.Group>
                 </Col>
@@ -317,15 +323,15 @@ const OrderPage = () => {
                     bordered>
                     <List.Item className="flex items-start justify-between">
                         <Row className="text-[1.6rem]">Đơn hàng:</Row>
-                        <Row className="text-[1.6rem]">{totalPaymentWithoutShip}</Row>
+                        <Row className="text-[1.6rem]">{numberWithCommas(totalPaymentWithoutShip)}</Row>
                     </List.Item>
                     <List.Item className="flex items-start justify-between">
                         <Row className="text-[1.6rem]">Ship:</Row>
-                        <Row className="text-[1.6rem]">{transferFee}</Row>
+                        <Row className="text-[1.6rem]">{numberWithCommas(transferFee)}</Row>
                     </List.Item>
                     <List.Item className="flex items-start justify-between">
                         <Row className="text-[2rem] font-semibold uppercase">Tổng đơn:</Row>
-                        <Row className="text-[2rem] font-semibold">{totalPayment}</Row>
+                        <Row className="text-[2rem] font-semibold">{numberWithCommas(totalPayment)}</Row>
                     </List.Item>
                     <Form.Item className="mb-0 mt-20">
                         <Button 

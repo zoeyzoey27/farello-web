@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Space, Typography, Row, Button, Table, Col, Form, Input, Pagination, Spin } from 'antd'
+import { Space, Typography, Row, Button, Table, Col, Form, Input, Pagination, Spin, Breadcrumb } from 'antd'
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { FiSearch} from 'react-icons/fi'
 import { GET_USER_LIST } from './graphql'
 import { useQuery } from '@apollo/client'
+import { useNavigate } from 'react-router-dom'
 
 const ListUser = () => {
   const { Title } = Typography
   const [form] = Form.useForm()
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [dataTable, setDataTable] = useState([])
   const [searchCondition, setSearchCondition] = useState({
@@ -57,7 +59,6 @@ const ListUser = () => {
        phoneNumber: values.phone,
        email: values.email,
        address: values.address,
-       idCard: values.idCard
      }
     }))
  }
@@ -120,7 +121,17 @@ const ListUser = () => {
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
-       <Title level={4} className="whitespace-pre-wrap">Danh sách người dùng</Title>
+       <Title level={4} className="whitespace-pre-wrap">Quản lý khách hàng</Title>
+       <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-[#f8f8f8]">
+          <Breadcrumb.Item 
+            onClick={() => navigate('/admin/dashboard')}
+            className="hover:text-black cursor-pointer">
+            Bảng điều khiển
+          </Breadcrumb.Item>
+          <Breadcrumb.Item className="font-semibold">
+            Quản lý khách hàng
+          </Breadcrumb.Item>
+        </Breadcrumb>
        <Row className="p-10 bg-[#F8F8F8] w-full rounded">
           <Form form={form} layout="vertical" autoComplete="off" className="w-full" onFinish={onSubmit}>
             <Row gutter={{xs: 0, md: 20, xl: 50}}>
@@ -170,17 +181,6 @@ const ListUser = () => {
                 </Col>
                 <Col className="gutter-row" xs={24} md={8}>
                   <Form.Item name="address" label={<Row className="font-semibold text-[1.6rem]">Địa chỉ</Row>}>
-                      <Input 
-                         size="large" 
-                         className="rounded"
-                         placeholder="Tìm kiếm" 
-                         suffix={
-                           <FiSearch className="text-[2rem] text-[#c6c6c6]" />
-                         } />
-                  </Form.Item>
-                </Col>
-                <Col className="gutter-row" xs={24} md={8}>
-                  <Form.Item name="idCard" label={<Row className="font-semibold text-[1.6rem]">Số CMT/CCCD</Row>}>
                       <Input 
                          size="large" 
                          className="rounded"

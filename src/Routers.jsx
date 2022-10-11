@@ -29,6 +29,8 @@ import UserDeleteAccountCompleted from './pages/user/UserDeleteAccountCompleted'
 import UserOrderPage from './pages/user/UserOrderPage'
 import UserPaymentCompleted from './pages/user/UserPaymentCompleted'
 import AboutUsPage from './pages/user/AboutUsPage'
+import SearchProductsResult from './pages/user/SearchProductsResult'
+import Dashboard from './pages/admin/Dashboard'
 
 const Routers = () => {
   const token_admin =  localStorage.getItem("token_admin")
@@ -36,6 +38,7 @@ const Routers = () => {
       <BrowserRouter>
           <Routes>
               <Route path="/admin/login" element = {<AdminLogin />} />
+              <Route path="/admin/dashboard" element = {token_admin ? <Dashboard /> : <Navigate to="/admin/login" />} />
               <Route path="/admin/categoryManagement" element = {token_admin ? <CategoryManagement /> : <Navigate to="/admin/login" />} />
               <Route path="/admin/addCategory" element = {token_admin ? <AddCategory /> : <Navigate to="/admin/login" />} />
               <Route path="/admin/productManagement" element = {token_admin ? <ProductManagement /> : <Navigate to="/admin/login" />} />
@@ -52,6 +55,7 @@ const Routers = () => {
               <Route path="/product" element = {<ProductDetailPage/>} />
               <Route path="/cart" element = {<Cart/>} />
               <Route path="/products" element = {<Product/>} />
+              <Route path="/listProduct" element = {<SearchProductsResult/>} />
               <Route path="/login" element = {<Login/>} />
               <Route path="/signup" element = {<Register/>} />
               <Route path="/userInfo" element = {<UserInfo/>} />

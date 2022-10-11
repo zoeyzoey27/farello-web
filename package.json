@@ -15,6 +15,7 @@
     "draft-convert": "^2.1.13",
     "draft-js": "^0.11.7",
     "graphql": "^16.5.0",
+    "html-react-parser": "^3.0.4",
     "i": "^0.3.7",
     "npm": "^8.19.2",
     "react": "^18.2.0",

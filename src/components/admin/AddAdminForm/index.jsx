@@ -10,7 +10,8 @@ import {
     Col,
     message,
     DatePicker, 
-    Spin
+    Spin,
+    Breadcrumb
 } from 'antd'
 import { schemaValidate } from '../../../validation/AddAdmin'
 import { converSchemaToAntdRule } from '../../../validation'
@@ -172,6 +173,16 @@ const AddAdminForm = () => {
         <Title level={4} className="whitespace-pre-wrap">
           {action === 'edit' ? 'Chỉnh sửa thông tin cá nhân' : 'Tạo tài khoản Admin'}
         </Title>
+        <Breadcrumb className="text-[1.6rem] mb-5">
+              <Breadcrumb.Item 
+                onClick={() => navigate('/admin/dashboard')}
+                className="hover:text-black cursor-pointer">
+                Bảng điều khiển
+              </Breadcrumb.Item>
+              <Breadcrumb.Item className="font-semibold">
+                 {action === 'edit' ? 'Chỉnh sửa thông tin cá nhân' : 'Tạo tài khoản Admin'}
+              </Breadcrumb.Item>
+          </Breadcrumb>
         <Row className="text-[1.6rem]">Vui lòng nhập thông tin vào các trường bên dưới.</Row>
         <Row className="mb-5 text-[1.6rem]">(*) là thông tin bắt buộc.</Row>
         <Form 

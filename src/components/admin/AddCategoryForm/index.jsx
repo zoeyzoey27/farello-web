@@ -170,11 +170,16 @@ const AddCategoryForm = () => {
           />
           <Breadcrumb className="text-[1.6rem] mb-5">
               <Breadcrumb.Item 
+                onClick={() => navigate('/admin/dashboard')}
+                className="hover:text-black cursor-pointer">
+                Bảng điều khiển
+              </Breadcrumb.Item>
+              <Breadcrumb.Item 
                 onClick={() => navigate('/admin/categoryManagement')}
                 className="hover:text-black cursor-pointer">
                 Danh sách danh mục sản phẩm
               </Breadcrumb.Item>
-              <Breadcrumb.Item>
+              <Breadcrumb.Item className="font-semibold">
                 {action === 'edit' ? 'Chỉnh sửa danh mục sản phẩm' : 'Thêm danh mục sản phẩm'}
               </Breadcrumb.Item>
           </Breadcrumb>

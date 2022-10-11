@@ -22,7 +22,7 @@ const LoginForm = () => {
       onCompleted: (data) => {
         localStorage.setItem('token_admin', data?.loginAdmin?.token)
         localStorage.setItem('id_token_admin', data?.loginAdmin?.id)
-        navigate('/admin/categoryManagement')
+        navigate('/admin/dashboard')
         message.success('Đăng nhập thành công!')
       },
       onError: (err) => {

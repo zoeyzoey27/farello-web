@@ -18,7 +18,7 @@
 .ant-menu-item-selected,
 .ant-menu-item:active {
   background-color: #e8edf2 !important;
-  color: #154c79;
+  color: #154c79 !important;
 }
 
 .ant-menu-submenu-selected {
@@ -29,4 +29,13 @@
 .ant-menu-item-selected,
 .ant-menu-light .ant-menu-item-active {
   color: #154c79;
+}
+.ant-menu-submenu-arrow {
+  color: #828282;
+}
+.ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-arrow, .ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-expand-icon {
+  color: #154c79;
+}
+span.ant-menu-title-content{
+  color: #828282;
 }

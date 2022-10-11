@@ -33,9 +33,14 @@ const AdminInfo = () => {
         <Title level={4} className="whitespace-pre-wrap">
             Thông tin tài khoản
         </Title>
-        <Breadcrumb className="text-[1.6rem] mb-5">
+        <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-[#f8f8f8] ">
+              <Breadcrumb.Item 
+                onClick={() => navigate('/admin/dashboard')}
+                className="hover:text-black cursor-pointer">
+                Bảng điều khiển
+              </Breadcrumb.Item>
             <Breadcrumb.Item>Thông tin tài khoản</Breadcrumb.Item>
-            <Breadcrumb.Item>
+            <Breadcrumb.Item className="font-semibold">
                {`${data?.admin?.fullName} (ID: ${data?.admin?.adminId})`}
             </Breadcrumb.Item>
         </Breadcrumb>

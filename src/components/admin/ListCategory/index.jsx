@@ -12,7 +12,8 @@ import {
   Image,
   Popconfirm,
   message,
-  Spin
+  Spin,
+  Breadcrumb
 } from 'antd'
 import { FolderAddOutlined } from '@ant-design/icons'
 import './style.css'
@@ -193,6 +194,16 @@ const ListCategory = () => {
         size="middle" 
         className="w-full h-full bg-white p-10">
         <Title level={4} className="whitespace-pre-wrap">Danh sách danh mục sản phẩm</Title>
+        <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-[#f8f8f8]">
+          <Breadcrumb.Item 
+            onClick={() => navigate('/admin/dashboard')}
+            className="hover:text-black cursor-pointer">
+            Bảng điều khiển
+          </Breadcrumb.Item>
+          <Breadcrumb.Item className="font-semibold">
+            Danh sách danh mục sản phẩm
+          </Breadcrumb.Item>
+        </Breadcrumb>
         <Row className="p-10 bg-[#F8F8F8] w-full rounded">
             <Form 
               form={form} 

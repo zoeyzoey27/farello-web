@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Space, Typography, Row, Button, Table, Pagination, Image, Form, Spin, Popconfirm, message } from 'antd'
+import { Space, Typography, Row, Button, Table, Pagination, Image, Form, Spin, Popconfirm, message, Breadcrumb } from 'antd'
 import { FolderAddOutlined } from '@ant-design/icons'
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { useNavigate } from 'react-router-dom'
@@ -47,6 +47,10 @@ const ListProduct = () => {
       dataIndex: 'image',
       render: (value) => <Image src={value} alt='' width={200} />,
     },
+    {
+      title: 'Số lượng',
+      dataIndex: 'quantity',
+  },
     {
       title: 'Giá nhập',
       dataIndex: 'priceIn',
@@ -164,6 +168,7 @@ const ListProduct = () => {
             name: item.name,
             description: item.description,
             image: item.images[0],
+            quantity: item.quantity,
             priceIn: item.priceIn,
             priceOut: item.priceOut,
             priceSale: item.priceSale,
@@ -224,6 +229,16 @@ const ListProduct = () => {
        size="middle" 
        className="w-full h-full bg-white p-10">
        <Title level={4} className="whitespace-pre-wrap">Danh sách sản phẩm</Title>
+       <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-[#f8f8f8]">
+          <Breadcrumb.Item 
+            onClick={() => navigate('/admin/dashboard')}
+            className="hover:text-black cursor-pointer">
+            Bảng điều khiển
+          </Breadcrumb.Item>
+          <Breadcrumb.Item className="font-semibold">
+            Danh sách sản phẩm
+          </Breadcrumb.Item>
+        </Breadcrumb>
        <FormSearchProduct form={form} resetFields={resetFields} onSubmit={onSubmit} />
        <Row className="flex flex-col-reverse md:flex-row md:justify-between my-5">
           <Row className="text-[1.6rem] mt-5 md:mt-0">

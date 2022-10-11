@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Breadcrumb, Col, Row, Radio, Button, Image, InputNumber, Spin, message  } from 'antd'
 import './style.css'
 import ProductImageSlider from '../../admin/ProductDetailAdmin/ProductImageSlider'
@@ -12,7 +12,7 @@ import { DATE_TIME_FORMAT } from '../../../constant'
 
 const ProductDetail = ({product}) => {
     const [loading, setLoading] = useState(false)
-    const [valueColor, setValueColor] = useState(product?.colours[0])
+    const [valueColor, setValueColor] = useState([])
     const [quantityValue, setQuantityValue] = useState(1)
     const [open, setOpen] = useState(false)
     const [addProductToCart] = useMutation(ADD_PRODUCTS_TO_CART)
@@ -58,6 +58,9 @@ const ProductDetail = ({product}) => {
          }
        })
     }
+    useEffect(() => {
+        setValueColor(product?.colours[0])
+    },[product])
     return (
        <Spin spinning={loading} size="large">
           <Col className="flex flex-col w-full">
@@ -105,7 +108,7 @@ const ProductDetail = ({product}) => {
                 </Row>
                 <Row className="flex items-end mt-5">
                     <Row className="text-[1.6rem] mr-10">Số lượng:</Row>
-                    <InputNumber min={1} value={quantityValue} onChange={onChangeQuantity} className="rounded" />
+                    <InputNumber min={1} max={product?.quantity} value={quantityValue} onChange={onChangeQuantity} className="rounded" />
                 </Row>
                 <Button 
                   size="large"

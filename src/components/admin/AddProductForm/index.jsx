@@ -225,6 +225,11 @@ const AddProductForm = () => {
             }
         />
         <Breadcrumb className="text-[1.6rem] mb-5">
+          <Breadcrumb.Item 
+            onClick={() => navigate('/admin/dashboard')}
+            className="hover:text-black cursor-pointer">
+            Bảng điều khiển
+          </Breadcrumb.Item>
             <Breadcrumb.Item 
                onClick={() => navigate('/admin/productManagement')}
                className="hover:text-black cursor-pointer">

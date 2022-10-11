@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Header } from 'antd/lib/layout/layout'
 import { useQuery } from '@apollo/client'
 import { Row, Input, Badge, Menu, Grid, Drawer, Dropdown } from 'antd'
@@ -15,13 +15,13 @@ const Topbar = () => {
   const navigate = useNavigate()
   const screens = useBreakpoint()
   const [ visible, setVisible ] = useState(false)
+  const [totalCart, setTotalCart] = useState(0)
   const onOpen = () => {
     setVisible(true)
   }
   const onClose = () => {
     setVisible(false)
   }
-  const onSearch = (value) => console.log(value)
   const { data } = useQuery(GET_CATEGORIES, {
     variables: {
       categorySearchInput: {},
@@ -39,7 +39,14 @@ const Topbar = () => {
     },
     skip: localStorage.getItem("id_token") === null || undefined
   })
-
+  useEffect(() => {
+    if (dataCart) {
+       setTotalCart(dataCart?.getProductsAddedToCart?.length)
+    }
+  },[dataCart])
+  const onSearch = (value) => {
+    navigate(`/listProduct?param=${value}`)
+  }
   const itmainNavems = [
     {
       label: (
@@ -123,7 +130,7 @@ const Topbar = () => {
           <UserOutlined className="text-[1.8rem] cursor-pointer md:border-l-2 md:pl-3" />
         </Dropdown>
         <Badge 
-          count={dataCart?.getProductsAddedToCart?.length || 0} 
+          count={totalCart} 
           size="default" 
           showZero
           overflowCount={99} 
