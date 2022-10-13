@@ -22,3 +22,11 @@ export const GET_TOTAL_CART = gql`
     }
   }
 `
+export const GET_POSTS = gql `
+  query PostCategories($skip: Int, $take: Int, $orderBy: PostCategorySortInput) {
+    postCategories(skip: $skip, take: $take, orderBy: $orderBy) {
+      id
+      title
+    }
+  }
+`

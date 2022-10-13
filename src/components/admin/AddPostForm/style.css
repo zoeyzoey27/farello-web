@@ -1,0 +1,10 @@
+.ql-container.ql-snow {
+   height: 800px;
+   font-size: 1.6rem;
+}
+.ql-align-center {
+   text-align: center;
+}
+.ql-align-justify{
+   text-align: justify;
+}

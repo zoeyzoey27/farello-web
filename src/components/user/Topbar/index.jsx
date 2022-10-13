@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import './style.css'
 import { AiOutlineMenuFold } from 'react-icons/ai'
 import { menu } from './menu'
-import { GET_CATEGORIES, GET_TOTAL_CART } from './graphql'
+import { GET_CATEGORIES, GET_POSTS, GET_TOTAL_CART } from './graphql'
 
 const Topbar = () => {
   const { Search } = Input
@@ -38,6 +38,16 @@ const Topbar = () => {
       userId: localStorage.getItem("id_token")
     },
     skip: localStorage.getItem("id_token") === null || undefined
+  })
+
+  const { data: dataCategoryPost } = useQuery(GET_POSTS, {
+    variables: {
+      skip: null,
+      take: null,
+      orderBy: {
+        createdAt: "asc"
+      }
+    }
   })
   useEffect(() => {
     if (dataCart) {
@@ -92,11 +102,29 @@ const Topbar = () => {
     },
     {
       label: (
-        <Link to="/service" className="link mx-3 text-[1.6rem] font-medium">
-          Dịch vụ
-        </Link>
+        <Row className="link mx-3 text-[1.6rem] font-medium">
+          Bài viết
+        </Row>
       ),
-      key: '/service',
+      key: '/posts',
+      children: [
+        {
+          type: 'group',
+          label: 'Danh mục bài viết',
+          children: 
+            dataCategoryPost?.postCategories?.map((item) => (
+              {
+                label: (
+                  <Link to={`/posts?id=${item.id}&title=${item.title}`} key={item.id} className="link mx-3 text-[1.5rem]">
+                    {item.title}
+                  </Link>
+                ),
+                key: `/posts?id=${item.id}`,
+              }
+            ))
+          ,
+        }
+      ],
     },
   ];
   return (

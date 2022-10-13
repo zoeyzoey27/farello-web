@@ -1,0 +1,11 @@
+.content .ql-align-center img{
+   align-self: center;
+   display: block;
+}
+.content ul {
+   list-style: disc;
+   margin-left: 25px;
+}
+.content p img{
+   margin: 10px auto;
+}

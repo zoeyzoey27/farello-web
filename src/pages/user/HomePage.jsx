@@ -11,6 +11,7 @@ import Footer from '../../components/user/Footer'
 import { useQuery } from '@apollo/client'
 import { AiOutlineToTop } from 'react-icons/ai'
 import { gql } from '@apollo/client'
+import ListPostComponent from '../../components/user/ListPostComponent'
 
 const { Content} = Layout
 const GET_PRODUCTS = gql `
@@ -56,6 +57,7 @@ const Home = () => {
            <BannerImages />
            <Showroom />
            <CategoriesList />
+           <ListPostComponent />
            <PolicyList />
        </Content>
        <Footer />

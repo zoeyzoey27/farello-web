@@ -4,6 +4,7 @@ import './index.css'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
+import 'react-quill/dist/quill.snow.css'
 import Routers from './Routers'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 

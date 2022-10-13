@@ -7,6 +7,7 @@ import { FaShippingFast } from 'react-icons/fa'
 import { FiUser, FiLogOut, FiUsers } from 'react-icons/fi'
 import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import { AiOutlineDashboard } from 'react-icons/ai'
+import { ImNewspaper } from 'react-icons/im'
 
 const MenuAdmin = () => {
     const navigate = useNavigate()
@@ -60,7 +61,7 @@ const MenuAdmin = () => {
                    Danh sách sản phẩm
                 </Menu.Item>
                 <Menu.Item 
-                   key="/admin/addCategory" 
+                   key="/admin/addProduct" 
                    className="text-[1.6rem]"
                    onClick={() => navigate('/admin/addProduct')}>
                    Thêm mới sản phẩm
@@ -72,6 +73,31 @@ const MenuAdmin = () => {
                     Quản lý đơn hàng
                 </Row>
             </Menu.Item>
+            <Menu.SubMenu title={
+                <Row className="flex items-center">
+                    <ImNewspaper className="mr-3 text-[2rem]" />
+                    Quản lý bài viết
+                </Row>
+            }>
+                <Menu.Item 
+                   key="/admin/postManagement" 
+                   className="text-[1.6rem]"
+                   onClick={() => navigate('/admin/postManagement')}>
+                   Danh sách bài viết
+                </Menu.Item>
+                <Menu.Item 
+                   key="/admin/addPostCategory" 
+                   className="text-[1.6rem]"
+                   onClick={() => navigate('/admin/postCategory')}>
+                   Danh mục bài viết
+                </Menu.Item>
+                <Menu.Item 
+                   key="/admin/addPost" 
+                   className="text-[1.6rem]"
+                   onClick={() => navigate('/admin/addPost')}>
+                   Tạo bài viết
+                </Menu.Item>
+            </Menu.SubMenu>
             <Menu.SubMenu title={
                 <Row className="flex items-center">
                     <MdOutlineAdminPanelSettings className="mr-3 text-[2rem]" />

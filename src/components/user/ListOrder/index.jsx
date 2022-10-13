@@ -16,13 +16,17 @@ const ListOrder = () => {
   const [loading, setLoading] = useState(true)
   const [dataTable, setDataTable] = useState([])
   const [searchCondition, setSearchCondition] = useState({
-    items: {},
+    items: {
+      userId: localStorage.getItem("id_token")
+    },
     pageIndex: PAGE_DEFAULT,
     pageSize: PAGE_SIZE_DEFAULT,
   })
   const { data: dataInit } = useQuery(GET_ORDERS, {
      variables: {
-      orderSearchInput: {},
+      orderSearchInput: {
+        userId: localStorage.getItem("id_token")
+      },
       skip: null,
       take: null,
       orderBy: {
@@ -48,7 +52,9 @@ const ListOrder = () => {
   const resetFields = () => {
     form.resetFields()
     setSearchCondition({
-      items: {},
+      items: {
+        userId: localStorage.getItem("id_token")
+      },
       pageIndex: PAGE_DEFAULT,
       pageSize: PAGE_SIZE_DEFAULT,
     })
@@ -57,6 +63,7 @@ const ListOrder = () => {
     setSearchCondition((pre) => ({
      ...pre,
      items: {
+       userId: localStorage.getItem("id_token"),
        orderId: values.orderId,
        receiverName: values.name,
        phoneNumber: values.phone,
