@@ -1,0 +1,94 @@
+import React, { useState } from 'react'
+import { Space, Row, Rate, Form, Input, Button, message, Spin } from 'antd'
+import { schemaValidate } from '../../../validation/CreateComment'
+import { converSchemaToAntdRule } from '../../../validation'
+import { useMutation } from '@apollo/client'
+import { CREATE_COMMENT } from './graphql'
+import moment from 'moment'
+import { DATE_TIME_FORMAT } from '../../../constant'
+
+const FormRate = ({product}) => {
+  const { TextArea } = Input;
+  const desc = [
+    'Chất lượng sản phẩm rất tệ', 
+    'Chất lượng sản phẩm tệ', 
+    'Chất lượng sản phẩm bình thường', 
+    'Chất lượng sản phẩm tốt', 
+    'Chất lượng sản phẩm tuyệt vời'
+  ]
+  const [loading, setLoading] = useState(false)
+  const [valueRate, setValueRate] = useState(0)
+  const [createComment] = useMutation(CREATE_COMMENT)
+  const yupSync = converSchemaToAntdRule(schemaValidate)
+  const onSubmit = async (values) => {
+     setLoading(true)
+     await createComment({
+        variables: {
+            commentInput: {
+                content: values.content,
+                ratePoint: valueRate,
+                rateDescription: desc[valueRate - 1],
+                likes: 0,
+                dislikes: 0,
+                userId: localStorage.getItem("id_token"),
+                productId: product?.id,
+                createdAt:  moment().format(DATE_TIME_FORMAT),
+            }
+        },
+        onCompleted: () => {
+            setLoading(false)
+            window.location.reload()
+            message.success('Đánh giá sản phẩm thành công!')
+        },
+        onError: (err) => {
+            setLoading(false)
+            message.err(`${err.message}`)
+        }
+     })
+  }
+  return (
+    <Spin spinning={loading} size="large">
+        <Space direction="vertical" size="middle" className="w-full">
+            <Row className="text-[1.6rem] block rounded bg-[#f8f8f8] py-3 px-5">
+                Vui lòng đánh giá và chia sẻ cảm nhận của bạn về sản phẩm này.
+            </Row>
+            <Row className="flex items-start">
+                <img src={product?.images[0]} width={80} alt="" />
+                <Row className="flex flex-col ml-5">
+                    <Row className="text-[1.6rem]">{product?.name}</Row>
+                    <Row className="text-[1.4rem] text-[#AFAAAA]">{`Mã sản phẩm: ${product?.productId}`}</Row>
+                </Row>
+            </Row>
+            <Row className="flex flex-col items-center justify-center w-full">
+                <Rate tooltips={desc} onChange={setValueRate} value={valueRate} />
+                {valueRate ? <Row className="text-[1.6rem] mt-2">{desc[valueRate - 1]}</Row> : null}
+            </Row>
+            <Form onFinish={onSubmit} layout='vertical' autoComplete='off'>
+                <Form.Item
+                    name="content"
+                    className="w-full"
+                    required={false}
+                    rules={[yupSync]}
+                    label={
+                    <Row className="font-semibold text-[1.6rem]">
+                        Nội dung
+                        <Row className="text-red-500 ml-3">*</Row>
+                    </Row>
+                    }>
+                    <TextArea placeholder="Hãy chia sẻ những cảm nhận của bạn về sản phẩm này nhé!" className="resize-none text-[1.6rem] !h-[150px] rounded" />
+                </Form.Item>
+                <Form.Item className="flex justify-center w-full">
+                    <Button 
+                        size="large" 
+                        htmlType="submit"
+                        className="w-full !border-[#154c79] !bg-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                        Gửi đánh giá
+                    </Button>
+                </Form.Item>
+            </Form>
+        </Space>
+    </Spin>
+  )
+}
+
+export default FormRate

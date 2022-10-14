@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Breadcrumb, Col, Row, Radio, Button, Image, InputNumber, Spin, message  } from 'antd'
+import { Breadcrumb, Col, Row, Radio, Button, Image, InputNumber, Spin, message, Rate  } from 'antd'
 import './style.css'
 import ProductImageSlider from '../../admin/ProductDetailAdmin/ProductImageSlider'
 import bst from '../../../assets/images/bst.png'
@@ -14,6 +14,7 @@ const ProductDetail = ({product}) => {
     const [loading, setLoading] = useState(false)
     const [valueColor, setValueColor] = useState([])
     const [quantityValue, setQuantityValue] = useState(1)
+    const [ratePoint, setRatePoint] = useState(0)
     const [open, setOpen] = useState(false)
     const [addProductToCart] = useMutation(ADD_PRODUCTS_TO_CART)
     const id = localStorage.getItem('id_token')
@@ -60,6 +61,15 @@ const ProductDetail = ({product}) => {
     }
     useEffect(() => {
         setValueColor(product?.colours[0])
+        if (product?.comments?.length > 0){
+            let sum = 0;
+            product?.comments?.map((item) => {
+                sum+=item.ratePoint
+                return null
+            })
+            setRatePoint(parseInt(sum/product?.comments?.length))
+         }
+         else setRatePoint(0)
     },[product])
     return (
        <Spin spinning={loading} size="large">
@@ -84,14 +94,23 @@ const ProductDetail = ({product}) => {
                        {`(Tình trạng: ${product?.status === 'STOCKING' ? 'Còn hàng' : 'Hết hàng'})`}
                     </Row>
                 </Row>
+                <Rate disabled value={ratePoint} />
                 <Row className="text-[1.6rem] my-5">Mã sản phẩm: {product?.productId}</Row>
                 <Row className="text-[1.6rem] my-5">Còn lại: {product?.quantity}</Row>
-                <Row className="text-[1.4rem] line-through text-[#AFAAAA]">
-                   {product?.priceOut ? `${numberWithCommas(product?.priceOut)} VND` : ''}
-                </Row>
-                <Row className="text-[2rem] font-semibold">
-                   {product?.priceSale ? `${numberWithCommas(product?.priceSale)} VND` : ''}
-                </Row>
+                {product?.priceSale > 0 ? (
+                    <>
+                    <Row className="text-[1.4rem] line-through text-[#AFAAAA]">
+                       {product?.priceOut ? `${numberWithCommas(product?.priceOut)} VND` : ''}
+                    </Row>
+                    <Row className="text-[2rem] font-semibold">
+                       {product?.priceSale ? `${numberWithCommas(product?.priceSale)} VND` : ''}
+                    </Row>
+                    </>
+                ): (
+                    <Row className="text-[2rem] font-semibold">
+                       {product?.priceOut ? `${numberWithCommas(product?.priceOut)} VND` : ''}
+                    </Row>
+                )}
                 <Row className="mt-10 mb-5 text-[1.6rem]">Chi tiết sản phẩm:</Row>
                 <Row className="text-[1.6rem] my-5 flex flex-col bg-[#f8f8f8] rounded py-5 px-10 whitespace-pre-wrap">
                      {product?.description}

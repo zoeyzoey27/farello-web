@@ -8,6 +8,7 @@ import { useSearchParams } from 'react-router-dom'
 import ProductDetail from '../../components/user/ProductDetail'
 import { AiOutlineToTop } from 'react-icons/ai'
 import { gql } from '@apollo/client'
+import ListRate from '../../components/user/ListRate'
 
 const { Content } = Layout
 
@@ -28,6 +29,21 @@ const GET_PRODUCT = gql`
       }
       status
       quantity
+      comments {
+        id
+        content
+        ratePoint
+        rateDescription
+        likes
+        dislikes
+        userLiked
+        userDisLiked
+        createdBy {
+          id
+          fullName
+        }
+        createdAt
+      }
     }
   }
 `
@@ -86,6 +102,9 @@ const ProductDetailPage = () => {
        <Topbar />
        <Content className="px-[20px] md:px-[35px] lg:px-[50px] bg-white">
            <ProductDetail product={data?.product} />
+           <Divider />
+           <Row className="title-header">Đánh giá sản phẩm</Row>
+           <ListRate product={data?.product} setLoading={setLoading} />
            <Divider />
            <Row className="title-header">Có thể bạn quan tâm</Row>
            <ListProduct products={products} />
