@@ -9,7 +9,6 @@ import {
     Grid, 
     Select,
     List, 
-    Spin,
     Modal,
     message
 } from 'antd'
@@ -24,7 +23,7 @@ import CancelOrderReason from '../CancelOrderReason'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant'
 
-const OrderDetailAdmin = () => {
+const OrderDetailAdmin = ({setLoading}) => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const id = searchParams.get('id')
@@ -32,7 +31,6 @@ const OrderDetailAdmin = () => {
   const { Option } = Select
   const { useBreakpoint } = Grid
   const screens = useBreakpoint()
-  const [loading, setLoading] = useState(true)
   const [updateOrder] = useMutation(UPDATE_ORDER_STATUS)
   const [valueSelected, setValueSelected] = useState("WAITING_FOR_CONFIRMATION")
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -111,8 +109,7 @@ const OrderDetailAdmin = () => {
   }
   
   return (
-    <Spin spinning={loading} size="large">
-        <Space 
+    <Space 
             direction="vertical" 
             size="middle" 
             className="w-full h-full bg-white p-10">
@@ -265,7 +262,6 @@ const OrderDetailAdmin = () => {
                     onChangeTextarea={onChangeTextarea} />
             </Modal>
         </Space>
-    </Spin>
   )
 }
 

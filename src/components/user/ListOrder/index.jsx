@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Space, Row, Button, Table, Col, Form, Input, Pagination, Breadcrumb, Select, Spin } from 'antd'
+import { Space, Row, Button, Table, Col, Form, Input, Pagination, Breadcrumb, Select } from 'antd'
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { FiSearch } from 'react-icons/fi'
 import { BiDetail } from 'react-icons/bi'
@@ -9,11 +9,10 @@ import { GET_ORDERS } from './graphql'
 import numberWithCommas from '../../../utils/NumberWithCommas'
 import { OrderStatus } from '../../../constant/statusOrder'
 
-const ListOrder = () => {
+const ListOrder = ({setLoading}) => {
   const navigate = useNavigate()
   const { Option } = Select
   const [form] = Form.useForm()
-  const [loading, setLoading] = useState(true)
   const [dataTable, setDataTable] = useState([])
   const [searchCondition, setSearchCondition] = useState({
     items: {
@@ -150,14 +149,13 @@ const ListOrder = () => {
         render: (_, _record) => (
             <BiDetail 
                onClick={() => navigate(`/orderDetail?id=${_record.id}`)}
-               className="text-[2rem] cursor-pointer hover:opacity-80 !text-[#154c79]" />
+               className="text-[2rem] cursor-pointer hover:opacity-80 !text-colorTheme" />
         ),
         width: '50px',
     },
   ]
   return (
-    <Spin spinning={loading} size="large">
-      <Space 
+    <Space 
        direction="vertical" 
        size="middle" 
        className="w-full h-full mb-10">
@@ -250,7 +248,7 @@ const ListOrder = () => {
                     <Button 
                       size="large"
                       htmlType="submit"
-                      className="w-full md:w-[100px] !bg-[#154c79] !text-white hover:bg-[#154c79] !border-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                      className="w-full md:w-[100px] !bg-colorTheme !text-white hover:bg-colorTheme !border-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                       Tìm kiếm
                     </Button>
                  </Form.Item>
@@ -280,7 +278,6 @@ const ListOrder = () => {
           locale={{items_per_page: 'kết quả / trang'}}
           className="mt-10 w-full flex justify-center" />
     </Space>
-    </Spin>
   )
 }
 

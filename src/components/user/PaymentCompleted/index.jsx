@@ -15,13 +15,13 @@ const PaymentCompleted = () => {
         <Button 
             size="large" 
             onClick={() => navigate(`/orderDetail?id=${id}`)}
-            className="!bg-[#154c79] !border-[#154c79] rounded !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90">
+            className="!bg-colorTheme !border-colorTheme rounded !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90">
             Xem lại đơn hàng
         </Button>,
         <Button 
             size="large" 
             onClick={() => navigate('/')}
-            className="hover:text-[#154c79] hover:border-[#154c79] hover:opacity-90">
+            className="hover:text-colorTheme hover:border-colorTheme hover:opacity-90">
             Tiếp tục mua hàng
         </Button>,
         ]}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Space, Breadcrumb, Typography, Row, Col, Form, Input, Select, List, Button, Radio, Spin, message } from 'antd'
+import { Space, Breadcrumb, Typography, Row, Col, Form, Input, Select, List, Button, Radio, message } from 'antd'
 import { schemaValidate } from '../../../validation/UserOrderProduct'
 import { converSchemaToAntdRule } from '../../../validation'
 import axiosClient from '../../../api/axiosClient'
@@ -11,7 +11,7 @@ import { DATE_TIME_FORMAT } from '../../../constant'
 import numberWithCommas from '../../../utils/NumberWithCommas'
 import { PaymentMethod } from '../../../constant/paymentMethod'
 
-const OrderPage = () => {
+const OrderPage = ({setLoading}) => {
   const { Title } = Typography
   const { Option } = Select
   const { TextArea } = Input
@@ -21,7 +21,6 @@ const OrderPage = () => {
   const id = searchParams.get('id')
   const [createOrder] = useMutation(CREATE_ORDER)
   const yupSync = converSchemaToAntdRule(schemaValidate)
-  const [loading, setLoading] = useState(true)
   const [provinceList, setProvinceList] = useState([])
   const [districtList, setDistrictList] = useState([])
   const [communeList, setCommuneList] = useState([])
@@ -128,8 +127,7 @@ const OrderPage = () => {
   },[data, form])
  
   return (
-    <Spin spinning={loading} size="large">
-        <Space 
+    <Space 
         direction="vertical" 
         size="middle" 
         className="w-full h-full mb-10">
@@ -337,7 +335,7 @@ const OrderPage = () => {
                         <Button 
                             size="large" 
                             htmlType="submit" 
-                            className="!text-white w-full border-0 !bg-[#154c79] text-[1.6rem] font-semibold hover:opacity-90 hover:bg-[#154c79] hover:text-white hover:border-[#154c79]">
+                            className="!text-white w-full border-0 !bg-colorTheme text-[1.6rem] font-semibold hover:opacity-90 hover:bg-colorTheme hover:text-white hover:border-colorTheme">
                             Đặt hàng
                         </Button>
                     </Form.Item>
@@ -345,7 +343,6 @@ const OrderPage = () => {
             </Col>
         </Form> 
     </Space>
-    </Spin>
   )
 }
 

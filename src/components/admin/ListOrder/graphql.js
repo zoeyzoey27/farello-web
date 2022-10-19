@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const GET_ORDERS  = gql`
-  query Orders($orderSearchInput: OrderSearchInput, $skip: Int, $take: Int, $orderBy: OrderSortInput) {
+  query Orders($orderSearchInput: OrderSearchInput, $skip: Int, $take: Int, $orderBy: OrderByInputByTime) {
     orders(orderSearchInput: $orderSearchInput, skip: $skip, take: $take, orderBy: $orderBy) {
       id
       orderId

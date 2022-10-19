@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Button, Form, Input, Typography, Divider, DatePicker, Select, Col, message, Spin  } from 'antd'
+import { Row, Button, Form, Input, Typography, Divider, DatePicker, Select, Col, message  } from 'antd'
 import { schemaValidate } from '../../../validation/Register'
 import { converSchemaToAntdRule } from '../../../validation'
 import { useNavigate } from 'react-router-dom'
@@ -9,13 +9,12 @@ import { REGISTER_USER } from './graphql'
 import { convertTimeToString, DATE_TIME_FORMAT } from '../../../constant'
 import moment from 'moment'
 
-const RegisterForm = () => {
+const RegisterForm = ({setLoading}) => {
   const { Title } = Typography
   const { Option } = Select
   const [form] = Form.useForm()
   const navigate = useNavigate()
   const [registerUser] = useMutation(REGISTER_USER)
-  const [loading, setLoading] = useState(false)
   const [provinceList, setProvinceList] = useState([])
   const [districtList, setDistrictList] = useState([])
   const [communeList, setCommuneList] = useState([])
@@ -80,9 +79,8 @@ const RegisterForm = () => {
     })
   }
   return (
-    <Spin spinning={loading} size="large">
-      <Row className="w-full flex justify-center mb-20">
-      <Row className="py-10 px-20 rounded bg-white w-full md:w-[60%] lg:w-[40%] xl:w-[35%] 2xl:w-[30%] flex flex-col border-2 border-[#154c79]">
+    <Row className="w-full flex justify-center mb-20">
+      <Row className="py-10 px-20 rounded bg-white w-full md:w-[60%] lg:w-[40%] xl:w-[35%] 2xl:w-[30%] flex flex-col shadow-lg">
         <Title level={3} className="block !mb-10 !text-[#343a40]">Đăng ký</Title>
         <Row className="text-[1.6rem]">Vui lòng nhập thông tin vào các trường bên dưới.</Row>
         <Row className="mb-5 text-[1.6rem]">(*) là thông tin bắt buộc.</Row>
@@ -258,7 +256,7 @@ const RegisterForm = () => {
             <Button 
               htmlType="submit" 
               size="large" 
-              className="bg-[#154c79] text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
+              className="bg-colorTheme text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
               Đăng ký
             </Button>
           </Form.Item>
@@ -267,14 +265,13 @@ const RegisterForm = () => {
             <Button 
               size="large" 
               onClick={() => navigate('/login')}
-              className="border-[#154c79] border-1 text-[#154c79] hover:text-[#154c79] hover:border-[#154c79] w-full font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
+              className="border-colorTheme border-1 text-colorTheme hover:text-colorTheme hover:border-colorTheme w-full font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
               Đăng nhập
             </Button>
           </Form.Item>
         </Form> 
       </Row>
     </Row>
-    </Spin>
   )
 }
 

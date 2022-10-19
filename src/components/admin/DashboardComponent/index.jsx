@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Space, Typography, Spin, Row, Table } from 'antd'
+import { Space, Typography, Row, Table } from 'antd'
 import OrdersComponent from './OrdersComponent'
 import ProductsComponent from './ProductsComponent'
 import { useQuery } from '@apollo/client'
 import { GET_USERS } from './graphql'
 
-const DashboardComponent = () => {
+const DashboardComponent = ({setLoading}) => {
   const { Title } = Typography
-  const [loading, setLoading] = useState(true)
   const [dataTable, setDataTable] = useState([])
   const { data } = useQuery(GET_USERS, {
     variables: {
@@ -69,8 +68,7 @@ const DashboardComponent = () => {
     }
   ]
   return (
-    <Spin spinning={loading} size="large">
-      <Space 
+    <Space 
        direction="vertical" 
        size="middle" 
        className="w-full h-full">
@@ -90,7 +88,6 @@ const DashboardComponent = () => {
             scroll={{ x: 'max-content' }} />
        </Space>
     </Space>
-    </Spin>
   )
 }
 

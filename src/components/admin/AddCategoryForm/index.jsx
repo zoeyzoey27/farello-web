@@ -11,13 +11,12 @@ import {
     PageHeader,
     Breadcrumb,
     message, 
-    Spin 
 } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import './style.css'
 import { schemaValidate } from '../../../validation/AddCategory'
 import { converSchemaToAntdRule } from '../../../validation'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { LeftOutlined } from '@ant-design/icons'
 import { MdDeleteOutline } from 'react-icons/md'
 import { FiSave } from 'react-icons/fi'
@@ -41,12 +40,8 @@ const uploadButton = (
     </Row>
 )
 
-const AddCategoryForm = () => {
-  const [loading, setLoading] = useState(false)
+const AddCategoryForm = ({action, id, setLoading}) => {
   const [form] = Form.useForm()
-  const [searchParams] = useSearchParams()
-  const action = searchParams.get('action')
-  const id = searchParams.get('id')
   const navigate = useNavigate()
   const { Title } = Typography
   const { TextArea } = Input
@@ -153,8 +148,7 @@ const AddCategoryForm = () => {
     }
   },[data, form])
   return (
-    <Spin spinning={loading} size="large">
-        <Space 
+    <Space 
           direction="vertical" 
           size="middle" 
           className="w-full h-full bg-white p-10">
@@ -242,7 +236,7 @@ const AddCategoryForm = () => {
                     <Button 
                         size="large" 
                         onClick={resetFields}
-                        className="flex items-center justify-center md:mr-5 w-full md:w-[100px] !bg-inherit !text-black hover:bg-inherit hover:text-black hover:border-inherit !border-inherit hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                        className="flex items-center justify-center md:mr-5 w-full md:w-[100px] !bg-white !text-colorTheme hover:bg-white hover:text-colorTheme hover:border-colorTheme !border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                         <MdDeleteOutline className="mr-3 text-[2rem]" />
                         Xóa
                     </Button>
@@ -251,7 +245,7 @@ const AddCategoryForm = () => {
                     <Button 
                         size="large" 
                         htmlType="submit"
-                        className="flex items-center justify-center w-full md:min-w-[100px] !border-[#154c79] !bg-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                        className="flex items-center justify-center w-full md:min-w-[100px] !border-colorTheme !bg-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                         <FiSave className="mr-3 text-[2rem]" />
                         {action === 'edit' ? 'Lưu thay đổi' : 'Lưu'}
                     </Button>
@@ -262,7 +256,6 @@ const AddCategoryForm = () => {
               <img src={previewImage} alt="" className="w-full h-full object-contain object-center"/>
         </Modal>
       </Space>
-    </Spin>
   )
 }
 

@@ -8,7 +8,6 @@ import {
   Form, 
   Input, 
   Pagination, 
-  Spin, 
   Breadcrumb, 
   Modal, 
   message,
@@ -32,7 +31,7 @@ import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 
-const ListPostCategory = () => {
+const ListPostCategory = ({setLoading}) => {
   const yupSync = converSchemaToAntdRule(schemaValidate)
   const { Title } = Typography
   const navigate = useNavigate()
@@ -40,7 +39,7 @@ const ListPostCategory = () => {
   const [createPostCategory] = useMutation(CREATE_POST_CATEGORY)
   const [updatePostCategory] = useMutation(UPDATE_POST_CATEGORY)
   const [deletePostCategory] = useMutation(DELETE_POST_CATEGORY)
-  const [loading, setLoading] = useState(false)
+  
   const [currentId, setCurrentId] = useState()
   const [isEdit, setIsEdit] = useState(false)
   const [dataTable, setDataTable] = useState([])
@@ -195,7 +194,7 @@ const ListPostCategory = () => {
       dataIndex: 'edit',
       render: (_, _record) => (
         <FiEdit 
-           className="text-[2rem] cursor-pointer hover:opacity-80 text-[#154c79]" 
+           className="text-[2rem] cursor-pointer hover:opacity-80 text-colorTheme" 
            onClick={() => {
               setCurrentId(_record.id)
               setIsEdit(true)
@@ -221,13 +220,12 @@ const ListPostCategory = () => {
     },
   ]
   return (
-    <Spin spinning={loading} size="large">
-      <Space 
+    <Space 
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
        <Title level={4} className="whitespace-pre-wrap">Danh mục bài viết</Title>
-       <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-[#f8f8f8]">
+       <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-bgGray">
           <Breadcrumb.Item 
             onClick={() => navigate('/admin/dashboard')}
             className="hover:text-black cursor-pointer">
@@ -241,7 +239,7 @@ const ListPostCategory = () => {
           <Button 
             size="large"
             onClick={showModal}
-            className="w-full md:w-[100px] !bg-[#154c79] !text-white !border-[#154c79] hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+            className="w-full md:w-[100px] !bg-colorTheme !text-white !border-colorTheme hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
             Thêm mới
           </Button>
         </Row>
@@ -291,7 +289,7 @@ const ListPostCategory = () => {
                   <Button 
                       size="large" 
                       htmlType="submit"
-                      className="mt-5 w-full md:min-w-[150px] !border-[#154c79] !bg-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                      className="mt-5 w-full md:min-w-[150px] !border-colorTheme !bg-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                       {isEdit ? 'Lưu thay đổi' : 'Lưu'}
                   </Button>
               </Form.Item>
@@ -299,7 +297,6 @@ const ListPostCategory = () => {
           </Form>
         </Modal>
     </Space>
-    </Spin>
   )
 }
 

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Space, Breadcrumb, List, Row, InputNumber, Button, Spin, Form, message  } from 'antd'
+import { Space, Breadcrumb, List, Row, InputNumber, Button, Form, message  } from 'antd'
 import { ShoppingOutlined } from '@ant-design/icons'
 import { MdOutlineDelete } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
@@ -8,10 +8,10 @@ import { DELETE_PRODUCT, GET_USER_CART, UPDATE_CART } from './graphql'
 import numberWithCommas from '../../../utils/NumberWithCommas'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant'
+import NoData from '../../common/NoData'
 
-const UserCart = () => {
+const UserCart = ({setLoading}) => {
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
   const [totalCart, setTotalCart] = useState(0)
   const [transferFee, setTransferFee] = useState(0)
   const id = localStorage.getItem("id_token")
@@ -65,8 +65,7 @@ const UserCart = () => {
      })
   }
   return (
-    <Spin spinning={loading} size="large">
-      <Space 
+    <Space 
       direction="vertical" 
       size="middle" 
       className="w-full h-full mb-10">
@@ -76,7 +75,8 @@ const UserCart = () => {
               Giỏ hàng
           </Breadcrumb.Item>
       </Breadcrumb> 
-      <Row className="flex flex-col lg:flex-row lg:justify-between">
+      { data?.getProductsAddedToCart?.length > 0 ? (
+        <Row className="flex flex-col lg:flex-row lg:justify-between">
         <List
           header={
             <Row className="text-[1.6rem] font-semibold flex items-center">
@@ -143,13 +143,15 @@ const UserCart = () => {
           <Button 
             size="large" 
             onClick={() => navigate(`/userOrderProduct?id=${id}`)}
-            className="mt-20 w-full border-b-0 border-x-0 text-white bg-[#154c79] text-[1.6rem] font-semibold hover:opacity-90 hover:bg-[#154c79] hover:text-white hover:border-[#154c79]">
+            className="mt-20 w-full border-b-0 border-x-0 text-white bg-colorTheme text-[1.6rem] font-semibold hover:opacity-90 hover:bg-colorTheme hover:text-white hover:border-colorTheme">
             Tiếp tục thanh toán
           </Button>
       </List>
       </Row>
+      ) : (
+        <NoData />
+      )}
     </Space>
-    </Spin>
   )
 }
 

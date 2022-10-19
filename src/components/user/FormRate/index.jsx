@@ -81,7 +81,7 @@ const FormRate = ({product}) => {
                     <Button 
                         size="large" 
                         htmlType="submit"
-                        className="w-full !border-[#154c79] !bg-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                        className="w-full !border-colorTheme !bg-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                         Gửi đánh giá
                     </Button>
                 </Form.Item>

@@ -6,12 +6,13 @@ import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
 import { ADMIN_LOGIN } from './graphql'
 
-const LoginForm = () => {
+const LoginForm = ({setLoading}) => {
   const { Title } = Typography
   const yupSync = converSchemaToAntdRule(schemaValidate)
   const navigate= useNavigate()
   const [login] = useMutation(ADMIN_LOGIN)
   const onFinish = (values) => {
+    setLoading(true)
     login({
       variables: {
         loginInput: {
@@ -20,20 +21,22 @@ const LoginForm = () => {
         }
       },
       onCompleted: (data) => {
+        setLoading(false)
         localStorage.setItem('token_admin', data?.loginAdmin?.token)
         localStorage.setItem('id_token_admin', data?.loginAdmin?.id)
         navigate('/admin/dashboard')
         message.success('Đăng nhập thành công!')
       },
       onError: (err) => {
+        setLoading(false)
         message.error(`${err.message}`)
       }
     })
   }
   return (
     <Space direction="vertical" size="middle" className="w-full h-full">
-       <Row className="!bg-[#154c79] h-[65px] flex items-center justify-center mb-10 ">
-          <Row className="logo text-[3.5rem] text-white">Farello</Row>
+       <Row className="bg-white h-[65px] flex items-center justify-center mb-10 ">
+          <Row className="logo text-[3.5rem]">Farello</Row>
        </Row>
        <Row className="w-full flex justify-center">
           <Row className="py-10 px-20 rounded bg-white w-full md:w-[60%] lg:w-[40%] xl:w-[35%] 2xl:w-[30%] flex flex-col shadow-lg">
@@ -71,7 +74,7 @@ const LoginForm = () => {
                 <Button 
                   htmlType="submit" 
                   size="large" 
-                  className="!bg-[#154c79] !text-white !border-[#154c79] hover:bg-[#154c79] hover:text-white hover:border-[#154c79] w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
+                  className="!bg-colorTheme !text-white !border-colorTheme hover:bg-colorTheme hover:text-white hover:border-colorTheme w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
                   Đăng nhập
                 </Button>
               </Form.Item>

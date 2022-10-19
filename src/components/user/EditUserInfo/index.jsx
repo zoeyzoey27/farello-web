@@ -255,7 +255,7 @@ const EditUserInfo = () => {
             <Button 
               htmlType="submit" 
               size="large" 
-              className="!bg-[#154c79] !text-white !border-[#154c79] hover:bg-[#154c79] hover:text-white hover:border-[#154c79] w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
+              className="!bg-colorTheme !text-white !border-colorTheme hover:bg-colorTheme hover:text-white hover:border-colorTheme w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
               Lưu thay đổi
             </Button>
           </Form.Item>
@@ -263,7 +263,7 @@ const EditUserInfo = () => {
             <Button 
               size="large" 
               onClick={() => form.resetFields()}
-              className="!border-[#154c79] border-1 !text-[#154c79] hover:text-[#154c79] hover:border-[#154c79] w-full font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
+              className="!border-colorTheme border-1 !text-colorTheme hover:text-colorTheme hover:border-colorTheme w-full font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
               Xóa thay đổi
             </Button>
           </Form.Item>

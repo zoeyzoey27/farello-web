@@ -10,12 +10,11 @@ import {
     Col,
     message,
     DatePicker, 
-    Spin,
     Breadcrumb
 } from 'antd'
 import { schemaValidate } from '../../../validation/AddAdmin'
 import { converSchemaToAntdRule } from '../../../validation'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { MdDeleteOutline } from 'react-icons/md'
 import { FiSave } from 'react-icons/fi'
 import axiosClient from '../../../api/axiosClient'
@@ -24,16 +23,12 @@ import { useMutation, useQuery } from '@apollo/client'
 import moment from 'moment'
 import { DATE_TIME_FORMAT, convertTimeToString } from '../../../constant'
 
-const AddAdminForm = () => {
+const AddAdminForm = ({setLoading, action, id}) => {
   const navigate = useNavigate()
   const [addAdmin] = useMutation(ADD_ADMIN)
   const [updateAdmin] = useMutation(UPDATE_ADMIN_INFO)
   const { Option } = Select
   const [form] = Form.useForm()
-  const [searchParams] = useSearchParams()
-  const action = searchParams.get('action')
-  const id = searchParams.get('id')
-  const [loading, setLoading] = useState(action === 'edit' ? true : false)
   const [provinceList, setProvinceList] = useState([])
   const [districtList, setDistrictList] = useState([])
   const [communeList, setCommuneList] = useState([])
@@ -165,8 +160,7 @@ const AddAdminForm = () => {
     }
   }, [data, form])
   return (
-    <Spin spinning={loading} size="large">
-      <Space 
+    <Space 
         direction="vertical" 
         size="middle" 
         className="w-full h-full bg-white p-10">
@@ -376,7 +370,7 @@ const AddAdminForm = () => {
                   <Button 
                       size="large" 
                       onClick={() => form.resetFields()}
-                      className="flex items-center justify-center md:mr-5 w-full md:w-[100px] bg-inherit text-black hover:bg-inherit hover:text-black hover:border-inherit border-inherit hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                      className="flex items-center justify-center md:mr-5 w-full md:w-[100px] !bg-white !text-colorTheme hover:bg-white hover:text-colorTheme hover:border-colorTheme !border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                       <MdDeleteOutline className="mr-3 text-[2rem]" />
                       Xóa
                   </Button>
@@ -385,7 +379,7 @@ const AddAdminForm = () => {
                   <Button 
                       size="large" 
                       htmlType="submit"
-                      className="flex items-center justify-center w-full md:min-w-[100px] bg-[#154c79] text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                      className="flex items-center justify-center w-full md:min-w-[100px] !bg-colorTheme border-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                       <FiSave className="mr-3 text-[2rem]" />
                       {action === 'edit' ? 'Lưu thay đổi' : 'Tạo tài khoản'}
                   </Button>
@@ -393,7 +387,6 @@ const AddAdminForm = () => {
             </Row>
         </Form>
     </Space>
-    </Spin>
   )
 }
 

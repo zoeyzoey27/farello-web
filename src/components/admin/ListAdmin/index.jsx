@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Space, Typography, Row, Button, Table, Col, Form, Input, Pagination, Spin, Breadcrumb } from 'antd'
+import { Space, Typography, Row, Table, Col, Form, Input, Pagination, Breadcrumb } from 'antd'
 import { columns } from './DataTable'
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { FiSearch} from 'react-icons/fi'
 import { useQuery } from '@apollo/client'
 import { GET_ADMIN_LIST } from './graphql'
 import { useNavigate } from 'react-router-dom'
+import FormButtonSearch from '../../common/FormButtonSearch'
 
-const ListAdmin = () => {
+const ListAdmin = ({setLoading}) => {
   const { Title } = Typography
   const navigate = useNavigate()
   const [form] = Form.useForm()
-  const [loading, setLoading] = useState(true)
   const [dataTable, setDataTable] = useState([])
   const [searchCondition, setSearchCondition] = useState({
     items: {},
@@ -88,8 +88,7 @@ const ListAdmin = () => {
      }
   },[data])
   return (
-    <Spin spinning={loading} size="large">
-      <Space 
+    <Space 
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
@@ -179,29 +178,12 @@ const ListAdmin = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              <Row className="flex flex-col md:flex-row md:justify-end">
-                 <Form.Item className="md:mb-0">
-                    <Button 
-                        size="large" 
-                        onClick={resetFields}
-                        className="md:mr-5 w-full md:w-[100px] !bg-inherit !text-black hover:bg-inherit hover:text-black hover:border-inherit !border-inherit hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                        Xóa
-                    </Button>
-                 </Form.Item>
-                 <Form.Item className="mb-0">
-                    <Button 
-                      size="large"
-                      htmlType="submit"
-                      className="w-full md:w-[100px] !bg-[#154c79] !border-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                      Tìm kiếm
-                    </Button>
-                 </Form.Item>
-              </Row>
+              <FormButtonSearch resetFields={resetFields} />
           </Form>
        </Row>
        <Row className="text-[1.6rem] mt-5 md:mt-0">
             Tổng số 
-            <Row className="font-semibold text-red-500 mx-2">{dataInit?.admins?.length}</Row> 
+            <Row className="font-semibold text-colorTheme mx-2">{dataInit?.admins?.length}</Row> 
             kết quả
         </Row>
        <Table 
@@ -222,7 +204,6 @@ const ListAdmin = () => {
           locale={{items_per_page: 'kết quả / trang'}}
           className="mt-10 w-full flex justify-center" />  
     </Space>
-    </Spin>
   )
 }
 

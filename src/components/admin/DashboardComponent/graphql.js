@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client"
 
 export const GET_ORDERS = gql`
-  query Orders($orderSearchInput: OrderSearchInput, $skip: Int, $take: Int, $orderBy: OrderSortInput) {
+  query Orders($orderSearchInput: OrderSearchInput, $skip: Int, $take: Int, $orderBy: OrderByInputByTime) {
     orders(orderSearchInput: $orderSearchInput, skip: $skip, take: $take, orderBy: $orderBy) {
       id
       orderId
@@ -32,7 +32,7 @@ export const GET_PRODUCTS = gql`
   }
 `
 export const GET_USERS = gql`
-  query Users($userInput: UserInput, $skip: Int, $take: Int, $orderBy: UserOrderByInput) {
+  query Users($userInput: UserInput, $skip: Int, $take: Int, $orderBy: OrderByInputByTime) {
     users(userInput: $userInput, skip: $skip, take: $take, orderBy: $orderBy) {
       id
       userId

@@ -8,21 +8,22 @@ import {
     Row, 
     Grid 
 } from 'antd'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FiEdit } from 'react-icons/fi'
 import { useQuery } from '@apollo/client'
 import { GET_ADMIN } from './graphql'
 
-const AdminInfo = () => {
+const AdminInfo = ({id, setLoading}) => {
   const navigate = useNavigate()
   const { Title } = Typography
   const { useBreakpoint } = Grid
   const screens = useBreakpoint()
-  const [searchParams] = useSearchParams()
-  const id = searchParams.get('id')
   const { data } = useQuery(GET_ADMIN, {
    variables: {
       adminId: id
+   },
+   onCompleted: () => {
+      setLoading(false)
    }
   })
   return (
@@ -48,7 +49,7 @@ const AdminInfo = () => {
             <Button 
                 size="large" 
                 onClick={() => navigate(`/admin/addAdmin?action=edit&id=${id}`)}
-                className="flex items-center justify-center text-[1.6rem] text-white bg-[#154c79] rounded hover:opacity-90 hover:border-[#154c79] hover:bg-[#154c79] hover:text-white hover:shadow-md">
+                className="flex items-center justify-center text-[1.6rem] text-white bg-colorTheme rounded hover:opacity-90 hover:border-colorTheme hover:bg-colorTheme hover:text-white hover:shadow-md">
                 <FiEdit className="mr-3 text-[2rem]" />
                  Chỉnh sửa
             </Button>
@@ -101,7 +102,7 @@ const AdminInfo = () => {
             <Button 
                size="large"
                onClick={() => navigate(`/admin/deleteAccount?id=${id}`)}
-               className="w-full md:w-fit bg-white text-black border-[#154c79] rounded hover:text-black hover:bg-white hover:border-[#154c79] hover:opacity-90 text-[1.6rem] hover:shadow-md">
+               className="w-full md:w-fit bg-white text-red-500 border-red-500 rounded hover:text-red-500 hover:bg-white hover:border-red-500 hover:opacity-90 text-[1.6rem] hover:shadow-md">
                Xóa tài khoản
             </Button>
         </Row>

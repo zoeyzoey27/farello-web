@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Space, Typography, Row, Button, Table, Pagination, Image, Form, Spin, Popconfirm, message, Breadcrumb } from 'antd'
-import { FolderAddOutlined } from '@ant-design/icons'
+import { Space, Typography, Row, Table, Pagination, Image, Form, Popconfirm, message, Breadcrumb } from 'antd'
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { useNavigate } from 'react-router-dom'
 import FormSearchProduct from './FormSearchProduct'
@@ -10,13 +9,13 @@ import { useMutation, useQuery } from '@apollo/client'
 import { DELETE_PRODUCT, GET_PRODUCTS } from './graphql'
 import numberWithCommas from '../../../utils/NumberWithCommas'
 import { QuestionCircleOutlined } from '@ant-design/icons'
+import BaseTitleHeader from '../../common/BaseTitleHeader'
 
-const ListProduct = () => {
+const ListProduct = ({setLoading}) => {
   const { Title } = Typography
   const navigate = useNavigate()
   const [form] = Form.useForm()
   const [deleteProduct] = useMutation(DELETE_PRODUCT)
-  const [loading, setLoading] = useState(true)
   const [dataTable, setDataTable] = useState([])
   const [searchCondition, setSearchCondition] = useState({
     items: {},
@@ -86,7 +85,7 @@ const ListProduct = () => {
       render: (_,_record) => (
         <FiEdit 
            onClick={() => navigate(`/admin/addProduct?action=edit&id=${_record.id}`)}
-           className="text-[2rem] cursor-pointer hover:opacity-80 text-[#154c79]"  />
+           className="text-[2rem] cursor-pointer hover:opacity-80 text-colorTheme"  />
       ),
       width: '50px',
     },
@@ -126,6 +125,9 @@ const ListProduct = () => {
       orderBy: {
         createdAt: "desc"
       }
+    },
+    onCompleted: () => {
+      setLoading(false)
     }
   })
   const resetFields = () => {
@@ -176,7 +178,6 @@ const ListProduct = () => {
           }
       })
       setDataTable(items)
-      setLoading(false)
     }
   },[data])
   const confirm = async (id) => {
@@ -223,8 +224,7 @@ const ListProduct = () => {
     })
   }
   return (
-    <Spin spinning={loading} size="large">
-       <Space 
+    <Space 
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
@@ -240,21 +240,7 @@ const ListProduct = () => {
           </Breadcrumb.Item>
         </Breadcrumb>
        <FormSearchProduct form={form} resetFields={resetFields} onSubmit={onSubmit} />
-       <Row className="flex flex-col-reverse md:flex-row md:justify-between my-5">
-          <Row className="text-[1.6rem] mt-5 md:mt-0">
-            Tổng số 
-            <Row className="font-semibold text-red-500 mx-2">{dataInit?.products?.length}</Row> 
-            kết quả
-          </Row>
-          <Button   
-            size="large" 
-            htmlType="submit" 
-            onClick={() => navigate('/admin/addProduct')}
-            className="w-fit bg-white text-black border-[#154c79] rounded hover:text-black hover:bg-white hover:border-[#154c79] hover:opacity-90 text-[1.6rem] hover:shadow-md flex items-center">
-            <FolderAddOutlined className="mr-1 text-[2rem] text-[#154c79]" />
-            Thêm mới sản phẩm
-          </Button>
-       </Row>
+       <BaseTitleHeader totalCount={dataInit?.products?.length} handleClick={() => navigate('/admin/addProduct')} buttonLabel="Thêm mới sản phẩm" />
        <Table 
           columns={columns} 
           dataSource={dataTable} 
@@ -272,7 +258,6 @@ const ListProduct = () => {
           locale={{items_per_page: 'kết quả / trang'}}
           className="mt-10 w-full flex justify-center" />
     </Space>
-    </Spin>
   )
 }
 

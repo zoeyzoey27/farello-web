@@ -124,7 +124,7 @@ const ProductsComponent = ({setLoading}) => {
         </Row>
         <Row gutter={16}>
             <Col xs={24} md={12} xl={6}>
-                <Card className="rounded border-2 mb-5 xl:mb-0">
+                <Card className="rounded border-2 mb-5 xl:mb-0 border-l-4 border-l-colorTheme">
                     <Statistic
                         title="Tất cả sản phẩm"
                         value={data?.products?.length}
@@ -134,7 +134,7 @@ const ProductsComponent = ({setLoading}) => {
                 </Card>
             </Col>
             <Col xs={24} md={12} xl={6}>
-                <Card className="rounded border-2 mb-5 xl:mb-0">
+                <Card className="rounded border-2 mb-5 xl:mb-0 border-l-4 border-l-[#3f8600]">
                     <Statistic
                         title="Đang bán"
                         value={countFuncByStatus("STOCKING")}
@@ -144,7 +144,7 @@ const ProductsComponent = ({setLoading}) => {
                 </Card>
             </Col>
             <Col xs={24} md={12} xl={6}>
-                <Card className="rounded border-2 mb-5 md:mb-0">
+                <Card className="rounded border-2 mb-5 md:mb-0 border-l-4 border-l-[#cf1322]">
                     <Statistic
                         title="Sắp hết hàng"
                         value={countFuncByQuantity()}
@@ -154,7 +154,7 @@ const ProductsComponent = ({setLoading}) => {
                 </Card>
             </Col>
             <Col xs={24} md={12} xl={6}>
-                <Card className="border-2 rounded">
+                <Card className="border-2 rounded border-l-4 border-l-[#cf1322]">
                     <Statistic
                         title="Hết hàng"
                         value={countFuncByStatus("OUT_OF_STOCK")}

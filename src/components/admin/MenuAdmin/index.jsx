@@ -34,7 +34,7 @@ const MenuAdmin = () => {
                     <AiOutlineProfile className="mr-3 text-[2rem]" />
                     Danh mục sản phẩm
                 </Row>
-            }>
+            } key="sub1">
                 <Menu.Item 
                    key="/admin/categoryManagement" 
                    className="text-[1.6rem]"
@@ -53,7 +53,7 @@ const MenuAdmin = () => {
                     <AiOutlineShoppingCart className="mr-3 text-[2rem]" />
                     Quản lý sản phẩm
                 </Row>
-            }>
+            } key="sub2">
                 <Menu.Item 
                    key="/admin/productManagement" 
                    className="text-[1.6rem]"
@@ -78,7 +78,7 @@ const MenuAdmin = () => {
                     <ImNewspaper className="mr-3 text-[2rem]" />
                     Quản lý bài viết
                 </Row>
-            }>
+            } key="sub3">
                 <Menu.Item 
                    key="/admin/postManagement" 
                    className="text-[1.6rem]"
@@ -103,7 +103,7 @@ const MenuAdmin = () => {
                     <MdOutlineAdminPanelSettings className="mr-3 text-[2rem]" />
                     Quản lý Admin
                 </Row>
-            }>
+            } key="sub4">
                 <Menu.Item 
                    key="/admin/adminList" 
                    className="text-[1.6rem]"

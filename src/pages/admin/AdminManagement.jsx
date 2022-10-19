@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Grid, Drawer, BackTop, Row } from 'antd'
+import { Layout, Grid, Drawer, BackTop, Row, Spin } from 'antd'
 import Topbar from '../../components/admin/Topbar'
 import MenuAdmin from '../../components/admin/MenuAdmin'
 import ListAdmin from '../../components/admin/ListAdmin'
@@ -10,6 +10,7 @@ const AdminManagement = () => {
   const { Sider } = Layout
   const screens = useBreakpoint()
   const [ visible, setVisible ] = useState(false)
+  const [loading, setLoading] = useState(true)
   const onOpen = () => {
     setVisible(true)
   }
@@ -17,7 +18,8 @@ const AdminManagement = () => {
     setVisible(false)
   }
   return (
-    <Layout className="max-w-screen min-h-screen">
+    <Spin spinning={loading} size="large">
+      <Layout className="max-w-screen min-h-screen">
       <Topbar onClick={onOpen} />
       <Layout className="w-hull h-full">
       {screens.lg && (
@@ -38,15 +40,16 @@ const AdminManagement = () => {
         </Drawer>
       )}
       <Layout className="m-10">
-        <ListAdmin />
+        <ListAdmin setLoading={setLoading} />
       </Layout>
       </Layout>
       <BackTop>
-          <Row className="w-[40px] h-[40px] rounded-full border-2 border-[#154c79] text-[#154c79] flex justify-center items-center hover:bg-[#154c79] hover:text-white hover:shadow-lg">
+          <Row className="w-[40px] h-[40px] rounded-full border-2 border-colorTheme text-colorTheme flex justify-center items-center hover:bg-colorTheme hover:text-white hover:shadow-lg">
              <AiOutlineToTop className="text-[2rem] font-semibold" />
           </Row>
        </BackTop>
     </Layout>
+    </Spin>
   )
 }
 

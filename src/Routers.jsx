@@ -37,13 +37,18 @@ import AddPost from './pages/admin/AddPost'
 import PostDetail from './pages/admin/PostDetail'
 import Posts from './pages/user/Posts'
 import PostDetailUser from './pages/user/PostDetail'
+import ForgotPassword from './pages/user/ForgotPassword'
+import ResetPassword from './pages/user/ResetPassword'
+import Contact from './pages/user/Contact'
+import InquiryManagement from './pages/admin/InquiryManagement'
 
 const Routers = () => {
   const token_admin =  localStorage.getItem("token_admin")
+  const token =  localStorage.getItem("token")
   return (
       <BrowserRouter>
           <Routes>
-              <Route path="/admin/login" element = {<AdminLogin />} />
+              <Route path="/admin/login" element = {!token_admin ? <AdminLogin /> : <Navigate to="/admin/dashboard" />} />
               <Route path="/admin/dashboard" element = {token_admin ? <Dashboard /> : <Navigate to="/admin/login" />} />
               <Route path="/admin/categoryManagement" element = {token_admin ? <CategoryManagement /> : <Navigate to="/admin/login" />} />
               <Route path="/admin/addCategory" element = {token_admin ? <AddCategory /> : <Navigate to="/admin/login" />} />
@@ -62,22 +67,26 @@ const Routers = () => {
               <Route path="/admin/postCategory" element = {token_admin ? <PostCategory /> : <Navigate to="/admin/login" />} />
               <Route path="/admin/addPost" element = {token_admin ? <AddPost /> : <Navigate to="/admin/login" />} />
               <Route path="/admin/postDetail" element = {token_admin ? <PostDetail /> : <Navigate to="/admin/login" />} />
+              <Route path="/admin/inquiryManagement" element = {token_admin ? <InquiryManagement /> : <Navigate to="/admin/login" />} />
               <Route path="/product" element = {<ProductDetailPage/>} />
-              <Route path="/cart" element = {<Cart/>} />
+              <Route path="/cart" element = {token ? <Cart/> : <Navigate to="/login" />} />
               <Route path="/products" element = {<Product/>} />
               <Route path="/listProduct" element = {<SearchProductsResult/>} />
-              <Route path="/login" element = {<Login/>} />
-              <Route path="/signup" element = {<Register/>} />
-              <Route path="/userInfo" element = {<UserInfo/>} />
-              <Route path="/userDeleteAccount" element = {<UserDeleteAccount />} />
-              <Route path="/userDeleteAccountCompleted" element = {<UserDeleteAccountCompleted />} />
-              <Route path="/listOrderUser" element = {<ListOrderUser/>} />
-              <Route path="/orderDetail" element = {<UserOrderDetail/>} />
-              <Route path="/userOrderProduct" element = {<UserOrderPage/>} />
-              <Route path="/paymentCompleted" element = {<UserPaymentCompleted/>} />
+              <Route path="/login" element = {!token ? <Login/> : <Navigate to="/" />} />
+              <Route path="/signup" element = {!token ? <Register/> : <Navigate to="/" />} />
+              <Route path="/userInfo" element = {token ? <UserInfo/> : <Navigate to="/login" />} />
+              <Route path="/userDeleteAccount" element = {token ? <UserDeleteAccount /> : <Navigate to="/login" />} />
+              <Route path="/userDeleteAccountCompleted" element = {token ? <UserDeleteAccountCompleted /> : <Navigate to="/login" />} />
+              <Route path="/listOrderUser" element = {token ? <ListOrderUser/> : <Navigate to="/login" />} />
+              <Route path="/orderDetail" element = {token ? <UserOrderDetail/> : <Navigate to="/login" />} />
+              <Route path="/userOrderProduct" element = {token ? <UserOrderPage/> : <Navigate to="/login" />} />
+              <Route path="/paymentCompleted" element = {token ? <UserPaymentCompleted/> : <Navigate to="/login" />} />
               <Route path="/aboutus" element = {<AboutUsPage/>} />
               <Route path="/posts" element = {<Posts/>} />
               <Route path="/postDetail" element = {<PostDetailUser/>} />
+              <Route path="/forgotPassword" element = {!token ? <ForgotPassword/> : <Navigate to="/" />} />
+              <Route path="/resetPassword" element = {!token ? <ResetPassword/> : <Navigate to="/login" />} />
+              <Route path="/contact" element = {<Contact/>} />
               <Route path="/" element = {<Home/>} />
               <Route path="*" element = {<NotFound/>} />
           </Routes>

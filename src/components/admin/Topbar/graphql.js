@@ -8,3 +8,11 @@ export const GET_ADMIN = gql`
     }
   }
 `;
+export const GET_INQUIRIES = gql`
+  query GetInquiries($inquirySearchInput: InquirySearchInput, $skip: Int, $take: Int, $orderBy: InquirySortInput) {
+    getInquiries(inquirySearchInput: $inquirySearchInput, skip: $skip, take: $take, orderBy: $orderBy) {
+      id
+      isRead
+    }
+  }
+`;

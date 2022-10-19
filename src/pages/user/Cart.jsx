@@ -1,5 +1,5 @@
-import React from 'react'
-import { Layout, BackTop, Row } from 'antd'
+import React, { useState } from 'react'
+import { Layout, BackTop, Row, Spin } from 'antd'
 import Topbar from '../../components/user/Topbar'
 import Footer from '../../components/user/Footer'
 import { AiOutlineToTop } from 'react-icons/ai'
@@ -8,11 +8,13 @@ import UserCart from '../../components/user/UserCart'
 const { Content } = Layout;
 
 const Cart = () => {
+  const [loading, setLoading] = useState(true)
   return (
-    <Layout className="layout max-w-screen min-h-screen overflow-x-hidden">
+    <Spin spinning={loading} size="large">
+      <Layout className="layout max-w-screen min-h-screen overflow-x-hidden">
        <Topbar />
        <Content className="px-[20px] md:px-[35px] lg:px-[50px] bg-white">
-          <UserCart />
+          <UserCart setLoading={setLoading} />
        </Content>
        <Footer />
        <BackTop>
@@ -21,6 +23,7 @@ const Cart = () => {
           </Row>
        </BackTop>
     </Layout>
+    </Spin>
   )
 }
 

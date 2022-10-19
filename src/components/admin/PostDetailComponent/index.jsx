@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Space, Typography, Row, Button, Spin, Breadcrumb, Col, message, Modal } from 'antd'
+import React from 'react'
+import { Space, Typography, Row, Button, Breadcrumb, Col, message, Modal } from 'antd'
 import { useMutation, useQuery } from '@apollo/client'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { DELETE_POST, GET_POST_DETAIL } from './graphql'
@@ -9,13 +9,12 @@ import parse from 'html-react-parser'
 import './style.css'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 
-const PostDetailComponent = () => {
+const PostDetailComponent = ({setLoading}) => {
   const { Title } = Typography
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const id = searchParams.get('id')
   const [deletePost] = useMutation(DELETE_POST)
-  const [loading, setLoading] = useState(true)
 
   const confirmModal = () => {
     Modal.confirm({
@@ -53,13 +52,12 @@ const PostDetailComponent = () => {
     })
   }
   return (
-    <Spin spinning={loading} size="large">
-      <Space 
+    <Space 
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
        <Title level={4} className="whitespace-pre-wrap">Chi tiết bài viết</Title>
-       <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-[#f8f8f8]">
+       <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-bgGray">
           <Breadcrumb.Item 
             onClick={() => navigate('/admin/dashboard')}
             className="hover:text-black cursor-pointer">
@@ -85,7 +83,7 @@ const PostDetailComponent = () => {
             <Button 
                 size="large" 
                 onClick={() => navigate(`/admin/addPost?action=edit&id=${data?.post?.id}`)}
-                className="mt-5 md:mt-0 flex items-center justify-center w-full md:w-[200px] !bg-[#154c79] !border-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                className="mt-5 md:mt-0 flex items-center justify-center w-full md:w-[200px] !bg-colorTheme !border-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                 <BiEditAlt className="mr-3 text-[2rem]" />
                 Chỉnh sửa bài viết
             </Button>
@@ -95,7 +93,6 @@ const PostDetailComponent = () => {
              <Row className="text-[1.5rem] italic text-[#AFAAAA]">{`Danh mục bài viết: ${data?.post?.category?.title}`}</Row>
              <Col className="content mt-10 whitespace-pre-wrap text-[1.6rem]">
                 <img src={data?.post?.imageKey} alt="" className="mb-10 mx-auto" />
-                {/* <div dangerouslySetInnerHTML={{__html: data?.post?.content && data?.post?.content}} /> */}
                 {data?.post?.content && parse(data?.post?.content)}
              </Col>
         </Row>
@@ -104,7 +101,6 @@ const PostDetailComponent = () => {
            <Row className="italic font-semibold self-end">{`Người đăng bài: ${data?.post?.createdBy?.fullName}`}</Row>
         </Row>
     </Space>
-    </Spin>
   )
 }
 

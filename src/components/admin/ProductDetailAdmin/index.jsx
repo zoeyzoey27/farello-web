@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Space, Typography, Row, Button, Breadcrumb, Descriptions, PageHeader, Grid, Spin  } from 'antd'
+import { Space, Typography, Row, Button, Breadcrumb, Descriptions, PageHeader, Grid  } from 'antd'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import ProductImageSlider from './ProductImageSlider'
 import { FiEdit } from 'react-icons/fi'
@@ -8,14 +8,13 @@ import { useQuery } from '@apollo/client'
 import { GET_PRODUCT } from './graphql'
 import numberWithCommas from '../../../utils/NumberWithCommas'
 
-const ProductDetailAdmin = () => {
+const ProductDetailAdmin = ({setLoading}) => {
   const [searchParams] = useSearchParams()
   const id = searchParams.get('id')
   const { Title } = Typography
   const { useBreakpoint } = Grid
   const screens = useBreakpoint()
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
   const [images, setImages] = useState([])
   const { data } = useQuery(GET_PRODUCT, {
     variables: {
@@ -27,8 +26,7 @@ const ProductDetailAdmin = () => {
     }
   })
   return (
-    <Spin spinning={loading} size="large">
-        <Space 
+    <Space 
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
@@ -62,7 +60,7 @@ const ProductDetailAdmin = () => {
                    <Row className="!text-[2rem]">Thông tin sản phẩm</Row>
                    <Button 
                         size="large"
-                        className="mt-5 md:mt-0 flex items-center justify-center self-start text-[1.6rem] text-white bg-[#154c79] rounded hover:opacity-90 hover:border-[#154c79] hover:bg-[#154c79] hover:text-white">
+                        className="mt-5 md:mt-0 flex items-center justify-center self-start text-[1.6rem] text-white bg-colorTheme rounded hover:opacity-90 hover:border-colorTheme hover:bg-colorTheme hover:text-white">
                         <FiEdit className="text-[2rem] mr-3"/>
                         Chỉnh sửa
                 </Button>
@@ -108,7 +106,6 @@ const ProductDetailAdmin = () => {
             </Row>
         </Row>
     </Space>
-    </Spin>
   )
 }
 

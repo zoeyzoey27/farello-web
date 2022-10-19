@@ -3,13 +3,11 @@ import {
   Space, 
   Typography, 
   Row, 
-  Button, 
   Table, 
   Col, 
   Form, 
   Input, 
-  Pagination, 
-  Spin, 
+  Pagination,
   Breadcrumb,
   Select 
 } from 'antd'
@@ -18,13 +16,13 @@ import { FiSearch} from 'react-icons/fi'
 import { useQuery } from '@apollo/client'
 import { useNavigate } from 'react-router-dom'
 import { GET_CATEGORY_POST, GET_POSTS } from './graphql'
+import FormButtonSearch from '../../common/FormButtonSearch'
 
-const PostManagementComponent = () => {
+const PostManagementComponent = ({setLoading}) => {
   const { Title } = Typography
   const { Option } = Select
   const [form] = Form.useForm()
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
   const [dataTable, setDataTable] = useState([])
   const [searchCondition, setSearchCondition] = useState({
     items: {},
@@ -143,8 +141,7 @@ const PostManagementComponent = () => {
     },
   ]
   return (
-    <Spin spinning={loading} size="large">
-      <Space 
+    <Space 
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
@@ -207,29 +204,12 @@ const PostManagementComponent = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              <Row className="flex flex-col md:flex-row md:justify-end">
-                 <Form.Item className="md:mb-0">
-                    <Button 
-                        size="large" 
-                        onClick={resetFields}
-                        className="md:mr-5 w-full md:w-[100px] !bg-inherit !text-black hover:bg-inherit hover:text-black hover:border-inherit !border-inherit hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                        Xóa
-                    </Button>
-                 </Form.Item>
-                 <Form.Item className="mb-0">
-                    <Button 
-                      size="large"
-                      htmlType="submit"
-                      className="w-full md:w-[100px] !bg-[#154c79] !text-white !border-[#154c79] hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                      Tìm kiếm
-                    </Button>
-                 </Form.Item>
-              </Row>
+              <FormButtonSearch resetFields={resetFields} />
           </Form>
        </Row>
        <Row className="text-[1.6rem] mt-5 md:mt-0">
             Tổng số 
-            <Row className="font-semibold text-red-500 mx-2">{dataInit?.posts?.length}</Row> 
+            <Row className="font-semibold text-colorTheme mx-2">{dataInit?.posts?.length}</Row> 
             kết quả
         </Row>
        <Table 
@@ -250,7 +230,6 @@ const PostManagementComponent = () => {
           locale={{items_per_page: 'kết quả / trang'}}
           className="mt-10 w-full flex justify-center" />
     </Space>
-    </Spin>
   )
 }
 

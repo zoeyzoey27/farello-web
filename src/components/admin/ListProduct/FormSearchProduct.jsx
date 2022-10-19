@@ -1,10 +1,11 @@
 import React from 'react'
-import { Row, Button, Col, Form, Input, Select } from 'antd'
+import { Row, Col, Form, Input, Select } from 'antd'
 import { FiSearch } from 'react-icons/fi'
 import { GET_CATEGORIES } from './graphql'
 import { useQuery } from '@apollo/client'
 import { schemaValidate } from '../../../validation/FormSearchProduct'
 import { converSchemaToAntdRule } from '../../../validation'
+import FormButtonSearch from '../../common/FormButtonSearch'
 
 const FormSearchProduct = ({form, resetFields, onSubmit}) => {
   const { Option } = Select
@@ -130,24 +131,7 @@ const FormSearchProduct = ({form, resetFields, onSubmit}) => {
                 </Form.Item>
             </Col>
             </Row>
-            <Row className="flex flex-col md:flex-row md:justify-end">
-                 <Form.Item className="md:mb-0">
-                    <Button 
-                        size="large" 
-                        onClick={resetFields}
-                        className="md:mr-5 w-full md:w-[100px] !bg-inherit !text-black hover:bg-inherit hover:text-black hover:border-inherit !border-inherit hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                        Xóa
-                    </Button>
-                 </Form.Item>
-                 <Form.Item className="mb-0">
-                    <Button 
-                      size="large"
-                      htmlType="submit"
-                      className="w-full md:w-[100px] !bg-[#154c79] !border-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                      Tìm kiếm
-                    </Button>
-                 </Form.Item>
-              </Row>
+            <FormButtonSearch resetFields={resetFields} />
         </Form>
     </Row>
   )

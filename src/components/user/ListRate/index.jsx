@@ -15,56 +15,71 @@ const ListRate = ({product, setLoading}) => {
   const [ratePoint, setRatePoint] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const showModal = () => {
-    setIsModalOpen(true);
+    if (userId) {
+        setIsModalOpen(true)
+    }
+    else {
+        message.info('Bạn chưa đăng nhập!')
+    }
   };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
   const like = ({id, likes, dislikes, userLiked, userDisLiked}) => {
-    setLoading(true)
-    updateComment({
-        variables: {
-            updateCommentId: id,
-            commentUpdateInput: {
-                likes: likes + 1,
-                dislikes: userDisLiked.find(item => item === userId) ? dislikes - 1 : dislikes,
-                userLiked: [...userLiked, userId],
-                userDisLiked: userDisLiked.find(item => item === userId) 
-                              ? userDisLiked.filter(item => item !== userId) 
-                              : userDisLiked,
-                updatedAt: moment().format(DATE_TIME_FORMAT),
+    if (userId) {
+        setLoading(true)
+        updateComment({
+            variables: {
+                updateCommentId: id,
+                commentUpdateInput: {
+                    likes: likes + 1,
+                    dislikes: userDisLiked.find(item => item === userId) ? dislikes - 1 : dislikes,
+                    userLiked: [...userLiked, userId],
+                    userDisLiked: userDisLiked.find(item => item === userId) 
+                                ? userDisLiked.filter(item => item !== userId) 
+                                : userDisLiked,
+                    updatedAt: moment().format(DATE_TIME_FORMAT),
+                }
+            },
+            onCompleted: () => {
+                setLoading(false)
+            },
+            onError: (err) => {
+                setLoading(false)
+                message.err(`${err.message}`)
             }
-        },
-        onCompleted: () => {
-            setLoading(false)
-        },
-        onError: (err) => {
-            setLoading(false)
-            message.err(`${err.message}`)
-        }
-    })
+        })
+    }
+    else {
+        message.info('Bạn chưa đăng nhập!')
+    }
   };
   const dislike = ({id, likes, dislikes, userLiked, userDisLiked}) => {
-    setLoading(true)
-    updateComment({
-        variables: {
-            updateCommentId: id,
-            commentUpdateInput: {
-                likes: userLiked.find(item => item === userId) ? likes - 1 : likes,
-                dislikes: dislikes + 1,
-                userLiked: userLiked.find(item => item === userId)  ? userLiked.filter(item => item !== userId) : userLiked,
-                userDisLiked: [...userDisLiked, userId],
-                updatedAt: moment().format(DATE_TIME_FORMAT),
+    if (userId) {
+        setLoading(true)
+        updateComment({
+            variables: {
+                updateCommentId: id,
+                commentUpdateInput: {
+                    likes: userLiked.find(item => item === userId) ? likes - 1 : likes,
+                    dislikes: dislikes + 1,
+                    userLiked: userLiked.find(item => item === userId)  ? userLiked.filter(item => item !== userId) : userLiked,
+                    userDisLiked: [...userDisLiked, userId],
+                    updatedAt: moment().format(DATE_TIME_FORMAT),
+                }
+            },
+            onCompleted: () => {
+                setLoading(false)
+            },
+            onError: (err) => {
+                setLoading(false)
+                message.err(`${err.message}`)
             }
-        },
-        onCompleted: () => {
-            setLoading(false)
-        },
-        onError: (err) => {
-            setLoading(false)
-            message.err(`${err.message}`)
-        }
-    })
+        })
+    }
+    else {
+        message.info('Bạn chưa đăng nhập!')
+    }
   };
   useEffect(() => {
      if (product?.comments?.length > 0){
@@ -101,7 +116,10 @@ const ListRate = ({product, setLoading}) => {
                     </Tooltip>,
                 ],
                 author: (<Row className="text-[1.6rem]">{item.createdBy.fullName}</Row>),
-                avatar: (<Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} size={45}>{item.createdBy.fullName[0]}</Avatar>),
+                avatar: (
+                  <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} size={45}>
+                    {item.createdBy.fullName && item.createdBy.fullName.slice(0,2).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D")}
+                  </Avatar>),
                 content: (
                 <>
                     <Rate value={item.ratePoint} allowHalf disabled />
@@ -127,12 +145,12 @@ const ListRate = ({product, setLoading}) => {
                 <Row className="!my-[50px] px-10 py-6 bg-[#f8f8f8] rounded flex items-center justify-between">
                     <Row className="flex flex-col">
                         <Rate disabled allowHalf value={ratePoint} />
-                        <Row className="text-[1.6rem] text-[#154c79] mt-3">{`${ratePoint} trên 5`}</Row>
+                        <Row className="text-[1.6rem] text-colorTheme mt-3">{`${ratePoint} trên 5`}</Row>
                     </Row>
                     <Button 
                         size="large"
                         onClick={showModal}
-                        className="flex items-center !bg-[#154c79] !border-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                        className="flex items-center !bg-colorTheme !border-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                         <BsPencil className="mr-3 text-[1.8rem]" />
                         Viết đánh giá
                     </Button>
@@ -172,7 +190,7 @@ const ListRate = ({product, setLoading}) => {
                     <Button 
                         size="large"
                         onClick={showModal}
-                        className="flex items-center !bg-[#154c79] !border-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                        className="flex items-center !bg-colorTheme !border-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                         <BsPencil className="mr-3 text-[1.8rem]" />
                         Viết đánh giá
                     </Button>

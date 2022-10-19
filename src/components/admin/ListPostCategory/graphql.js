@@ -16,7 +16,7 @@ export const CREATE_POST_CATEGORY = gql`
   }
 `
 export const GET_POST_CATEGORY = gql`
-  query PostCategories($skip: Int, $take: Int, $orderBy: PostCategorySortInput) {
+  query PostCategories($skip: Int, $take: Int, $orderBy: OrderByInputByTime) {
     postCategories(skip: $skip, take: $take, orderBy: $orderBy) {
       id
       categoryId

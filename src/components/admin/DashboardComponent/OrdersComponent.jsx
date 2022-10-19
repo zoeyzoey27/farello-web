@@ -42,7 +42,7 @@ const OrdersComponent = ({setLoading}) => {
         </Row>
         <Row gutter={16}>
             <Col xs={24} md={12} xl={6}>
-                <Card className="rounded border-2 mb-5 xl:mb-0 w-full">
+                <Card className="rounded border-2 mb-5 xl:mb-0 w-full border-l-4 border-l-colorTheme">
                     <Statistic
                         title="Đơn hàng"
                         value={data?.orders?.length}
@@ -52,7 +52,7 @@ const OrdersComponent = ({setLoading}) => {
                 </Card>
             </Col>
             <Col xs={24} md={12} xl={6}>
-                <Card className="rounded border-2 mb-5 xl:mb-0">
+                <Card className="rounded border-2 mb-5 xl:mb-0 border-l-4 border-l-colorTheme">
                     <Statistic
                         title="Chờ xác nhận"
                         value={countFunc("WAITING_FOR_CONFIRMATION")}
@@ -62,7 +62,7 @@ const OrdersComponent = ({setLoading}) => {
                 </Card>
             </Col>
             <Col xs={24} md={12} xl={6}>
-                <Card className="rounded border-2 mb-5 md:mb-0">
+                <Card className="rounded border-2 mb-5 md:mb-0 border-l-4 border-l-[#3f8600]">
                     <Statistic
                         title="Giao hàng thành công"
                         value={countFunc("SUCCESSFUL_DELIVERY")}
@@ -72,7 +72,7 @@ const OrdersComponent = ({setLoading}) => {
                 </Card>
             </Col>
             <Col xs={24} md={12} xl={6}>
-                <Card className="rounded border-2 mb-5">
+                <Card className="rounded border-2 mb-5 border-l-4 border-l-[#cf1322]">
                     <Statistic
                         title="Đơn hủy"
                         value={countFunc("CANCEL")}

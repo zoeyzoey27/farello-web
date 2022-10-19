@@ -37,7 +37,7 @@ const UserInformation = ({userInfo}) => {
             <Button 
                 size="large" 
                 onClick={() => setModalOpen(true)}
-                className="flex items-center justify-center text-[1.6rem] !text-white !bg-[#154c79] !border-[#154c79] rounded hover:opacity-90 hover:border-[#154c79] hover:bg-[#154c79] hover:text-white hover:shadow-md">
+                className="flex items-center justify-center text-[1.6rem] !text-white !bg-colorTheme !border-colorTheme rounded hover:opacity-90 hover:border-colorTheme hover:bg-colorTheme hover:text-white hover:shadow-md">
                 <FiEdit className="mr-3 text-[2rem]" />
                  Chỉnh sửa
             </Button>
@@ -101,7 +101,7 @@ const UserInformation = ({userInfo}) => {
             <Button 
                size="large"
                onClick={() => navigate(`/userDeleteAccount?id=${userInfo?.id}`)}
-               className="w-full md:w-fit bg-white text-black border-[#154c79] rounded hover:text-black hover:bg-white hover:border-[#154c79] hover:opacity-90 text-[1.6rem] hover:shadow-md">
+               className="w-full md:w-fit bg-white text-black border-colorTheme rounded hover:text-black hover:bg-white hover:border-colorTheme hover:opacity-90 text-[1.6rem] hover:shadow-md">
                Xóa tài khoản
             </Button>
         </Row>

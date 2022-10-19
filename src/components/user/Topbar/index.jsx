@@ -126,6 +126,14 @@ const Topbar = () => {
         }
       ],
     },
+    {
+      label: (
+        <Link to="/contact" className="link mx-3 text-[1.6rem] font-medium">
+          Liên hệ
+        </Link>
+      ),
+      key: '/contact',
+    },
   ];
   return (
     <Header className="flex items-center justify-between bg-white px-[20px] md:px-[35px] lg:px-[50px]">
@@ -133,10 +141,10 @@ const Topbar = () => {
         <Link to ="/" className="h-full flex items-center md:mr-10 hover:text-black">
           <Row className="text-[2.8rem] md:text-[3.5rem] logo hover:text-black">Farello</Row>
         </Link>
-        {screens.lg && (
+        {screens.xl && (
           <Menu mode="horizontal" items={itmainNavems} />
         )}
-        {!screens.lg && (
+        {!screens.xl && (
           <Drawer
             title="Menu"
             placement="right"
@@ -164,11 +172,10 @@ const Topbar = () => {
           overflowCount={99} 
           offset={[6, 0]}
           className="text-black"
-          style={{ backgroundColor: '#F3F3F7', color: '#000' }}
-        >
+          style={{ backgroundColor: '#F3F3F7', color: '#000' }}>
           <ShoppingOutlined className="text-[1.8rem] cursor-pointer" onClick={() => navigate('/cart')}  />
         </Badge>
-        <AiOutlineMenuFold className="text-[2.5rem] ml-5 md:ml-10 cursor-pointer block lg:hidden" onClick={onOpen} />
+        <AiOutlineMenuFold className="text-[2.5rem] ml-5 md:ml-10 cursor-pointer block xl:hidden" onClick={onOpen} />
       </Row>
     </Header>
   )

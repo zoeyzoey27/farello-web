@@ -3,7 +3,6 @@ import {
   Space, 
   Typography, 
   Row, 
-  Button, 
   Table, 
   Col, 
   Form, 
@@ -12,10 +11,8 @@ import {
   Image,
   Popconfirm,
   message,
-  Spin,
   Breadcrumb
 } from 'antd'
-import { FolderAddOutlined } from '@ant-design/icons'
 import './style.css'
 import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { useNavigate } from 'react-router-dom'
@@ -24,13 +21,14 @@ import { MdDeleteOutline } from 'react-icons/md'
 import { useMutation, useQuery } from '@apollo/client'
 import { DELETE_CATEGORY, GET_CATEGORIES } from './graphql'
 import { QuestionCircleOutlined } from '@ant-design/icons'
+import FormButtonSearch from '../../common/FormButtonSearch'
+import BaseTitleHeader from '../../common/BaseTitleHeader'
 
-const ListCategory = () => {
+const ListCategory = ({setLoading}) => {
   const { Title } = Typography
   const navigate = useNavigate()
   const [form] = Form.useForm()
   const [deleteCategory] = useMutation(DELETE_CATEGORY)
-  const [loading, setLoading] = useState(true)
   const [dataTable, setDataTable] = useState([])
   const [searchCondition, setSearchCondition] = useState({
     items: {},
@@ -57,6 +55,9 @@ const ListCategory = () => {
       orderBy: {
         createdAt: "asc"
       }
+    },
+    onCompleted: () => {
+      setLoading(false)
     }
   })
   const resetFields = () => {
@@ -96,7 +97,6 @@ const ListCategory = () => {
           }
       })
       setDataTable(items)
-      setLoading(false)
     }
   },[data])
   const confirm = async (id) => {
@@ -166,7 +166,7 @@ const ListCategory = () => {
       dataIndex: 'edit',
       render: (_, _record) => (
         <FiEdit 
-           className="text-[2rem] cursor-pointer hover:opacity-80 text-[#154c79]" 
+           className="text-[2rem] cursor-pointer hover:opacity-80 text-colorTheme" 
            onClick={() => navigate(`/admin/addCategory?action=edit&id=${_record.id}`)} />
       ),
       width: '50px',
@@ -188,13 +188,12 @@ const ListCategory = () => {
     },
   ]
   return (
-    <Spin spinning={loading} size="large">
-      <Space 
+    <Space 
         direction="vertical" 
         size="middle" 
         className="w-full h-full bg-white p-10">
         <Title level={4} className="whitespace-pre-wrap">Danh sách danh mục sản phẩm</Title>
-        <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-[#f8f8f8]">
+        <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-bgGray">
           <Breadcrumb.Item 
             onClick={() => navigate('/admin/dashboard')}
             className="hover:text-black cursor-pointer">
@@ -235,41 +234,13 @@ const ListCategory = () => {
                     </Form.Item>
                   </Col>
                 </Row>
-                <Row className="flex flex-col md:flex-row md:justify-end">
-                  <Form.Item className="md:mb-0">
-                      <Button 
-                          size="large" 
-                          onClick={resetFields}
-                          className="md:mr-5 w-full md:w-[100px] bg-inherit text-black hover:bg-inherit hover:text-black hover:border-inherit border-inherit hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                          Xóa
-                      </Button>
-                  </Form.Item>
-                  <Form.Item className="mb-0">
-                      <Button 
-                        size="large"
-                        htmlType="submit"
-                        className="w-full md:w-[100px] bg-[#154c79] text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                        Tìm kiếm
-                      </Button>
-                  </Form.Item>
-                </Row>
+                <FormButtonSearch resetFields={resetFields} />
             </Form>
         </Row>
-        <Row className="flex flex-col-reverse md:flex-row md:justify-between my-5">
-            <Row className="text-[1.6rem] mt-5 md:mt-0">
-              Tổng số 
-              <Row className="font-semibold text-red-500 mx-2">{dataInit?.categories?.length}</Row> 
-              kết quả
-            </Row>
-            <Button   
-              size="large" 
-              htmlType="submit" 
-              onClick={() => navigate('/admin/addCategory')}
-              className="w-fit bg-white text-black border-[#154c79] rounded hover:text-black hover:bg-white hover:border-[#154c79] hover:opacity-90 text-[1.6rem] hover:shadow-md flex items-center">
-              <FolderAddOutlined className="mr-1 text-[2rem] text-[#154c79]" />
-              Thêm mới danh mục
-            </Button>
-        </Row>
+        <BaseTitleHeader 
+           totalCount={dataInit?.categories?.length} 
+           handleClick={() => navigate('/admin/addCategory')} 
+           buttonLabel="Thêm mới danh mục" />
         <Table 
             rowKey="id"
             columns={columns} 
@@ -288,7 +259,6 @@ const ListCategory = () => {
             locale={{items_per_page: 'kết quả / trang'}}
             className="mt-10 w-full flex justify-center" />
       </Space>
-    </Spin>
   )
 }
 

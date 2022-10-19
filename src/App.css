@@ -6,11 +6,11 @@
 html{
   font-size: 62.5%;
 }
+.logo{
+  font-family: 'Pacifico', cursive;
+}
 .main-container{
   padding: 0 50px;
-}
-.text-default{
-  color: #828282;
 }
 .title-header{
   font-size: 2.2rem;
@@ -28,7 +28,4 @@ html{
 }
 .link:hover {
   color: #000 !important;
-}
-.logo{
-    font-family: 'Pacifico', cursive;
 }

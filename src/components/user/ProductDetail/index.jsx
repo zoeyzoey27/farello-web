@@ -32,32 +32,37 @@ const ProductDetail = ({product}) => {
         setQuantityValue(value)
     }
     const handleClick = () => {
-       setLoading(true)
-       const priceProduct = product?.priceSale ? product?.priceSale : product?.priceOut
-       addProductToCart({
-         variables: {
-            productsAddedToCartInput: {
-                productId: product?.productId,
-                name: product?.name,
-                color: valueColor,
-                quantity: quantityValue,
-                price: priceProduct,
-                imageKey: product?.images[0],
-                userId: id,
-                totalPayment: priceProduct * quantityValue,
-                createdAt: moment().format(DATE_TIME_FORMAT),
-                updatedAt: moment().format(DATE_TIME_FORMAT),
+       if (localStorage.getItem("id_token")) {
+        setLoading(true)
+        const priceProduct = product?.priceSale ? product?.priceSale : product?.priceOut
+        addProductToCart({
+            variables: {
+                productsAddedToCartInput: {
+                    productId: product?.productId,
+                    name: product?.name,
+                    color: valueColor,
+                    quantity: quantityValue,
+                    price: priceProduct,
+                    imageKey: product?.images[0],
+                    userId: id,
+                    totalPayment: priceProduct * quantityValue,
+                    createdAt: moment().format(DATE_TIME_FORMAT),
+                    updatedAt: moment().format(DATE_TIME_FORMAT),
+                }
+            },
+            onCompleted: () => {
+                setLoading(false)
+                message.success('Đã thêm sản phẩm vào giỏ hàng!')
+            },
+            onError: (err) => {
+                setLoading(false)
+                message.error(`${err.message}`)
             }
-         },
-         onCompleted: () => {
-            setLoading(false)
-            message.success('Đã thêm sản phẩm vào giỏ hàng!')
-         },
-         onError: (err) => {
-            setLoading(false)
-            message.error(`${err.message}`)
-         }
-       })
+        })
+       }
+       else {
+         message.info('Bạn chưa đăng nhập!')
+       }
     }
     useEffect(() => {
         setValueColor(product?.colours[0])
@@ -132,13 +137,13 @@ const ProductDetail = ({product}) => {
                 <Button 
                   size="large"
                   onClick={handleClick}
-                  className="mt-20 w-full !bg-[#154c79] !border-[#154c79] !text-white hover:bg-[#154c79] hover:text-white hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                  className="mt-20 w-full !bg-colorTheme !border-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                   Thêm vào giỏ hàng
                 </Button>
                 <Button 
                   size="large"
                   onClick={showDrawer}
-                  className="my-5 w-full h-fit whitespace-pre-wrap border-1 !border-[#154c79] !text-[#154c79] hover:text-[#154c79] hover:border-[#154c79] hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
+                  className="my-5 w-full h-fit whitespace-pre-wrap border-1 !border-colorTheme !text-colorTheme hover:text-colorTheme hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                   Đặc quyền mua sản phẩm tại Farello
                 </Button>
             </Col>
