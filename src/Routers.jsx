@@ -48,7 +48,7 @@ const Routers = () => {
   return (
       <BrowserRouter>
           <Routes>
-              <Route path="/admin/login" element = {!token_admin ? <AdminLogin /> : <Navigate to="/admin/dashboard" />} />
+              <Route path="/admin/login" element = {<AdminLogin />} />
               <Route path="/admin/dashboard" element = {token_admin ? <Dashboard /> : <Navigate to="/admin/login" />} />
               <Route path="/admin/categoryManagement" element = {token_admin ? <CategoryManagement /> : <Navigate to="/admin/login" />} />
               <Route path="/admin/addCategory" element = {token_admin ? <AddCategory /> : <Navigate to="/admin/login" />} />

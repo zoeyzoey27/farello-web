@@ -23,7 +23,8 @@ import { FiSave } from 'react-icons/fi'
 import { useMutation, useQuery } from '@apollo/client'
 import { CREATE_CATEGORY, GET_CATEGORY, UPDATE_CATEGORY } from './graphql'
 import moment from 'moment'
-import { DATE_TIME_FORMAT } from '../../../constant'
+import { DATE_TIME_FORMAT, EDIT } from '../../../constant'
+import i18n from '../../../translation'
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -33,10 +34,10 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error)
 })
 
-const uploadButton = (
+export const uploadButton = (
     <Row className="flex flex-col justify-center items-center">
       <PlusOutlined className="text-[1.6rem]" />
-      <Row className="mt-5 text-[1.6rem]">Tải ảnh lên</Row>
+      <Row className="mt-5 text-[1.6rem]">{i18n.t('common.upload')}</Row>
     </Row>
 )
 
@@ -97,7 +98,7 @@ const AddCategoryForm = ({action, id, setLoading}) => {
         }
       },
       onCompleted: () => {
-        message.success('Thêm danh mục sản phẩm thành công!')
+        message.success(i18n.t('addCategory.message.addSuccessful'))
         resetFields()
         setLoading(false)
       },
@@ -126,7 +127,7 @@ const AddCategoryForm = ({action, id, setLoading}) => {
       },
       onCompleted: () => {
         navigate("/admin/categoryManagement")
-        message.success('Chỉnh sửa danh mục sản phẩm thành công!')
+        message.success(i18n.t('addCategory.message.editingSuccessful'))
         setLoading(false)
       },
       onError: (error) => {
@@ -142,7 +143,7 @@ const AddCategoryForm = ({action, id, setLoading}) => {
         description: data?.category?.description,
       })
       setFileList([{
-        name: 'Ảnh minh họa',
+        name: i18n.t('addCategory.image'),
         url: data?.category?.imageKey,
       }])
     }
@@ -158,7 +159,7 @@ const AddCategoryForm = ({action, id, setLoading}) => {
               onBack={() => navigate('/admin/categoryManagement')}
               title={
                 <Title level={4} className="whitespace-pre-wrap">
-                    {action === 'edit' ? 'Chỉnh sửa danh mục sản phẩm' : 'Thêm danh mục sản phẩm'}
+                    {action === EDIT ? i18n.t('addCategory.title.edit') : i18n.t('addCategory.title.addNew')}
                 </Title>
               }
           />
@@ -166,24 +167,24 @@ const AddCategoryForm = ({action, id, setLoading}) => {
               <Breadcrumb.Item 
                 onClick={() => navigate('/admin/dashboard')}
                 className="hover:text-black cursor-pointer">
-                Bảng điều khiển
+                {i18n.t('common.dashboard')}
               </Breadcrumb.Item>
               <Breadcrumb.Item 
                 onClick={() => navigate('/admin/categoryManagement')}
                 className="hover:text-black cursor-pointer">
-                Danh sách danh mục sản phẩm
+                {i18n.t('addCategory.heading')}
               </Breadcrumb.Item>
               <Breadcrumb.Item className="font-semibold">
-                {action === 'edit' ? 'Chỉnh sửa danh mục sản phẩm' : 'Thêm danh mục sản phẩm'}
+                 {action === EDIT ? i18n.t('addCategory.title.edit') : i18n.t('addCategory.title.addNew')}
               </Breadcrumb.Item>
           </Breadcrumb>
-          <Row className="text-[1.6rem]">Vui lòng nhập thông tin vào các trường bên dưới.</Row>
-          <Row className="mb-5 text-[1.6rem]">(*) là thông tin bắt buộc.</Row>
+          <Row className="text-[1.6rem]">{i18n.t('common.enterInfo')}</Row>
+          <Row className="mb-5 text-[1.6rem]">{i18n.t('common.subtitle')}</Row>
           <Form 
               form={form} 
               layout='vertical' 
               autoComplete='off' 
-              onFinish={action === 'edit' ? onUpdate : onFinish}>
+              onFinish={action === EDIT ? onUpdate : onFinish}>
               <Form.Item
                   name="categoryName"
                   className="w-full md:w-1/2 lg:w-1/3"
@@ -191,11 +192,11 @@ const AddCategoryForm = ({action, id, setLoading}) => {
                   rules={[yupSync]}
                   label={
                     <Row className="font-semibold text-[1.6rem]">
-                      Tên danh mục
+                      {i18n.t('addCategory.categoryName')}
                       <Row className="text-red-500 ml-3">*</Row>
                     </Row>
                   }>
-                  <Input size="large" placeholder="Gọng kính" className="rounded" />
+                  <Input size="large" placeholder={i18n.t('addCategory.glasses')} className="rounded" />
               </Form.Item>
               <Form.Item
                   name="description"
@@ -204,11 +205,11 @@ const AddCategoryForm = ({action, id, setLoading}) => {
                   rules={[yupSync]}
                   label={
                     <Row className="font-semibold text-[1.6rem]">
-                      Mô tả chi tiết
+                      {i18n.t('addCategory.description')}
                       <Row className="text-red-500 ml-3">*</Row>
                     </Row>
                   }>
-                  <TextArea placeholder="Mô tả chi tiết" className="resize-none text-[1.6rem] !h-[150px] rounded" />
+                  <TextArea placeholder={i18n.t('addCategory.description')} className="resize-none text-[1.6rem] !h-[150px] rounded" />
               </Form.Item>
               <Form.Item
                   name="image"
@@ -217,7 +218,7 @@ const AddCategoryForm = ({action, id, setLoading}) => {
                   rules={fileList.length === 0 ? [yupSync] : false}
                   label={
                     <Row className="font-semibold text-[1.6rem]">
-                      Ảnh minh họa
+                      {i18n.t('addCategory.image')}
                       <Row className="text-red-500 ml-3">*</Row>
                     </Row>
                   }>
@@ -238,7 +239,7 @@ const AddCategoryForm = ({action, id, setLoading}) => {
                         onClick={resetFields}
                         className="flex items-center justify-center md:mr-5 w-full md:w-[100px] !bg-white !text-colorTheme hover:bg-white hover:text-colorTheme hover:border-colorTheme !border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                         <MdDeleteOutline className="mr-3 text-[2rem]" />
-                        Xóa
+                        {i18n.t('common.reset')}
                     </Button>
                 </Form.Item>
                 <Form.Item>
@@ -247,7 +248,7 @@ const AddCategoryForm = ({action, id, setLoading}) => {
                         htmlType="submit"
                         className="flex items-center justify-center w-full md:min-w-[100px] !border-colorTheme !bg-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                         <FiSave className="mr-3 text-[2rem]" />
-                        {action === 'edit' ? 'Lưu thay đổi' : 'Lưu'}
+                        {action === EDIT ? i18n.t('common.saveChange') : i18n.t('common.save')}
                     </Button>
                 </Form.Item>
               </Row>

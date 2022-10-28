@@ -1,12 +1,14 @@
 import React from 'react'
 import { Row, Radio, Space, Input } from 'antd'
 import { CancelReasonAdmin } from '../../../constant/cancelReason'
+import i18n from '../../../translation'
+import { OTHERS } from '../../../constant'
 
 const CancelOrderReason = ({onChange, valueChecked, valueTextarea, onChangeTextarea}) => {
   const { TextArea } = Input
   return (
     <Row className="flex flex-col text-[1.6rem] w-full">
-        <Row className="mb-5">Vui lòng chọn một lý do hủy đơn hàng:</Row>
+        <Row className="mb-5">{i18n.t('cancelOrderReason.subtext')}</Row>
         <Radio.Group onChange={onChange} value={valueChecked} className="w-full">
             <Space direction="vertical" className="w-full">
                 {
@@ -16,11 +18,11 @@ const CancelOrderReason = ({onChange, valueChecked, valueTextarea, onChangeTexta
                         </Radio>
                     ))
                 }
-                {valueChecked === "OTHERS" ? 
+                {valueChecked === OTHERS ? 
                     <TextArea 
                        value={valueTextarea}
                        onChange={onChangeTextarea}
-                       placeholder="Vui lòng nhập lý do hủy đơn hàng của bạn ..." 
+                       placeholder={i18n.t('cancelOrderReason.placeholder')}
                        className="my-5 !w-full text-[1.6rem]" 
                        autoSize={{ minRows: 3, maxRows: 6 }} /> : null}
             </Space>

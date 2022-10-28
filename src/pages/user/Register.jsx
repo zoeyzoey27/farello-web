@@ -16,12 +16,6 @@ const Register = () => {
            <RegisterForm setLoading={setLoading} />
        </Content>
        <Footer />
-    </Layout><Layout className="layout !max-w-screen min-h-screen !overflow-x-hidden">
-       <Topbar />
-       <Content className="bg-white">
-           <RegisterForm />
-       </Content>
-       <Footer />
     </Layout>
     </Spin>
   )

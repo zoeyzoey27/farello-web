@@ -11,6 +11,7 @@ import { LeftOutlined } from '@ant-design/icons'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
 import { ADMIN_DELETE_ACCOUNT } from './graphql'
+import i18n from '../../../translation'
 
 const DeleteAccountConfirmed = ({setLoading}) => {
   const { Title } = Typography
@@ -27,7 +28,7 @@ const DeleteAccountConfirmed = ({setLoading}) => {
       onCompleted: () => {
         setLoading(false)
         navigate("/admin/login")
-        message.success('Đã xóa tài khoản!')
+        message.success(i18n.t('deleteAccountConfirmed.messageSuccess'))
         localStorage.removeItem("token_admin")
         localStorage.removeItem("id_token_admin")
       },
@@ -48,16 +49,16 @@ const DeleteAccountConfirmed = ({setLoading}) => {
               onBack={() => navigate('/admin/deleteAccount')}
               title={
                 <Title level={4} className="whitespace-pre-wrap">
-                    Xóa tài khoản
+                    {i18n.t('deleteAccountConfirmed.title')}
                 </Title>
               }
           />
           <Row className="bg-[#f8f8f8] pt-10 pb-[50px] px-10 flex flex-col">
-              <Row className="text-[1.6rem] font-semibold mb-10">Bạn có chắc muốn xóa tài khoản?</Row>
+              <Row className="text-[1.6rem] font-semibold mb-10">{i18n.t('deleteAccountConfirmed.subtitle')}</Row>
               <Row className="text-[1.6rem] mb-10">
-                Sau khi xóa tài khoản, bạn sẽ mất toàn bộ quyền Admin và không thể truy cập vào hệ thống?
+                {i18n.t('deleteAccountConfirmed.subtitle1')}
                 <br />
-                Vẫn tiếp tục xóa tài khoản?
+                {i18n.t('deleteAccountConfirmed.subtitle2')}
               </Row>
           </Row>
           <Row>
@@ -65,16 +66,15 @@ const DeleteAccountConfirmed = ({setLoading}) => {
                 size="large"
                 onClick={() => navigate(`/admin/deleteAccount?id=${id}`)}
                 className="md:mr-5 w-full md:w-[150px] !bg-white !text-black !border-colorTheme rounded hover:text-black hover:bg-white hover:border-colorTheme hover:opacity-90 text-[1.6rem] hover:shadow-md">
-                Quay lại
+                {i18n.t('deleteAccountConfirmed.buttonBack')}
               </Button>
             <Button 
                 size="large"
                 onClick={handleDelete}
                 className="w-full md:w-[150px] !bg-colorTheme !border-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                Xóa tài khoản
+                {i18n.t('deleteAccountConfirmed.title')}
               </Button>
           </Row>
-          
       </Space>
   )
 }

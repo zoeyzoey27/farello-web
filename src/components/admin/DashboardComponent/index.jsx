@@ -4,6 +4,8 @@ import OrdersComponent from './OrdersComponent'
 import ProductsComponent from './ProductsComponent'
 import { useQuery } from '@apollo/client'
 import { GET_USERS } from './graphql'
+import i18n from '../../../translation'
+import { DESC } from '../../../constant'
 
 const DashboardComponent = ({setLoading}) => {
   const { Title } = Typography
@@ -14,7 +16,7 @@ const DashboardComponent = ({setLoading}) => {
         skip: null,
         take: null,
         orderBy: {
-            createdAt: "desc"
+            createdAt: DESC
         }
     },
     onCompleted: () => {
@@ -39,31 +41,31 @@ const DashboardComponent = ({setLoading}) => {
   },[data])
   const columns = [
     {
-      title: 'User ID',
+      title: i18n.t('common.id'),
       dataIndex: 'userId',
     },
     {
-      title: 'Họ tên',
+      title: i18n.t('common.fullName'),
       dataIndex: 'name',
     },
     {
-        title: 'Ngày sinh',
+        title: i18n.t('common.birthday'),
         dataIndex: 'birthday',
     },
     {
-      title: 'Email',
+      title: i18n.t('common.email'),
       dataIndex: 'email'
     },
     {
-      title: 'Số điện thoại',
+      title: i18n.t('common.phone'),
       dataIndex: 'phone'
     },
     {
-      title: 'Số CMT/CCCD',
+      title: i18n.t('common.idCard'),
       dataIndex: 'idcard',
     },
     {
-      title: 'Địa chỉ',
+      title: i18n.t('common.address'),
       dataIndex: 'address',
     }
   ]
@@ -72,11 +74,11 @@ const DashboardComponent = ({setLoading}) => {
        direction="vertical" 
        size="middle" 
        className="w-full h-full">
-       <Title level={4} className="whitespace-pre-wrap w-full bg-white p-10 shadow-md rounded">Bảng điều khiển</Title>
+       <Title level={4} className="whitespace-pre-wrap w-full bg-white p-10 shadow-md rounded">{i18n.t('common.dashboard')}</Title>
        <OrdersComponent setLoading={setLoading} />
        <ProductsComponent setLoading={setLoading} />
        <Space direction="vertical" size="middle" className="bg-white shadow-md p-10 w-full mt-5 rounded">
-          <Row className="text-[1.6rem] font-semibold">Khách hàng mới</Row>
+          <Row className="text-[1.6rem] font-semibold">{i18n.t('common.dashboard')}</Row>
           <hr className="mb-5" />
           <Table 
             rowKey="id"

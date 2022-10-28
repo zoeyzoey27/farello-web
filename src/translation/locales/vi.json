@@ -1,0 +1,157 @@
+{
+    "common": {
+       "dashboard": "Bảng điều khiển",
+       "enterInfo": "Vui lòng nhập thông tin vào các trường bên dưới.",
+       "subtitle": "(*) là thông tin bắt buộc.",
+       "fullName": "Họ tên",
+       "birthday": "Ngày sinh",
+       "address": "Địa chỉ",
+       "province": "Tỉnh/Thành Phố",
+       "district": "Quận/Huyện",
+       "commune": "Phường/Xã",
+       "phone": "Số điện thoại",
+       "email": "Email",
+       "id": "ID",
+       "password": "Mật khẩu",
+       "rePassword": "Nhập lại mật khẩu",
+       "idCard": "CMT/CCCD",
+       "reset": "Xóa",
+       "saveChange": "Lưu thay đổi",
+       "save": "Lưu",
+       "upload": "Tải ảnh lên",
+       "productId": "Mã sản phẩm",
+       "productName": "Tên sản phẩm",
+       "productImage": "Ảnh sản phẩm",
+       "quantity": "Số lượng",
+       "priceIn": "Giá nhập",
+       "priceOut": "Giá bán",
+       "priceSale": "Giá khuyến mại",
+       "productCategory": "Danh mục sản phẩm",
+       "productStatus": "Trạng thái",
+       "search": "Tìm kiếm",
+       "total": "Tổng số",
+       "result": "kết quả",
+       "page": "kết quả / trang"
+    },
+    "addAdmin": {
+        "message": {
+            "passwordIncorrect": "Mật khẩu không khớp!",
+            "createAccountSuccess": "Tạo tài khoản thành công!",
+            "editingSuccessful": "Chỉnh sửa thông tin thành công!"
+        },
+        "title": {
+            "edit": "Chỉnh sửa thông tin cá nhân",
+            "addNew": "Tạo tài khoản Admin"
+        },
+        "buttonLabel": "Tạo tài khoản"
+    },
+    "addCategory": {
+        "message": {
+            "addSuccessful": "Thêm danh mục sản phẩm thành công!",
+            "editingSuccessful": "Chỉnh sửa danh mục sản phẩm thành công!"
+        },
+        "image": "Ảnh minh họa",
+        "title": {
+            "addNew": "Thêm danh mục sản phẩm",
+            "edit": "Chỉnh sửa danh mục sản phẩm"
+        },
+        "heading": "Danh sách danh mục sản phẩm",
+        "categoryName": "Tên danh mục",
+        "description": "Mô tả chi tiết",
+        "glasses": "Gọng kính"
+    },
+    "addPost": {
+        "message": {
+            "addSuccessful": "Tạo bài viết thành công!",
+            "editingSuccessful": "Chỉnh sửa bài viết thành công!"
+        },
+        "image": "Ảnh minh họa",
+        "title": {
+            "edit": "Chỉnh sửa bài viết",
+            "addNew": "Tạo bài viết"
+        },
+        "titlePost": "Tiêu đề bài viết",
+        "category": "Danh mục bài viết",
+        "content": "Nội dung bài viết"
+    },
+    "addProduct": {
+        "image": "Ảnh minh họa",
+        "message": {
+            "addSuccessful": "Thêm sản phẩm thành công!",
+            "editingSuccessful": "Chỉnh sửa sản phẩm thành công!"
+        },
+        "title": {
+            "addNew": "Thêm sản phẩm",
+            "edit": "Chỉnh sửa sản phẩm"
+        },
+        "heading": "Danh sách sản phẩm",
+        "nameProduct": "Tên sản phẩm",
+        "category": "Danh mục sản phẩm",
+        "glasses": "Gọng kính",
+        "priceIn": "Giá nhập",
+        "priceOut": "Giá bán",
+        "priceSale": "Giá khuyến mại",
+        "quantity": "Số lượng",
+        "color": "Màu sắc",
+        "addColor": "Thêm màu sắc",
+        "description": "Mô tả sản phẩm"
+    },
+    "adminInfo": {
+        "heading": "Thông tin tài khoản",
+        "editButton": "Chỉnh sửa",
+        "deleteAccount": "Xóa tài khoản"
+    },
+    "cancelOrderReason": {
+        "subtext": "Vui lòng chọn một lý do hủy đơn hàng:",
+        "placeholder": "Vui lòng nhập lý do hủy đơn hàng của bạn ..."
+    },
+    "dashboard": {
+        "users": "Khách hàng mới",
+        "orderStatus": "Tình trạng đơn hàng",
+        "listOrder": "Tất cả đơn hàng",
+        "order": "Đơn hàng",
+        "total": "Tổng số: ",
+        "status1": "Chờ xác nhận",
+        "status2": "Giao hàng thành công",
+        "status3": "Đơn hủy",
+        "stock": "Còn hàng",
+        "outOfStock": "Hết hàng",
+        "productStatus": "Tình trạng sản phẩm",
+        "allProducts": "Tất cả sản phẩm",
+        "onSale": "Đang bán",
+        "outOfStockSoon": "Sắp hết hàng",
+        "newProduct": "Sản phẩm mới cập nhật"
+    },
+    "deleteAccountConfirmed": {
+        "messageSuccess": "Đã xóa tài khoản!",
+         "title": "Xóa tài khoản",
+         "subtitle": "Bạn có chắc muốn xóa tài khoản?",
+         "subtitle1": "Sau khi xóa tài khoản, bạn sẽ mất toàn bộ quyền Admin và không thể truy cập vào hệ thống?",
+         "subtitle2": "Vẫn tiếp tục xóa tài khoản?",
+         "buttonBack": "Quay lại"
+    },
+    "deleteAccountReason": {
+       "subtext": "Vui lòng chọn 1 lý do xóa tài khoản",
+       "option1": "Tài khoản không được sử dụng",
+       "option2": "Tài khoản đã hết quyền truy cập vào hệ thống",
+       "option3": "Lý do khác",
+       "back": "Quay lại",
+       "next": "Tiếp tục"
+    },
+    "inquiryDetail": {
+        "messageSuccess": "Đã gửi phản hồi thành công!",
+        "unread": "Đánh dấu chưa đọc",
+        "adminRep": "Phản hồi của người bán:",
+        "buttonSubmit": "Gửi phản hồi",
+        "subtext": "(Phản hồi của người bán sẽ được gửi đến email của khách hàng)"
+    },
+    "inquiryList": {
+        "content": "Nội dung",
+        "createdAt": "Thời gian",
+        "title": "Quản lý hộp thư",
+        "status": "Trạng thái",
+        "read": "Đã đọc",
+        "unread": "Chưa đọc",
+        "titleModal": "Phản hồi của khách hàng"
+    }
+}

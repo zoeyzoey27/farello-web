@@ -14,7 +14,6 @@ import {
     Select,
     message, 
 } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
 import { schemaValidate } from '../../../validation/AddProduct'
 import { converSchemaToAntdRule } from '../../../validation'
 import { useNavigate } from 'react-router-dom'
@@ -24,7 +23,9 @@ import { FiSave } from 'react-icons/fi'
 import { useMutation, useQuery } from '@apollo/client'
 import { CREATE_PRODUCT, GET_CATEGORIES, GET_PRODUCT, UPDATE_PRODUCT } from './graphql'
 import moment from 'moment'
-import { DATE_TIME_FORMAT } from '../../../constant'
+import { DATE_TIME_FORMAT, DESC, EDIT, OUT_OF_STOCK, STOCKING } from '../../../constant'
+import { uploadButton } from '../AddCategoryForm'
+import i18n from '../../../translation'
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -33,13 +34,6 @@ const getBase64 = (file) =>
     reader.onload = () => resolve(reader.result)
     reader.onerror = (error) => reject(error)
 })
-
-const uploadButton = (
-    <Row className="flex flex-col justify-center items-center">
-      <PlusOutlined className="text-[1.6rem]" />
-      <Row className="mt-5 text-[1.6rem]">Tải ảnh lên</Row>
-    </Row>
-)
 
 const AddProductForm = ({action, id, setLoading}) => {
   const children = []
@@ -72,7 +66,7 @@ const AddProductForm = ({action, id, setLoading}) => {
       skip: null,
       take: null,
       orderBy: {
-        createdAt: "desc"
+        createdAt: DESC
       }
     }
   })
@@ -91,10 +85,9 @@ const AddProductForm = ({action, id, setLoading}) => {
       })
       const images = dataProduct?.product?.images
       const list = []
-      console.log(images)
       for (let i=0; i<images.length; i++) {
         list.push({
-          name: 'Ảnh minh họa',
+          name: i18n.t('addProduct.image'),
           url: images[i]
         })
         setFileList(list)
@@ -144,13 +137,13 @@ const AddProductForm = ({action, id, setLoading}) => {
           images: fileListData,
           description: values.description,
           categoryId: values.categoryId,
-          status: values.quantity > 0 ? 'STOCKING' : 'OUT_OF_STOCK',
+          status: values.quantity > 0 ? STOCKING : OUT_OF_STOCK,
           createdAt: moment().format(DATE_TIME_FORMAT),
           updatedAt: moment().format(DATE_TIME_FORMAT),
         }
       },
       onCompleted: () => {
-        message.success('Thêm sản phẩm thành công!')
+        message.success(i18n.t('addProduct.message.addSuccessful'))
         resetFields()
         setLoading(false)
       },
@@ -174,7 +167,6 @@ const AddProductForm = ({action, id, setLoading}) => {
         else fileListData.push(file.url)
       }
     }
-    console.log('final:', fileListData)
     await updateProduct({
       variables: {
         updateProductId: id,
@@ -188,13 +180,13 @@ const AddProductForm = ({action, id, setLoading}) => {
           categoryId: values.categoryId,
           images: fileListData.length > 0 ? fileListData : dataProduct?.product?.images,
           description: values.description,
-          status: values.quantity > 0 ? 'STOCKING' : 'OUT_OF_STOCK',
+          status: values.quantity > 0 ? STOCKING : OUT_OF_STOCK,
           updatedAt: moment().format(DATE_TIME_FORMAT),
         }
       },
       onCompleted: () => {
         navigate("/admin/productManagement")
-        message.success('Chỉnh sửa sản phẩm thành công!')
+        message.success(i18n.t('addProduct.message.editingSuccessful'))
         setLoading(false)
       },
       onError: (error) => {
@@ -214,7 +206,7 @@ const AddProductForm = ({action, id, setLoading}) => {
         onBack={() => navigate('/admin/productManagement')}
         title={
            <Title level={4} className="whitespace-pre-wrap">
-              {action === 'edit' ? 'Chỉnh sửa sản phẩm' : 'Thêm sản phẩm'}
+              {action === EDIT ? i18n.t('addProduct.title.edit') : i18n.t('addProduct.title.addNew')}
            </Title>
         }
     />
@@ -222,22 +214,22 @@ const AddProductForm = ({action, id, setLoading}) => {
       <Breadcrumb.Item 
         onClick={() => navigate('/admin/dashboard')}
         className="hover:text-black cursor-pointer">
-        Bảng điều khiển
+        {i18n.t('common.dashboard')}
       </Breadcrumb.Item>
         <Breadcrumb.Item 
            onClick={() => navigate('/admin/productManagement')}
            className="hover:text-black cursor-pointer">
-           Danh sách sản phẩm
+           {i18n.t('addProduct.heading')}
         </Breadcrumb.Item>
-        <Breadcrumb.Item> {action === 'edit' ? 'Chỉnh sửa sản phẩm' : 'Thêm sản phẩm'}</Breadcrumb.Item>
+        <Breadcrumb.Item>{action === EDIT ? i18n.t('addProduct.title.edit') : i18n.t('addProduct.title.addNew')}</Breadcrumb.Item>
     </Breadcrumb>
-    <Row className="text-[1.6rem]">Vui lòng nhập thông tin vào các trường bên dưới.</Row>
-    <Row className="mb-5 text-[1.6rem]">(*) là thông tin bắt buộc.</Row>
+    <Row className="text-[1.6rem]">{i18n.t('common.enterInfo')}</Row>
+    <Row className="mb-5 text-[1.6rem]">{i18n.t('common.subtitle')}</Row>
     <Form 
         layout='vertical' 
         form={form}
         autoComplete='off'
-        onFinish={action === 'edit' ? onUpdate : onFinish}>
+        onFinish={action === EDIT ? onUpdate : onFinish}>
         <Form.Item
             name="name"
             className="w-full md:w-1/2 lg:w-1/3"
@@ -245,7 +237,7 @@ const AddProductForm = ({action, id, setLoading}) => {
             rules={[yupSync]}
             label={
               <Row className="font-semibold text-[1.6rem]">
-                 Tên sản phẩm
+                 {i18n.t('addProduct.nameProduct')}
                  <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }>
@@ -258,11 +250,11 @@ const AddProductForm = ({action, id, setLoading}) => {
             rules={[yupSync]}
             label={
               <Row className="font-semibold text-[1.6rem]">
-                 Danh mục sản phẩm
+                 {i18n.t('addProduct.category')}
                  <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }>
-            <Select size="large" placeholder="Gọng kính cận" className="rounded" >
+            <Select size="large" placeholder={i18n.t('addProduct.glasses')} className="rounded" >
                 {
                    data?.categories?.map((item) => (
                       <Option key={item.id} className="text-[1.6rem]">{item.name}</Option>
@@ -276,7 +268,7 @@ const AddProductForm = ({action, id, setLoading}) => {
             required={false}
             label={
               <Row className="font-semibold text-[1.6rem]">
-                 Giá nhập
+                 {i18n.t('addProduct.priceIn')}
               </Row>
             }>
             <InputNumber size="large" placeholder="1750000" addonAfter="VND" className="w-full rounded" />
@@ -288,7 +280,7 @@ const AddProductForm = ({action, id, setLoading}) => {
             rules={[yupSync]}
             label={
               <Row className="font-semibold text-[1.6rem]">
-                 Giá bán
+                 {i18n.t('addProduct.priceOut')}
                  <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }>
@@ -300,7 +292,7 @@ const AddProductForm = ({action, id, setLoading}) => {
             required={false}
             label={
               <Row className="font-semibold text-[1.6rem]">
-                 Giá khuyến mại
+                 {i18n.t('addProduct.priceSale')}
               </Row>
             }>
             <InputNumber size="large" placeholder="1750000" addonAfter="VND" className="w-full rounded" />
@@ -312,7 +304,7 @@ const AddProductForm = ({action, id, setLoading}) => {
             rules={[yupSync]}
             label={
               <Row className="font-semibold text-[1.6rem]">
-                 Số lượng
+                 {i18n.t('addProduct.quantity')}
                  <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }>
@@ -324,14 +316,14 @@ const AddProductForm = ({action, id, setLoading}) => {
             required={false}
             label={
               <Row className="font-semibold text-[1.6rem]">
-                 Màu sắc
+                {i18n.t('addProduct.color')}
               </Row>
             }>
             <Select
               mode="tags"
               className="w-full"
               size="large"
-              placeholder="Thêm màu sắc">
+              placeholder={i18n.t('addProduct.addColor')}>
               {children}
             </Select>
         </Form.Item>
@@ -342,7 +334,7 @@ const AddProductForm = ({action, id, setLoading}) => {
             rules={fileList.length === 0 ? [yupSync] : false}
             label={
               <Row className="font-semibold text-[1.6rem]">
-                 Ảnh minh họa
+                 {i18n.t('addProduct.image')}
                  <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }>
@@ -361,10 +353,10 @@ const AddProductForm = ({action, id, setLoading}) => {
             required={false}
             label={
               <Row className="font-semibold text-[1.6rem]">
-                 Mô tả sản phẩm
+                 {i18n.t('addProduct.description')}
               </Row>
             }>
-            <TextArea placeholder="Mô tả sản phẩm" className="resize-none text-[1.6rem] !h-[200px] rounded" />
+            <TextArea placeholder={i18n.t('addProduct.description')} className="resize-none text-[1.6rem] !h-[200px] rounded" />
         </Form.Item>
         <Row className="flex flex-col md:flex-row">
           <Form.Item>
@@ -373,7 +365,7 @@ const AddProductForm = ({action, id, setLoading}) => {
                   onClick={resetFields}
                   className="flex items-center justify-center md:mr-5 w-full md:w-[100px] !bg-white !text-colorTheme hover:bg-colorTheme hover:text-white hover:border-colorTheme !border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                   <MdDeleteOutline className="mr-3 text-[2rem]" />
-                  Xóa
+                  {i18n.t('common.reset')}
               </Button>
           </Form.Item>
           <Form.Item>
@@ -382,7 +374,7 @@ const AddProductForm = ({action, id, setLoading}) => {
                   htmlType="submit"
                   className="flex items-center justify-center w-full md:min-w-[100px] !bg-colorTheme !border-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                   <FiSave className="mr-3 text-[2rem]" />
-                  {action === 'edit' ? 'Lưu thay đổi' : 'Lưu'}
+                  {action === EDIT ? i18n.t('common.saveChange') : i18n.t('common.save')}
               </Button>
           </Form.Item>
         </Row>

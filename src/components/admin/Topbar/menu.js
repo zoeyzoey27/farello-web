@@ -1,11 +1,7 @@
 import { Menu, Row, Space, Avatar } from 'antd'
 import { FiUser, FiLogOut } from 'react-icons/fi'
 
-export const menu = (name,newName,id_token_admin) => {
-  const logout = () => {
-    localStorage.removeItem("token_admin")
-    localStorage.removeItem("id_token_admin")
-  }
+export const menu = (name,newName,id_token_admin,logout) => {
   return (
     <Menu className="shadow-lg py-3 px-8 rounded">
        <Menu.Item key={0} className="cursor-default hover:bg-white hover:text-black">

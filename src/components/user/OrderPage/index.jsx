@@ -252,7 +252,6 @@ const OrderPage = ({setLoading}) => {
                             <Row className="text-red-500 ml-3">*</Row>
                         </Row>
                         }
-                        className="mb-0"
                         required={false}
                         rules={[yupSync]}>
                         <Select
@@ -280,7 +279,6 @@ const OrderPage = ({setLoading}) => {
                             <Row className="text-red-500 ml-3">*</Row>
                         </Row>
                         }
-                        className="mb-0"
                         required={false}
                         rules={[yupSync]}>
                         <Input size="large" placeholder="Số nhà/khu/ngõ/ngách" className="rounded" />

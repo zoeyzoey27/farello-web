@@ -7,6 +7,7 @@ import { TbPoint } from 'react-icons/tb'
 import { DATE_TIME_FORMAT } from '../../../constant'
 import moment from 'moment'
 import emailjs from '@emailjs/browser'
+import i18n from '../../../translation'
 
 const InquiryDetail = ({inquiryId, setLoading}) => {
   const { TextArea } = Input
@@ -39,7 +40,7 @@ const InquiryDetail = ({inquiryId, setLoading}) => {
         onCompleted: () => {
             setLoading(false)
             form.resetFields()
-            message.success('Đã gửi phản hồi thành công!')
+            message.success(i18n.t('inquiryDetail.messageSuccess'))
         },
         onError: (err) => {
             setLoading(false)
@@ -74,7 +75,7 @@ const InquiryDetail = ({inquiryId, setLoading}) => {
            onClick={handleClick}
            className="flex items-center justify-end text-[1.4rem] cursor-pointer text-blue-500 hover:opacity-80">
            <TbPoint className="mr-1 text-[1.8rem]" />
-           Đánh dấu chưa đọc
+           {i18n.t('inquiryDetail.unread')}
         </Row>
         <Comment
             className="w-full"
@@ -91,7 +92,7 @@ const InquiryDetail = ({inquiryId, setLoading}) => {
                 </Tooltip>
             } />
         <Divider className="my-0" />    
-        <Row className="font-semibold text-[1.6rem]">Phản hồi của người bán:</Row> 
+        <Row className="font-semibold text-[1.6rem]">{i18n.t('inquiryDetail.adminRep')}</Row> 
         {
             data?.getInquiry?.adminRepInquiry?.length > 0 && (
                 data?.getInquiry?.adminRepInquiry?.map((item) => (
@@ -128,10 +129,10 @@ const InquiryDetail = ({inquiryId, setLoading}) => {
                     size="large" 
                     htmlType="submit"
                     className="!bg-colorTheme !text-white !border-colorTheme hover:bg-colorTheme hover:text-white hover:border-colorTheme mt-5 !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
-                    Gửi phản hồi
+                    {i18n.t('inquiryDetail.buttonSubmit')}
                 </Button>
             </Form.Item>
-            <Text italic>(Phản hồi của người bán sẽ được gửi đến email của khách hàng)</Text>
+            <Text italic>{i18n.t('inquiryDetail.subtext')}</Text>
         </Form>
     </Space>
   )

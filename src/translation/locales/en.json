@@ -1,0 +1,156 @@
+{
+    "common": {
+        "dashboard": "Dashboard",
+        "enterInfo": "Please enter information in the fields below.",
+        "subtitle": "(*) is required information.",
+        "fullName": "Full name",
+        "birthday": "Date of birth",
+        "address": "Address",
+        "province": "Province/City",
+        "district": "District",
+        "commune": "Commune",
+        "phone": "Phone number",
+        "email": "Email",
+        "id": "ID",
+        "password": "Password",
+        "rePassword": "Re-enter the password",
+        "idCard": "Identity card/Citizen ID card",
+        "reset": "Reset",
+        "save": "Save changes",
+        "upload": "Upload",
+        "productId": "Product ID",
+        "productName": "Product's name",
+        "productImage": "Image",
+        "quantity": "Quantity",
+        "priceIn": "Cost price",
+        "priceOut": "Selling price",
+        "priceSale": "Promotional price",
+        "productCategory": "Product category",
+        "productStatus": "Status",
+        "search": "Search",
+        "total": "Total",
+        "result": "result",
+        "page": "results / page"
+    },
+    "addAdmin": {
+        "message": {
+            "passwordIncorrect": "Password Incorrect!",
+            "createAccountSuccess": "Create Account Success!",
+            "editingSuccessful": "Editing successful information!"
+        },
+        "title": {
+            "edit": "Edit personal information",
+            "addNew": "Create an Admin account"
+        },
+        "buttonLabel": "Create Account"
+    },
+    "addCategory": {
+        "message": {
+            "addSuccessful": "Successfully added product catalog!",
+            "editingSuccessful": "Edited product catalog successfully!"
+        },
+        "image": "Image",
+        "title": {
+            "addNew": "Add product category",
+            "edit": "Edit product catalog"
+        },
+        "heading": "List of product categories",
+        "categoryName": "Product category name",
+        "description": "Detailed description",
+        "glasses": "Glasses"
+    },
+    "addPost": {
+        "message": {
+            "addSuccessful": "Successful post creation!",
+            "editingSuccessful": "Post edit successful!"
+        },
+        "image": "Image",
+        "title": {
+            "edit": "Edit post",
+            "addNew": "Create post"
+        },
+        "titlePost": "Post title",
+        "category": "Post category",
+        "content": "Content"
+    },
+    "addProduct": {
+        "image": "Image",
+        "message": {
+            "addSuccessful": "Create successful products!",
+            "editingSuccessful": "Successful product editing!"
+        },
+        "title": {
+            "addNew": "Create products",
+            "edit": "Edit products"
+        },
+        "heading": "List of products",
+        "nameProduct": "Product's name",
+        "category": "Product category",
+        "glasses": "Glasses",
+        "priceIn": "Cost price",
+        "priceOut": "Selling price",
+        "priceSale": "Promotional price",
+        "quantity": "Quantity",
+        "color": "Colours",
+        "addColor": "Add color",
+        "description": "Product description"
+    },
+    "adminInfo": {
+        "heading": "Account information",
+        "editButton": "Edit",
+        "deleteAccount": "Delete account"
+    },
+    "cancelOrderReason": {
+        "subtext": "Please choose a reason to cancel the order:",
+        "placeholder": "Please enter a reason for canceling the order..."
+    },
+    "dashboard": {
+        "users": "New customer list",
+        "orderStatus": "Order status",
+        "listOrder": "All orders",
+        "order": "Order",
+        "total": "Total: ",
+        "status1": "Wait for confirmation",
+        "status2": "Delivery successful",
+        "status3": "Cancel",
+        "stock": "Stocking",
+        "outOfStock": "Out of stock",
+        "productStatus": "Product status",
+        "allProducts": "All products",
+        "onSale": "On sale",
+        "outOfStockSoon": "Out of stock soon",
+        "newProduct": "New product"
+    },
+    "deleteAccountConfirmed": {
+        "messageSuccess": "Account deleted!",
+        "title": "Delete account",
+        "subtitle": "Are you sure you want to delete your account?",
+        "subtitle1": "After deleting your account, you will lose all Admin rights and cannot access the system?",
+        "subtitle2": "Still continue to delete the account?",
+        "buttonBack": "Back"
+    },
+    "deleteAccountReason": {
+        "subtext": "Please choose one reason to delete your account",
+        "option1": "The account is not in use",
+        "option2": "The account has no access to the system",
+        "option3": "Others",
+        "back": "Back",
+        "next": "Next"
+    },
+    "inquiryDetail": {
+        "messageSuccess": "Feedback submitted successfully!",
+        "unread": "Mark as unread",
+        "adminRep": "Admin feedback:",
+        "buttonSubmit": "Send feedback",
+        "subtext": "(The admin's response will be sent to the customer's email)"
+    },
+    "inquiryList": {
+        "content": "Content",
+        "createdAt": "Created at",
+        "title": "Inquiry manager",
+        "status": "Status",
+        "read": "Read",
+        "unread": "Unread",
+        "titleModal": "Customer's feedback"
+    }
+}

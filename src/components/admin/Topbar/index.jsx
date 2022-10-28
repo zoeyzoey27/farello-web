@@ -31,6 +31,11 @@ const Topbar = ({onClick}) => {
   })
   const name = data?.admin?.fullName
   const newName = data?.admin?.fullName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D")
+  const logout = () => {
+    localStorage.removeItem("token_admin")
+    localStorage.removeItem("id_token_admin")
+    navigate("/admin/login")
+  }
   return (
     <Row className="bg-white h-[65px] flex items-center justify-between px-[50px] w-full">
         <Row className="logo text-[3.5rem]">Farello</Row>
@@ -46,7 +51,7 @@ const Topbar = ({onClick}) => {
             <AiOutlineMail className="text-[2.3rem] cursor-pointer" onClick={() => navigate('/admin/inquiryManagement')}  />
           </Badge>
           <AiOutlineMenuFold className="text-[2.5rem] cursor-pointer block lg:hidden" onClick={onClick} />
-          <Dropdown overlay={menu(name,newName,id_token_admin)} className="hidden lg:flex">
+          <Dropdown overlay={menu(name,newName,id_token_admin,logout)} className="hidden lg:flex">
               <Space>
                 <Avatar 
                     style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} 

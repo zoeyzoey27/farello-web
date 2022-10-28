@@ -21,7 +21,8 @@ import axiosClient from '../../../api/axiosClient'
 import { ADD_ADMIN, GET_ADMIN, UPDATE_ADMIN_INFO } from './graphql'
 import { useMutation, useQuery } from '@apollo/client'
 import moment from 'moment'
-import { DATE_TIME_FORMAT, convertTimeToString } from '../../../constant'
+import { DATE_TIME_FORMAT, convertTimeToString, AVAILABLE, DATE_FORMAT, EDIT } from '../../../constant'
+import i18n from '../../../translation'
 
 const AddAdminForm = ({setLoading, action, id}) => {
   const navigate = useNavigate()
@@ -47,7 +48,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
   const onFinish = (values) => {
     setLoading(true)
     if (values.password !== values.rePassword) {
-      message.error('Mật khẩu không khớp!')
+      message.error(`${i18n.t('addAdmin.message.passwordIncorrect')}`)
     }
     else {
       const province = provinceList.find((item) => item.code === form.getFieldsValue().province).name
@@ -69,14 +70,14 @@ const AddAdminForm = ({setLoading, action, id}) => {
             communeCode: values.commune,
             idCard: values.idcard,
             birthday: convertTimeToString(values.birthday),
-            status: "AVAILABLE",
+            status: AVAILABLE,
             createdAt: moment().format(DATE_TIME_FORMAT),
             updatedAt: moment().format(DATE_TIME_FORMAT),
           },
         },
         onCompleted: () => {
           setLoading(false)
-          message.success('Tạo tài khoản thành công!')
+          message.success(`${i18n.t('addAdmin.message.createAccountSuccess')}`)
           form.resetFields()
         },
         onError: (error) => {
@@ -105,13 +106,13 @@ const AddAdminForm = ({setLoading, action, id}) => {
           communeCode: values.commune,
           idCard: values.idcard,
           birthday: convertTimeToString(values.birthday),
-          status: "AVAILABLE",
+          status: AVAILABLE,
           updatedAt: moment().format(DATE_TIME_FORMAT),
         },
       },
       onCompleted: () => {
         setLoading(false)
-        message.success('Chỉnh sửa thông tin thành công!')
+        message.success(`${i18n.t('addAdmin.message.editingSuccessful')}`)
         navigate("/admin/adminList")
       },
       onError: (error) => {
@@ -146,7 +147,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
        })
        if (data?.admin?.birthday) {
         form.setFieldsValue({
-          birthday: moment(data?.admin?.birthday, "DD/MM/YYYY"),
+          birthday: moment(data?.admin?.birthday, DATE_FORMAT),
         })
        }
        onChangeProvince(data?.admin?.provinceCode)
@@ -165,20 +166,20 @@ const AddAdminForm = ({setLoading, action, id}) => {
         size="middle" 
         className="w-full h-full bg-white p-10">
         <Title level={4} className="whitespace-pre-wrap">
-          {action === 'edit' ? 'Chỉnh sửa thông tin cá nhân' : 'Tạo tài khoản Admin'}
+          {action === EDIT ? i18n.t('addAdmin.title.edit') : i18n.t('addAdmin.title.addNew')}
         </Title>
         <Breadcrumb className="text-[1.6rem] mb-5">
               <Breadcrumb.Item 
                 onClick={() => navigate('/admin/dashboard')}
                 className="hover:text-black cursor-pointer">
-                Bảng điều khiển
+                {i18n.t('common.dashboard')}
               </Breadcrumb.Item>
               <Breadcrumb.Item className="font-semibold">
-                 {action === 'edit' ? 'Chỉnh sửa thông tin cá nhân' : 'Tạo tài khoản Admin'}
+                  {action === EDIT ? i18n.t('addAdmin.title.edit') : i18n.t('addAdmin.title.addNew')}
               </Breadcrumb.Item>
           </Breadcrumb>
-        <Row className="text-[1.6rem]">Vui lòng nhập thông tin vào các trường bên dưới.</Row>
-        <Row className="mb-5 text-[1.6rem]">(*) là thông tin bắt buộc.</Row>
+        <Row className="text-[1.6rem]">{i18n.t('common.enterInfo')}</Row>
+        <Row className="mb-5 text-[1.6rem]">{i18n.t('common.subtitle')}</Row>
         <Form 
             layout='vertical'
             autoComplete='off' 
@@ -191,7 +192,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
                 rules={[yupSync]}
                 label={
                   <Row className="font-semibold text-[1.6rem]">
-                     Họ tên
+                     {i18n.t('common.fullName')}
                      <Row className="text-red-500 ml-3">*</Row>
                   </Row>
                 }>
@@ -203,12 +204,12 @@ const AddAdminForm = ({setLoading, action, id}) => {
                 required={false}
                 label={
                   <Row className="font-semibold text-[1.6rem]">
-                     Ngày sinh
+                     {i18n.t('common.birthday')}
                   </Row>
                 }>
                 <DatePicker 
                    size="large" 
-                   format="DD/MM/YYYY" 
+                   format={DATE_FORMAT} 
                    placeholder="01/01/1990" 
                    className="w-full" />
             </Form.Item>
@@ -216,7 +217,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
               className="mb-0 w-full xl:w-[60%]"
               label={
                   <Row className="font-semibold text-[1.6rem]">
-                     Địa chỉ
+                     {i18n.t('common.address')}
                      <Row className="text-red-500 ml-3">*</Row>
                   </Row>
                 }>
@@ -230,7 +231,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
                           showSearch
                           size="large"
                           className="w-full text-[1.6rem]"
-                          placeholder="Tỉnh/Thành Phố"
+                          placeholder={i18n.t('common.province')}
                           optionFilterProp="children"
                           onChange={onChangeProvince}
                           filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
@@ -254,7 +255,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
                         showSearch
                         size="large"
                         className="w-full text-[1.6rem]"
-                        placeholder="Quận/Huyện"
+                        placeholder={i18n.t('common.district')}
                         optionFilterProp="children"
                         onChange={onChangeDistrict}
                         filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
@@ -278,7 +279,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
                         showSearch
                         size="large"
                         className="w-full text-[1.6rem]"
-                        placeholder="Phường/Xã"
+                        placeholder={i18n.t('common.commune')}
                         optionFilterProp="children"
                         filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
                         filterSort={(optionA, optionB) =>
@@ -301,7 +302,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
                 rules={[yupSync]}
                 label={
                   <Row className="font-semibold text-[1.6rem]">
-                     Số điện thoại
+                     {i18n.t('common.phone')}
                      <Row className="text-red-500 ml-3">*</Row>
                   </Row>
                 }>
@@ -314,14 +315,14 @@ const AddAdminForm = ({setLoading, action, id}) => {
                 rules={[yupSync]}
                 label={
                   <Row className="font-semibold text-[1.6rem]">
-                     Email đăng nhập
+                     {i18n.t('common.email')}
                      <Row className="text-red-500 ml-3">*</Row>
                   </Row>
                 }>
                 <Input size="large" placeholder="admin@gmail.com" className="rounded" />
             </Form.Item>
             {
-              action !== 'edit' && (
+              action !== EDIT && (
                 <>
                 <Form.Item
                     name="password"
@@ -330,7 +331,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
                     rules={[yupSync]}
                     label={
                       <Row className="font-semibold text-[1.6rem]">
-                        Mật khẩu
+                        {i18n.t('common.password')}
                         <Row className="text-red-500 ml-3">*</Row>
                       </Row>
                     }>
@@ -343,7 +344,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
                     rules={[yupSync]}
                     label={
                       <Row className="font-semibold text-[1.6rem]">
-                        Nhập lại mật khẩu
+                        {i18n.t('common.rePassword')}
                         <Row className="text-red-500 ml-3">*</Row>
                       </Row>
                     }>
@@ -359,7 +360,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
                 rules={[yupSync]}
                 label={
                   <Row className="font-semibold text-[1.6rem]">
-                     Số CMT/CCCD
+                     {i18n.t('common.idCard')}
                      <Row className="text-red-500 ml-3">*</Row>
                   </Row>
                 }>
@@ -372,7 +373,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
                       onClick={() => form.resetFields()}
                       className="flex items-center justify-center md:mr-5 w-full md:w-[100px] !bg-white !text-colorTheme hover:bg-white hover:text-colorTheme hover:border-colorTheme !border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                       <MdDeleteOutline className="mr-3 text-[2rem]" />
-                      Xóa
+                      {i18n.t('common.reset')}
                   </Button>
               </Form.Item>
               <Form.Item>
@@ -381,7 +382,7 @@ const AddAdminForm = ({setLoading, action, id}) => {
                       htmlType="submit"
                       className="flex items-center justify-center w-full md:min-w-[100px] !bg-colorTheme border-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                       <FiSave className="mr-3 text-[2rem]" />
-                      {action === 'edit' ? 'Lưu thay đổi' : 'Tạo tài khoản'}
+                      {action === EDIT ? i18n.t('common.saveChange') : i18n.t('addAdmin.buttonLabel')}
                   </Button>
               </Form.Item>
             </Row>

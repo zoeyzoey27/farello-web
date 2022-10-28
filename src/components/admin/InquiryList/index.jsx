@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Space, Typography, Row, Table, Col, Form, Input, Pagination, Breadcrumb, Select, Badge, Modal } from 'antd'
-import { DATE_TIME_FORMAT, PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
+import { DATE_TIME_FORMAT, DESC, PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { FiSearch} from 'react-icons/fi'
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_INQUIRIES, UPDATE_STATUS_INQUIRY } from './graphql'
@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import FormButtonSearch from '../../common/FormButtonSearch'
 import InquiryDetail from '../InquiryDetail'
 import moment from 'moment'
+import i18n from '../../../translation'
 
 const InquiryList = ({setLoading}) => {
   const { Title } = Typography
@@ -51,7 +52,7 @@ const InquiryList = ({setLoading}) => {
       skip: null,
       take: null,
       orderBy: {
-        createdAt: "desc"
+        createdAt: DESC
       }
     }
   })
@@ -63,7 +64,7 @@ const InquiryList = ({setLoading}) => {
       : SKIP_DEFAULT,
       take: searchCondition?.pageSize || PAGE_SIZE_DEFAULT,
       orderBy: {
-        createdAt: "desc"
+        createdAt: DESC
       }
     },
     onCompleted: () => {
@@ -114,19 +115,19 @@ const InquiryList = ({setLoading}) => {
   },[data])
   const columns = [
     {
-      title: 'Họ tên',
+      title: i18n.t('common.fullName'),
       dataIndex: 'fullName',
     },
     {
-      title: 'Email',
+      title: i18n.t('common.email'),
       dataIndex: 'email'
     },
     {
-      title: 'Số điện thoại',
+      title: i18n.t('common.phone'),
       dataIndex: 'phoneNumber'
     },
     {
-      title: 'Nội dung',
+      title: i18n.t('inquiryList.content'),
       dataIndex: 'content',
       render: (_, record) => (
         <Badge dot={!record.isRead}>
@@ -139,7 +140,7 @@ const InquiryList = ({setLoading}) => {
       )
     },
     {
-      title: 'Thời gian',
+      title: i18n.t('inquiryList.createdAt'),
       dataIndex: 'createdAt',
     }
   ]  
@@ -148,15 +149,15 @@ const InquiryList = ({setLoading}) => {
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
-       <Title level={4} className="whitespace-pre-wrap">Quản lý hộp thư</Title>
+       <Title level={4} className="whitespace-pre-wrap">{i18n.t('inquiryList.title')}</Title>
        <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-[#f8f8f8]">
           <Breadcrumb.Item 
             onClick={() => navigate('/admin/dashboard')}
             className="hover:text-black cursor-pointer">
-            Bảng điều khiển
+            {i18n.t('common.dashboard')}
           </Breadcrumb.Item>
           <Breadcrumb.Item className="font-semibold">
-            Quản lý hộp thư
+            {i18n.t('inquiryList.title')}
           </Breadcrumb.Item>
         </Breadcrumb>
        <Row className="p-10 bg-[#F8F8F8] w-full rounded">
@@ -168,43 +169,43 @@ const InquiryList = ({setLoading}) => {
             onFinish={onSubmit}>
             <Row gutter={{xs: 0, md: 20, xl: 50}}>
                 <Col className="gutter-row" xs={24} md={6}>
-                  <Form.Item name="name" label={<Row className="font-semibold text-[1.6rem]">Họ tên</Row>}>
+                  <Form.Item name="name" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('common.fullName')}</Row>}>
                       <Input 
                          size="large" 
                          className="rounded"
-                         placeholder="Tìm kiếm" 
+                         placeholder={i18n.t('common.search')}
                          suffix={
                            <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                          } />
                   </Form.Item>
                 </Col>
                 <Col className="gutter-row" xs={24} md={6}>
-                  <Form.Item name="email" label={<Row className="font-semibold text-[1.6rem]">Email</Row>}>
+                  <Form.Item name="email" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('common.email')}</Row>}>
                       <Input 
                          size="large" 
                          className="rounded"
-                         placeholder="Tìm kiếm" 
+                         placeholder={i18n.t('common.search')} 
                          suffix={
                            <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                          } />
                   </Form.Item>
                 </Col>
                 <Col className="gutter-row" xs={24} md={6}>
-                  <Form.Item name="phone" label={<Row className="font-semibold text-[1.6rem]">Số điện thoại</Row>}>
+                  <Form.Item name="phone" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('common.phone')}</Row>}>
                       <Input 
                          size="large" 
                          className="rounded"
-                         placeholder="Tìm kiếm" 
+                         placeholder={i18n.t('common.search')} 
                          suffix={
                            <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                          } />
                   </Form.Item>
                 </Col>
                 <Col className="gutter-row" xs={24} md={6}>
-                  <Form.Item name="status" label={<Row className="font-semibold text-[1.6rem]">Trạng thái</Row>}>
+                  <Form.Item name="status" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('inquiryList.status')}</Row>}>
                       <Select size="large" className="w-full text-[1.6rem]" placeholder="Tìm kiếm">
-                          <Option className="text-[1.6rem]" value={true}>Đã đọc</Option>
-                          <Option className="text-[1.6rem]" value={false}>Chưa đọc</Option>
+                          <Option className="text-[1.6rem]" value={true}>{i18n.t('inquiryList.read')}</Option>
+                          <Option className="text-[1.6rem]" value={false}>{i18n.t('inquiryList.unread')}</Option>
                       </Select>
                   </Form.Item>
                 </Col>
@@ -213,9 +214,9 @@ const InquiryList = ({setLoading}) => {
           </Form>
        </Row>
        <Row className="text-[1.6rem] mt-5 md:mt-0">
-            Tổng số 
+            {i18n.t('common.total')}
             <Row className="font-semibold text-colorTheme mx-2">{dataInit?.getInquiries?.length}</Row> 
-            kết quả
+            {i18n.t('common.result')}
         </Row>
        <Table 
           rowKey="id"
@@ -232,9 +233,9 @@ const InquiryList = ({setLoading}) => {
           pageSizeOptions={PAGE_SIZE_OPTIONS}
           showSizeChanger
           onChange={onChangePagination}
-          locale={{items_per_page: 'kết quả / trang'}}
+          locale={{items_per_page: i18n.t('common.page')}}
           className="mt-10 w-full flex justify-center" />  
-        <Modal title="Phản hồi của khách hàng" visible={isModalOpen} onCancel={handleCancel} footer={false} centered>
+        <Modal title={i18n.t('inquiryList.titleModal')} visible={isModalOpen} onCancel={handleCancel} footer={false} centered>
             <InquiryDetail inquiryId={inquiryId} setLoading={setLoading} />
         </Modal>
     </Space>
