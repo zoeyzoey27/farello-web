@@ -1,8 +1,10 @@
 import { useQuery } from '@apollo/client'
 import { Card, Col, Row } from 'antd'
 import React from 'react'
+import { ASC } from '../../../constant'
 import { GET_CATEGORIES } from './graphql'
 import './style.css'
+import i18n from '../../../translation'
 
 const { Meta } = Card
 
@@ -13,13 +15,13 @@ const CategoriesList = () => {
             skip: null,
             take: null,
             orderBy: {
-                createdAt: "asc"
+                createdAt: ASC
             }
         }
     })
     return (
     <>
-        <Row className="title-header">Danh Mục Sản Phẩm</Row>
+        <Row className="title-header">{i18n.t('common.productCategory')}</Row>
         <Row gutter={16}>
             {
                 data?.categories.map((item) => (

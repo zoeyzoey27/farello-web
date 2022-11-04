@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client'
 import { CREATE_INQUIRY } from './graphql'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant'
+import i18n from '../../../translation'
 
 const ContactForm = ({setLoading}) => {
   const { Title } = Typography
@@ -31,7 +32,7 @@ const ContactForm = ({setLoading}) => {
         onCompleted: () => {
             setLoading(false)
             form.resetFields()
-            message.success('Đã gửi phản hồi!')
+            message.success(i18n.t('contactForm.messageSuccess'))
         },
         onError: (err) => {
             setLoading(false)
@@ -42,16 +43,15 @@ const ContactForm = ({setLoading}) => {
   return (
     <Space direction="vertical" size="middle" className="w-full h-full mb-10">
         <Breadcrumb className="my-10 px-10 py-2 bg-[#f8f8f8]">
-          <Breadcrumb.Item href="/" className="text-[1.6rem]">Trang chủ</Breadcrumb.Item>
+          <Breadcrumb.Item href="/" className="text-[1.6rem]">{i18n.t('common.home')}</Breadcrumb.Item>
           <Breadcrumb.Item className="text-[1.6rem] font-semibold">
-              Liên hệ
+             {i18n.t('contactForm.title')}
           </Breadcrumb.Item>
         </Breadcrumb> 
-        <Title level={3} className="block !text-[#343a40] text-center uppercase">Gửi phản hồi cho chúng tôi</Title>
+        <Title level={3} className="block !text-[#343a40] text-center uppercase">{i18n.t('contactForm.subtext')}</Title>
         <Row className="justify-center items-center flex text-[1.6rem]">
            <Row className="w-full md:w-[60%] lg:w-[40%] xl:w-[35%] 2xl:w-[30%] text-center">
-               Bạn vẫn còn băn khoăn hoặc có ý kiến muốn đóng góp? Hãy để lại thông tin và gửi 
-               phản hồi của bạn tại đây để chúng tôi có thể hỗ trợ bạn ngay khi Farello đã tiếp nhận được thông tin nhé!
+              {i18n.t('contactForm.subtext1')}
            </Row>
         </Row>
         <Row className="my-10 mx-auto w-full md:w-[60%] lg:w-[40%] xl:w-[35%] 2xl:w-[30%] flex flex-col">
@@ -65,7 +65,7 @@ const ContactForm = ({setLoading}) => {
                     name="fullName"
                     label={
                     <Row className="font-semibold text-[1.6rem]">
-                        Họ tên
+                        {i18n.t('common.fullName')}
                         <Row className="text-red-500 ml-3">*</Row>
                     </Row>
                     }
@@ -77,7 +77,7 @@ const ContactForm = ({setLoading}) => {
                     name="email"
                     label={
                     <Row className="font-semibold text-[1.6rem]">
-                        Email
+                        {i18n.t('common.email')}
                         <Row className="text-red-500 ml-3">*</Row>
                     </Row>
                     }
@@ -89,7 +89,7 @@ const ContactForm = ({setLoading}) => {
                     name="phoneNumber"
                     label={
                     <Row className="font-semibold text-[1.6rem]">
-                        Số điện thoại
+                        {i18n.t('common.phone')}
                         <Row className="text-red-500 ml-3">*</Row>
                     </Row>
                     }
@@ -103,7 +103,7 @@ const ContactForm = ({setLoading}) => {
                   rules={[yupSync]}
                   label={
                     <Row className="font-semibold text-[1.6rem]">
-                      Nội dung
+                      {i18n.t('contactForm.content')}
                       <Row className="text-red-500 ml-3">*</Row>
                     </Row>
                   }>
@@ -115,7 +115,7 @@ const ContactForm = ({setLoading}) => {
                         size="large" 
                         className="flex items-center justify-center !bg-colorTheme !text-white !border-colorTheme hover:bg-colorTheme hover:text-white hover:border-colorTheme w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
                         <AiOutlineMail className="mr-3 text-[2rem]" />
-                        Gửi phản hồi
+                        {i18n.t('contactForm.buttonSubmit')}
                     </Button>
                 </Form.Item>
             </Form>

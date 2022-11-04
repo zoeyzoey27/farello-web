@@ -14,7 +14,7 @@ import {
   Breadcrumb
 } from 'antd'
 import './style.css'
-import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
+import { DESC, PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { useNavigate } from 'react-router-dom'
 import { FiSearch, FiEdit } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
@@ -23,6 +23,7 @@ import { DELETE_CATEGORY, GET_CATEGORIES } from './graphql'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import FormButtonSearch from '../../common/FormButtonSearch'
 import BaseTitleHeader from '../../common/BaseTitleHeader'
+import i18n from '../../../translation'
 
 const ListCategory = ({setLoading}) => {
   const { Title } = Typography
@@ -41,7 +42,7 @@ const ListCategory = ({setLoading}) => {
       skip: null,
       take: null,
       orderBy: {
-        createdAt: "asc"
+        createdAt: DESC
       }
     }
   })
@@ -53,7 +54,7 @@ const ListCategory = ({setLoading}) => {
       : SKIP_DEFAULT,
       take: searchCondition?.pageSize || PAGE_SIZE_DEFAULT,
       orderBy: {
-        createdAt: "asc"
+        createdAt: DESC
       }
     },
     onCompleted: () => {
@@ -105,7 +106,7 @@ const ListCategory = ({setLoading}) => {
         deleteCategoryId: id
       },
       onCompleted: () => {
-        message.success('Xóa dữ liệu thành công!')
+        message.success(i18n.t('categoryList.message.deleteSuccessful'))
       },
       onError: (err) => {
         message.success(`${err.message}`)
@@ -120,7 +121,7 @@ const ListCategory = ({setLoading}) => {
           : SKIP_DEFAULT,
           take: searchCondition?.pageSize || PAGE_SIZE_DEFAULT,
           orderBy: {
-            createdAt: "desc"
+            createdAt: DESC
           }
         }
       },
@@ -131,7 +132,7 @@ const ListCategory = ({setLoading}) => {
           skip: null,
           take: null,
           orderBy: {
-            createdAt: "desc"
+            createdAt: DESC
           }
         }
       },
@@ -140,25 +141,25 @@ const ListCategory = ({setLoading}) => {
   }
   const columns = [
     {
-      title: 'Mã danh mục',
+      title: i18n.t('categoryList.id'),
       dataIndex: 'categoryId',
     },
     {
-      title: 'Tên danh mục',
+      title: i18n.t('categoryList.name'),
       dataIndex: 'name',
     },
     {
-      title: 'Mô tả danh mục',
+      title: i18n.t('categoryList.description'),
       dataIndex: 'description',
       width: '550px'
     },
     {
-      title: 'Ảnh minh họa',
+      title: i18n.t('categoryList.image'),
       dataIndex: 'image',
       render: (value) => <Image src={value} alt='' width={150} />,
     },
     {
-      title: 'Tổng sản phẩm',
+      title: i18n.t('categoryList.products'),
       dataIndex: 'totalProduct',
     },
     {
@@ -176,9 +177,9 @@ const ListCategory = ({setLoading}) => {
       dataIndex: 'delete',
       render: (_, _record) => (
         <Popconfirm 
-          title={<Row className="text-[1.6rem] ml-5">Bạn có chắc muốn xóa dữ liệu này không？</Row>}
-          okText="Xóa"
-          cancelText="Hủy"
+          title={<Row className="text-[1.6rem] ml-5">{i18n.t('categoryList.deleteConfirm')}</Row>}
+          okText={i18n.t('common.reset')}
+          cancelText={i18n.t('common.cancel')}
           onConfirm={() => confirm(_record.id)}
           icon={<QuestionCircleOutlined className="!text-[2rem] !text-red-500" />}>
           <MdDeleteOutline className="text-[2rem] cursor-pointer hover:opacity-80 !text-red-500" />
@@ -192,15 +193,15 @@ const ListCategory = ({setLoading}) => {
         direction="vertical" 
         size="middle" 
         className="w-full h-full bg-white p-10">
-        <Title level={4} className="whitespace-pre-wrap">Danh sách danh mục sản phẩm</Title>
+        <Title level={4} className="whitespace-pre-wrap">{i18n.t('categoryList.title')}</Title>
         <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-bgGray">
           <Breadcrumb.Item 
             onClick={() => navigate('/admin/dashboard')}
             className="hover:text-black cursor-pointer">
-            Bảng điều khiển
+           {i18n.t('common.dashboard')}
           </Breadcrumb.Item>
           <Breadcrumb.Item className="font-semibold">
-            Danh sách danh mục sản phẩm
+             {i18n.t('categoryList.title')}
           </Breadcrumb.Item>
         </Breadcrumb>
         <Row className="p-10 bg-[#F8F8F8] w-full rounded">
@@ -212,22 +213,22 @@ const ListCategory = ({setLoading}) => {
               className="w-full">
               <Row gutter={{xs: 0, md: 20, xl: 50}}>
                   <Col className="gutter-row" xs={24} md={8}>
-                    <Form.Item name="categoryId" label={<Row className="font-semibold text-[1.6rem]">Mã danh mục</Row>}>
+                    <Form.Item name="categoryId" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('categoryList.id')}</Row>}>
                         <Input 
                           size="large" 
                           className="rounded"
-                          placeholder="Tìm kiếm" 
+                          placeholder={i18n.t('common.search')}
                           suffix={
                             <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                           } />
                     </Form.Item>
                   </Col>
                   <Col className="gutter-row" xs={24} md={8}>
-                    <Form.Item name="categoryName" label={<Row className="font-semibold text-[1.6rem]">Tên danh mục</Row>}>
+                    <Form.Item name="categoryName" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('categoryList.name')}</Row>}>
                         <Input 
                           size="large" 
                           className="rounded"
-                          placeholder="Tìm kiếm" 
+                          placeholder={i18n.t('common.search')}
                           suffix={
                             <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                           } />
@@ -240,7 +241,7 @@ const ListCategory = ({setLoading}) => {
         <BaseTitleHeader 
            totalCount={dataInit?.categories?.length} 
            handleClick={() => navigate('/admin/addCategory')} 
-           buttonLabel="Thêm mới danh mục" />
+           buttonLabel={i18n.t('categoryList.buttonAdd')} />
         <Table 
             rowKey="id"
             columns={columns} 
@@ -256,7 +257,7 @@ const ListCategory = ({setLoading}) => {
             pageSizeOptions={PAGE_SIZE_OPTIONS}
             showSizeChanger
             onChange={onChangePagination}
-            locale={{items_per_page: 'kết quả / trang'}}
+            locale={{items_per_page: i18n.t('common.page')}}
             className="mt-10 w-full flex justify-center" />
       </Space>
   )

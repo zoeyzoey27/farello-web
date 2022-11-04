@@ -10,6 +10,7 @@ import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant' 
 import numberWithCommas from '../../../utils/NumberWithCommas'
 import { PaymentMethod } from '../../../constant/paymentMethod'
+import i18n from '../../../translation'
 
 const OrderPage = ({setLoading}) => {
   const { Title } = Typography
@@ -132,12 +133,12 @@ const OrderPage = ({setLoading}) => {
         size="middle" 
         className="w-full h-full mb-10">
         <Breadcrumb className="my-10 px-10 py-2 bg-[#f8f8f8]">
-          <Breadcrumb.Item href="/" className="text-[1.6rem]">Trang chủ</Breadcrumb.Item>
+          <Breadcrumb.Item href="/" className="text-[1.6rem]">{i18n.t('common.home')}</Breadcrumb.Item>
           <Breadcrumb.Item href="/cart" className="text-[1.6rem]">
-              Giỏ hàng
+             {i18n.t('userOrderPage.cart')}
           </Breadcrumb.Item>
           <Breadcrumb.Item className="text-[1.6rem] font-semibold">
-              Thanh toán
+             {i18n.t('userOrderPage.paymentPage')}
           </Breadcrumb.Item>
         </Breadcrumb> 
         <Form
@@ -148,12 +149,12 @@ const OrderPage = ({setLoading}) => {
             className="w-full flex flex-col lg:flex-row">
             <Row className="w-full lg:w-[55%] lg:mr-20">
                 <Col className="w-full mb-10">
-                   <Title level={4} className="!mb-10 block">Thông tin khách hàng</Title>
+                   <Title level={4} className="!mb-10 block">{i18n.t('userOrderPage.userInfo')}</Title>
                     <Form.Item
                         name="name"
                         label={
                         <Row className="text-[1.6rem]">
-                            Họ tên
+                            {i18n.t('common.fullName')}
                             <Row className="text-red-500 ml-3">*</Row>
                         </Row>
                         }
@@ -165,7 +166,7 @@ const OrderPage = ({setLoading}) => {
                         name="email"
                         label={
                         <Row className="text-[1.6rem]">
-                            Email
+                            {i18n.t('common.email')}
                             <Row className="text-red-500 ml-3">*</Row>
                         </Row>
                         }
@@ -177,7 +178,7 @@ const OrderPage = ({setLoading}) => {
                         name="phone"
                         label={
                         <Row className="text-[1.6rem]">
-                            Số điện thoại
+                            {i18n.t('common.phone')}
                             <Row className="text-red-500 ml-3">*</Row>
                         </Row>
                         }
@@ -187,12 +188,12 @@ const OrderPage = ({setLoading}) => {
                     </Form.Item>
                 </Col>
                 <Col className="w-full mb-10">
-                   <Title level={4} className="!mb-10 block">Địa chỉ giao hàng</Title>
+                   <Title level={4} className="!mb-10 block">{i18n.t('userOrderPage.addressInfo')}</Title>
                    <Form.Item
                       name="province"
                       label={
                         <Row className="text-[1.6rem]">
-                            Tỉnh/Thành phố
+                            {i18n.t('common.province')}
                             <Row className="text-red-500 ml-3">*</Row>
                         </Row>
                         }
@@ -202,7 +203,7 @@ const OrderPage = ({setLoading}) => {
                           showSearch
                           size="large"
                           className="w-full text-[1.6rem]"
-                          placeholder="Tỉnh/Thành Phố"
+                          placeholder={i18n.t('common.province')}
                           optionFilterProp="children"
                           onChange={onChangeProvince}
                           filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
@@ -220,7 +221,7 @@ const OrderPage = ({setLoading}) => {
                         name="district"
                         label={
                         <Row className="text-[1.6rem]">
-                            Quận/Huyện
+                            {i18n.t('common.district')}
                             <Row className="text-red-500 ml-3">*</Row>
                         </Row>
                         }
@@ -230,7 +231,7 @@ const OrderPage = ({setLoading}) => {
                             showSearch
                             size="large"
                             className="w-full text-[1.6rem]"
-                            placeholder="Quận/Huyện"
+                            placeholder={i18n.t('common.district')}
                             optionFilterProp="children"
                             onChange={onChangeDistrict}
                             filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
@@ -248,7 +249,7 @@ const OrderPage = ({setLoading}) => {
                         name="commune"
                         label={
                         <Row className="text-[1.6rem]">
-                            Phường/Xã
+                            {i18n.t('common.commune')}
                             <Row className="text-red-500 ml-3">*</Row>
                         </Row>
                         }
@@ -258,7 +259,7 @@ const OrderPage = ({setLoading}) => {
                             showSearch
                             size="large"
                             className="w-full text-[1.6rem]"
-                            placeholder="Phường/Xã"
+                            placeholder={i18n.t('common.commune')}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
                             filterSort={(optionA, optionB) =>
@@ -275,19 +276,19 @@ const OrderPage = ({setLoading}) => {
                         name="address"
                         label={
                         <Row className="text-[1.6rem]">
-                            Địa chỉ cụ thể
+                            {i18n.t('userOrderPage.address')}
                             <Row className="text-red-500 ml-3">*</Row>
                         </Row>
                         }
                         required={false}
                         rules={[yupSync]}>
-                        <Input size="large" placeholder="Số nhà/khu/ngõ/ngách" className="rounded" />
+                        <Input size="large" placeholder={i18n.t('userOrderPage.addressPlaceholder')} className="rounded" />
                     </Form.Item>
                     <Form.Item
                         name="note"
                         label={
                         <Row className="text-[1.6rem]">
-                            Ghi chú
+                            {i18n.t('userOrderPage.note')}
                         </Row>
                         }
                         className="mb-0"
@@ -296,7 +297,7 @@ const OrderPage = ({setLoading}) => {
                     </Form.Item>
                 </Col>
                 <Col className="w-full">
-                   <Title level={4} className="!mb-10 block">Phương thức thanh toán</Title>
+                   <Title level={4} className="!mb-10 block">{i18n.t('userOrderPage.paymentMethod')}</Title>
                    <Radio.Group onChange={onChange} value={value}>
                         <Space direction="vertical">
                             {
@@ -311,22 +312,22 @@ const OrderPage = ({setLoading}) => {
                 </Col>
             </Row>
             <Col className="mt-5 lg:mt-0 flex-1 h-fit">
-                <Title level={4} className="!mb-10 block">Đơn hàng</Title>
+                <Title level={4} className="!mb-10 block">{i18n.t('userOrderPage.orderInfo')}</Title>
                 <List
                     header={false}
                     footer={false}
                     className="h-fit"
                     bordered>
                     <List.Item className="flex items-start justify-between">
-                        <Row className="text-[1.6rem]">Đơn hàng:</Row>
+                        <Row className="text-[1.6rem]">{`${i18n.t('orderDetailAdmin.order')}:`}</Row>
                         <Row className="text-[1.6rem]">{numberWithCommas(totalPaymentWithoutShip)}</Row>
                     </List.Item>
                     <List.Item className="flex items-start justify-between">
-                        <Row className="text-[1.6rem]">Ship:</Row>
+                        <Row className="text-[1.6rem]">{`${i18n.t('orderDetailAdmin.ship')}:`}</Row>
                         <Row className="text-[1.6rem]">{numberWithCommas(transferFee)}</Row>
                     </List.Item>
                     <List.Item className="flex items-start justify-between">
-                        <Row className="text-[2rem] font-semibold uppercase">Tổng đơn:</Row>
+                        <Row className="text-[2rem] font-semibold uppercase">{`${i18n.t('orderDetailAdmin.total')}:`}</Row>
                         <Row className="text-[2rem] font-semibold">{numberWithCommas(totalPayment)}</Row>
                     </List.Item>
                     <Form.Item className="mb-0 mt-20">
@@ -334,7 +335,7 @@ const OrderPage = ({setLoading}) => {
                             size="large" 
                             htmlType="submit" 
                             className="!text-white w-full border-0 !bg-colorTheme text-[1.6rem] font-semibold hover:opacity-90 hover:bg-colorTheme hover:text-white hover:border-colorTheme">
-                            Đặt hàng
+                            {i18n.t('userOrderPage.buttonOrder')}
                         </Button>
                     </Form.Item>
                 </List>

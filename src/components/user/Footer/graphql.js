@@ -8,3 +8,11 @@ export const GET_CATEGORIES = gql`
     }
   }
 `
+export const GET_POSTS = gql `
+  query PostCategories($skip: Int, $take: Int, $orderBy: OrderByInputByTime) {
+    postCategories(skip: $skip, take: $take, orderBy: $orderBy) {
+      id
+      title
+    }
+  }
+`

@@ -6,15 +6,16 @@ import { useMutation } from '@apollo/client'
 import { CREATE_COMMENT } from './graphql'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant'
+import i18n from '../../../translation'
 
 const FormRate = ({product}) => {
   const { TextArea } = Input;
   const desc = [
-    'Chất lượng sản phẩm rất tệ', 
-    'Chất lượng sản phẩm tệ', 
-    'Chất lượng sản phẩm bình thường', 
-    'Chất lượng sản phẩm tốt', 
-    'Chất lượng sản phẩm tuyệt vời'
+    i18n.t('formRate.option1'), 
+    i18n.t('formRate.option2'), 
+    i18n.t('formRate.option3'), 
+    i18n.t('formRate.option4'), 
+    i18n.t('formRate.option5')
   ]
   const [loading, setLoading] = useState(false)
   const [valueRate, setValueRate] = useState(0)
@@ -38,7 +39,7 @@ const FormRate = ({product}) => {
         onCompleted: () => {
             setLoading(false)
             window.location.reload()
-            message.success('Đánh giá sản phẩm thành công!')
+            message.success(i18n.t('formRate.messageSuccess'))
         },
         onError: (err) => {
             setLoading(false)
@@ -50,7 +51,7 @@ const FormRate = ({product}) => {
     <Spin spinning={loading} size="large">
         <Space direction="vertical" size="middle" className="w-full">
             <Row className="text-[1.6rem] block rounded bg-[#f8f8f8] py-3 px-5">
-                Vui lòng đánh giá và chia sẻ cảm nhận của bạn về sản phẩm này.
+                {i18n.t('formRate.subtext')}
             </Row>
             <Row className="flex items-start">
                 <img src={product?.images[0]} width={80} alt="" />
@@ -71,7 +72,7 @@ const FormRate = ({product}) => {
                     rules={[yupSync]}
                     label={
                     <Row className="font-semibold text-[1.6rem]">
-                        Nội dung
+                        {i18n.t('formRate.content')}
                         <Row className="text-red-500 ml-3">*</Row>
                     </Row>
                     }>
@@ -82,7 +83,7 @@ const FormRate = ({product}) => {
                         size="large" 
                         htmlType="submit"
                         className="w-full !border-colorTheme !bg-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                        Gửi đánh giá
+                        {i18n.t('formRate.buttonSubmit')}
                     </Button>
                 </Form.Item>
             </Form>

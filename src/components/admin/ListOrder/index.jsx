@@ -11,7 +11,7 @@ import {
   Select,
   Breadcrumb
 } from 'antd'
-import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
+import { DESC, PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { FiSearch } from 'react-icons/fi'
 import { BiDetail } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
@@ -20,6 +20,7 @@ import { GET_ORDERS } from './graphql'
 import numberWithCommas from '../../../utils/NumberWithCommas'
 import { OrderStatus } from '../../../constant/statusOrder'
 import FormButtonSearch from '../../common/FormButtonSearch'
+import i18n from '../../../translation'
 
 const ListOrder = ({setLoading}) => {
   const { Title } = Typography
@@ -38,7 +39,7 @@ const ListOrder = ({setLoading}) => {
      skip: null,
      take: null,
      orderBy: {
-       updatedAt: 'desc'
+       updatedAt: DESC
      }
     }
   })
@@ -50,7 +51,7 @@ const ListOrder = ({setLoading}) => {
       : SKIP_DEFAULT,
       take: searchCondition?.pageSize || PAGE_SIZE_DEFAULT,
       orderBy: {
-        updatedAt: "desc"
+        updatedAt: DESC
       }
     },
     onCompleted: () => {
@@ -110,32 +111,32 @@ const ListOrder = ({setLoading}) => {
  },[data])
   const columns = [
     {
-      title: 'Mã đơn hàng',
+      title: i18n.t('orderList.id'),
       dataIndex: 'orderId',
     },
     {
-      title: 'Người nhận',
+      title: i18n.t('orderList.fullName'),
       dataIndex: 'name',
     },
     {
-      title: 'Số điện thoại',
+      title: i18n.t('orderList.phone'),
       dataIndex: 'phone'
     },
     {
-      title: 'Địa chỉ người nhận',
+      title: i18n.t('orderList.address'),
       dataIndex: 'address',
     },
     {
-        title: 'Số lượng sản phẩm',
+        title: i18n.t('orderList.totalProducts'),
         dataIndex: 'totalProduct',
     },
     {
-        title: 'Tổng đơn hàng',
+        title: i18n.t('orderList.payment'),
         dataIndex: 'totalFee',
         render: (value) => <Row>{`${numberWithCommas(value)} VND`}</Row>
     },
     {
-        title: 'Trạng thái',
+        title: i18n.t('orderList.status'),
         dataIndex: 'status',
         render: (value) => {
           return (
@@ -146,7 +147,7 @@ const ListOrder = ({setLoading}) => {
         },
     },
     {
-      title: 'Ngày đặt',
+      title: i18n.t('orderList.date'),
       dataIndex: 'createdAt',
     },
     {
@@ -165,78 +166,78 @@ const ListOrder = ({setLoading}) => {
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
-       <Title level={4} className="whitespace-pre-wrap">Danh sách đơn hàng</Title>
+       <Title level={4} className="whitespace-pre-wrap">{i18n.t('orderList.title')}</Title>
        <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-[#f8f8f8]">
           <Breadcrumb.Item 
             onClick={() => navigate('/admin/dashboard')}
             className="hover:text-black cursor-pointer">
-            Bảng điều khiển
+            {i18n.t('common.dashboard')}
           </Breadcrumb.Item>
           <Breadcrumb.Item className="font-semibold">
-            Danh sách đơn hàng
+             {i18n.t('orderList.title')}
           </Breadcrumb.Item>
         </Breadcrumb>
        <Row className="p-10 bg-[#F8F8F8] w-full rounded">
           <Form form={form} onFinish={onSubmit} layout="vertical" autoComplete="off" className="w-full">
             <Row gutter={{xs: 0, md: 20, xl: 50}}>
                 <Col className="gutter-row" xs={24} md={8}>
-                  <Form.Item name="orderId" label={<Row className="font-semibold text-[1.6rem]">Mã đơn hàng</Row>}>
+                  <Form.Item name="orderId" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('orderList.id')}</Row>}>
                       <Input 
                          size="large" 
                          className="rounded"
-                         placeholder="Tìm kiếm" 
+                         placeholder={i18n.t('common.search')} 
                          suffix={
                            <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                          } />
                   </Form.Item>
                 </Col>
                 <Col className="gutter-row" xs={24} md={8}>
-                  <Form.Item name="name" label={<Row className="font-semibold text-[1.6rem]">Người nhận</Row>}>
+                  <Form.Item name="name" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('orderList.fullName')}</Row>}>
                       <Input 
                          size="large" 
                          className="rounded"
-                         placeholder="Tìm kiếm" 
+                         placeholder={i18n.t('common.search')} 
                          suffix={
                            <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                          } />
                   </Form.Item>
                 </Col>
                 <Col className="gutter-row" xs={24} md={8}>
-                  <Form.Item name="phone" label={<Row className="font-semibold text-[1.6rem]">Số điện thoại</Row>}>
+                  <Form.Item name="phone" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('orderList.phone')}</Row>}>
                       <Input 
                          size="large" 
                          className="rounded"
-                         placeholder="Tìm kiếm" 
+                         placeholder={i18n.t('common.search')}  
                          suffix={
                            <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                          } />
                   </Form.Item>
                 </Col>
                 <Col className="gutter-row" xs={24} md={8}>
-                  <Form.Item name="address" label={<Row className="font-semibold text-[1.6rem]">Địa chỉ người nhận</Row>}>
+                  <Form.Item name="address" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('orderList.address')}</Row>}>
                       <Input 
                          size="large" 
                          className="rounded"
-                         placeholder="Tìm kiếm" 
+                         placeholder={i18n.t('common.search')}  
                          suffix={
                            <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                          } />
                   </Form.Item>
                 </Col>
                 <Col className="gutter-row" xs={24} md={8}>
-                  <Form.Item name="email" label={<Row className="font-semibold text-[1.6rem]">Email người nhận</Row>}>
+                  <Form.Item name="email" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('orderList.email')}</Row>}>
                       <Input 
                          size="large" 
                          className="rounded"
-                         placeholder="Tìm kiếm" 
+                         placeholder={i18n.t('common.search')}  
                          suffix={
                            <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                          } />
                   </Form.Item>
                 </Col>
                 <Col className="gutter-row" xs={24} md={8}>
-                  <Form.Item name="status" label={<Row className="font-semibold text-[1.6rem]">Trạng thái</Row>}>
-                      <Select size="large" className="rounded w-[220px] self-end mb-10" placeholder="Chờ xác nhận">
+                  <Form.Item name="status" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('orderList.status')}</Row>}>
+                      <Select size="large" className="rounded w-[220px] self-end mb-10" placeholder={i18n.t('orderList.waitForConfirmation')}>
                           {
                             OrderStatus.map((item) => (
                                <Option key={item.value} value={item.value} className="text-[1.6rem]">
@@ -252,9 +253,9 @@ const ListOrder = ({setLoading}) => {
           </Form>
        </Row>
        <Row className="text-[1.6rem] mt-5 md:mt-0">
-            Tổng số 
+            {i18n.t('common.total')}
             <Row className="font-semibold text-colorTheme mx-2">{dataInit?.orders?.length}</Row> 
-            kết quả
+            {i18n.t('common.result')}
         </Row>
        <Table 
           rowKey="id"
@@ -271,7 +272,7 @@ const ListOrder = ({setLoading}) => {
           pageSizeOptions={PAGE_SIZE_OPTIONS}
           showSizeChanger
           onChange={onChangePagination}
-          locale={{items_per_page: 'kết quả / trang'}}
+          locale={{items_per_page: i18n.t('common.page')}}
           className="mt-10 w-full flex justify-center" />
     </Space>
   )

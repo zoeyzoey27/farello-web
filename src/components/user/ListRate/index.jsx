@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client'
 import { UPDATE_COMMENT } from './graphql'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant'
+import i18n from '../../../translation'
 
 const ListRate = ({product, setLoading}) => {
   const userId = localStorage.getItem("id_token")
@@ -19,7 +20,7 @@ const ListRate = ({product, setLoading}) => {
         setIsModalOpen(true)
     }
     else {
-        message.info('Bạn chưa đăng nhập!')
+        message.info(i18n.t('common.notLogin'))
     }
   };
   const handleCancel = () => {
@@ -51,7 +52,7 @@ const ListRate = ({product, setLoading}) => {
         })
     }
     else {
-        message.info('Bạn chưa đăng nhập!')
+        message.info(i18n.t('common.notLogin'))
     }
   };
   const dislike = ({id, likes, dislikes, userLiked, userDisLiked}) => {
@@ -78,7 +79,7 @@ const ListRate = ({product, setLoading}) => {
         })
     }
     else {
-        message.info('Bạn chưa đăng nhập!')
+        message.info(i18n.t('common.notLogin'))
     }
   };
   useEffect(() => {
@@ -88,7 +89,7 @@ const ListRate = ({product, setLoading}) => {
             sum+=item.ratePoint
             return {
                 actions: [
-                    <Tooltip key="comment-basic-like" title="Hữu ích">
+                    <Tooltip key="comment-basic-like" title={i18n.t('listRate.like')}>
                         <span 
                             onClick={() => like({
                                 id: item.id, 
@@ -101,7 +102,7 @@ const ListRate = ({product, setLoading}) => {
                             <span className="ml-3">{item.likes}</span>
                         </span>
                     </Tooltip>,
-                    <Tooltip key="comment-basic-dislike" title="Không hữu ích">
+                    <Tooltip key="comment-basic-dislike" title={i18n.t('listRate.dislike')}>
                         <span 
                             onClick={() => dislike({
                                 id: item.id, 
@@ -145,17 +146,17 @@ const ListRate = ({product, setLoading}) => {
                 <Row className="!my-[50px] px-10 py-6 bg-[#f8f8f8] rounded flex items-center justify-between">
                     <Row className="flex flex-col">
                         <Rate disabled allowHalf value={ratePoint} />
-                        <Row className="text-[1.6rem] text-colorTheme mt-3">{`${ratePoint} trên 5`}</Row>
+                        <Row className="text-[1.6rem] text-colorTheme mt-3">{`${ratePoint} / 5`}</Row>
                     </Row>
                     <Button 
                         size="large"
                         onClick={showModal}
                         className="flex items-center !bg-colorTheme !border-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                         <BsPencil className="mr-3 text-[1.8rem]" />
-                        Viết đánh giá
+                        {i18n.t('listRate.rate')}
                     </Button>
                 </Row>
-                <Row className="text-[1.6rem] mb-5">{`Tất cả: ${product?.comments?.length} đánh giá`}</Row>
+                <Row className="text-[1.6rem] mb-5">{`${i18n.t('listRate.total')} ${product?.comments?.length} ${i18n.t('listRate.review')}`}</Row>
                 <List
                     className="comment-list"
                     itemLayout="horizontal"
@@ -183,7 +184,7 @@ const ListRate = ({product, setLoading}) => {
                 className="flex justify-center flex-col mb-10"
                 description={
                 <span className="text-[1.6rem]">
-                    Rất tiếc, sản phẩm chưa có đánh giá nào!
+                    {i18n.t('listRate.noData')}
                 </span>
                 }>
                 <Row className="flex justify-center">
@@ -192,12 +193,12 @@ const ListRate = ({product, setLoading}) => {
                         onClick={showModal}
                         className="flex items-center !bg-colorTheme !border-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
                         <BsPencil className="mr-3 text-[1.8rem]" />
-                        Viết đánh giá
+                        {i18n.t('listRate.rate')}
                     </Button>
                 </Row>
             </Empty>
         )}
-        <Modal title="Đánh giá sản phẩm" visible={isModalOpen} centered footer={false} onCancel={handleCancel}>
+        <Modal title={i18n.t('listRate.modalTitle')} visible={isModalOpen} centered footer={false} onCancel={handleCancel}>
             <FormRate product={product} />
         </Modal>
     </Row> 

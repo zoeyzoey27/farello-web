@@ -1,15 +1,16 @@
 import React from 'react'
 import { Row, Button } from 'antd'
 import { AiOutlineAppstoreAdd } from 'react-icons/ai'
+import i18n from '../../../translation'
 
 const BaseTitleHeader = ({totalCount, handleClick, buttonLabel}) => {
 
   return (
     <Row className="flex flex-col-reverse md:flex-row md:justify-between my-5">
         <Row className="text-[1.6rem] mt-5 md:mt-0">
-            Tổng số 
+            {i18n.t('common.total')} 
             <Row className="font-semibold text-colorTheme mx-2">{totalCount}</Row> 
-            kết quả
+            {i18n.t('common.result')} 
         </Row>
         <Button   
             size="large" 

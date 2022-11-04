@@ -1,6 +1,7 @@
 import React from 'react'
 import { Row, Col, Card } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import i18n from '../../../translation'
 
 const ListPostsByCategory = ({posts}) => {
   const { Meta } = Card
@@ -26,7 +27,7 @@ const ListPostsByCategory = ({posts}) => {
                                     <Row 
                                       onClick={() => navigate(`/postDetail?id=${item.id}`)}
                                       className="italic text-blue-500">
-                                      Xem thêm
+                                      {i18n.t('listPostUser.readMore')}
                                     </Row>
                                 </Row>
                             }

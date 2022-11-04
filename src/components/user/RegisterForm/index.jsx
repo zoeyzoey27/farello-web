@@ -8,6 +8,7 @@ import { useMutation } from '@apollo/client'
 import { REGISTER_USER } from './graphql'
 import { convertTimeToString, DATE_TIME_FORMAT } from '../../../constant'
 import moment from 'moment'
+import i18n from '../../../translation'
 
 const RegisterForm = ({setLoading}) => {
   const { Title } = Typography
@@ -24,7 +25,7 @@ const RegisterForm = ({setLoading}) => {
     setLoading(true)
     if (values.password !== values.rePassword) {
       setLoading(false)
-      message.error('Mật khẩu không khớp!');
+      message.error(i18n.t('register.messageError'));
     }
     else {
       const province = provinceList.find((item) => item.code === form.getFieldsValue().province).name
@@ -54,7 +55,7 @@ const RegisterForm = ({setLoading}) => {
         onCompleted: () => {
           setLoading(false)
           navigate('/login')
-          message.success('Đăng ký thành công!');
+          message.success(i18n.t('register.messageSuccess'));
         },
         onError: (err) => {
           setLoading(false)
@@ -81,9 +82,9 @@ const RegisterForm = ({setLoading}) => {
   return (
     <Row className="w-full flex justify-center mb-20">
       <Row className="py-10 px-20 rounded bg-white w-full md:w-[60%] lg:w-[40%] xl:w-[35%] 2xl:w-[30%] flex flex-col shadow-lg">
-        <Title level={3} className="block !mb-10 !text-[#343a40]">Đăng ký</Title>
-        <Row className="text-[1.6rem]">Vui lòng nhập thông tin vào các trường bên dưới.</Row>
-        <Row className="mb-5 text-[1.6rem]">(*) là thông tin bắt buộc.</Row>
+        <Title level={3} className="block !mb-10 !text-[#343a40]">{i18n.t('register.title')}</Title>
+        <Row className="text-[1.6rem]">{i18n.t('common.enterInfo')}</Row>
+        <Row className="mb-5 text-[1.6rem]">{i18n.t('common.subtitle')}</Row>
         <Form
           layout="vertical"
           form={form}
@@ -94,7 +95,7 @@ const RegisterForm = ({setLoading}) => {
             name="name"
             label={
               <Row className="font-semibold text-[1.6rem]">
-                  Họ tên
+                  {i18n.t('common.fullName')}
                   <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }
@@ -106,7 +107,7 @@ const RegisterForm = ({setLoading}) => {
             name="birthday"
             label={
               <Row className="font-semibold text-[1.6rem]">
-                  Ngày sinh
+                  {i18n.t('common.birthday')}
               </Row>
             }
             required={false}>
@@ -115,7 +116,7 @@ const RegisterForm = ({setLoading}) => {
           <Form.Item 
               label={
                   <Row className="font-semibold text-[1.6rem]">
-                     Địa chỉ
+                     {i18n.t('common.address')}
                      <Row className="text-red-500 ml-3">*</Row>
                   </Row>
                 }>
@@ -129,7 +130,7 @@ const RegisterForm = ({setLoading}) => {
                           showSearch
                           size="large"
                           className="w-full text-[1.6rem]"
-                          placeholder="Tỉnh/Thành Phố"
+                          placeholder={i18n.t('common.province')}
                           optionFilterProp="children"
                           onChange={onChangeProvince}
                           filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
@@ -153,7 +154,7 @@ const RegisterForm = ({setLoading}) => {
                         showSearch
                         size="large"
                         className="w-full text-[1.6rem]"
-                        placeholder="Quận/Huyện"
+                        placeholder={i18n.t('common.district')}
                         optionFilterProp="children"
                         onChange={onChangeDistrict}
                         filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
@@ -178,7 +179,7 @@ const RegisterForm = ({setLoading}) => {
                         showSearch
                         size="large"
                         className="w-full text-[1.6rem]"
-                        placeholder="Phường/Xã"
+                        placeholder={i18n.t('common.commune')}
                         optionFilterProp="children"
                         filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
                         filterSort={(optionA, optionB) =>
@@ -198,7 +199,7 @@ const RegisterForm = ({setLoading}) => {
             name="email"
             label={
               <Row className="font-semibold text-[1.6rem]">
-                  Email đăng nhập
+                  {i18n.t('common.email')}
                   <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }
@@ -210,7 +211,7 @@ const RegisterForm = ({setLoading}) => {
             name="password"
             label={
               <Row className="font-semibold text-[1.6rem]">
-                  Mật khẩu
+                  {i18n.t('common.password')}
                   <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }
@@ -222,7 +223,7 @@ const RegisterForm = ({setLoading}) => {
             name="rePassword"
             label={
               <Row className="font-semibold text-[1.6rem]">
-                  Nhập lại mật khẩu
+                  {i18n.t('register.passwordConfirm')}
                   <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }
@@ -234,7 +235,7 @@ const RegisterForm = ({setLoading}) => {
             name="phone"
             label={
               <Row className="font-semibold text-[1.6rem]">
-                  Số điện thoại
+                  {i18n.t('common.phone')}
                   <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }
@@ -246,7 +247,7 @@ const RegisterForm = ({setLoading}) => {
             name="idCard"
             label={
               <Row className="font-semibold text-[1.6rem]">
-                  Số CMT/CCCD
+                  {i18n.t('common.idCard')}
               </Row>
             }
             required={false}>
@@ -257,16 +258,16 @@ const RegisterForm = ({setLoading}) => {
               htmlType="submit" 
               size="large" 
               className="bg-colorTheme text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
-              Đăng ký
+              {i18n.t('register.title')}
             </Button>
           </Form.Item>
-          <Divider><Row className="font-normal text-[1.3rem]">Bạn đã có tài khoản?</Row></Divider>
+          <Divider><Row className="font-normal text-[1.3rem]">{i18n.t('register.goToLogin')}</Row></Divider>
           <Form.Item>
             <Button 
               size="large" 
               onClick={() => navigate('/login')}
               className="border-colorTheme border-1 text-colorTheme hover:text-colorTheme hover:border-colorTheme w-full font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
-              Đăng nhập
+              {i18n.t('register.loginButton')}
             </Button>
           </Form.Item>
         </Form> 

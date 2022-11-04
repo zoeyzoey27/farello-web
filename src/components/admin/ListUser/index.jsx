@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Space, Typography, Row, Table, Col, Form, Input, Pagination, Breadcrumb } from 'antd'
-import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
+import { DESC, PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { FiSearch} from 'react-icons/fi'
 import { GET_USER_LIST } from './graphql'
 import { useQuery } from '@apollo/client'
 import { useNavigate } from 'react-router-dom'
 import FormButtonSearch from '../../common/FormButtonSearch'
+import i18n from '../../../translation'
 
 const ListUser = ({setLoading}) => {
   const { Title } = Typography
@@ -23,7 +24,7 @@ const ListUser = ({setLoading}) => {
       skip: null,
       take: null,
       orderBy: {
-        createdAt: "asc"
+        createdAt: DESC
       }
     }
   })
@@ -35,7 +36,7 @@ const ListUser = ({setLoading}) => {
       : SKIP_DEFAULT,
       take: searchCondition?.pageSize || PAGE_SIZE_DEFAULT,
       orderBy: {
-        createdAt: "desc"
+        createdAt: DESC
       }
     },
     onCompleted: () => {
@@ -87,31 +88,31 @@ const ListUser = ({setLoading}) => {
 },[data])
   const columns = [
     {
-      title: 'User ID',
+      title: i18n.t('common.id'),
       dataIndex: 'userId',
     },
     {
-      title: 'Họ tên',
+      title: i18n.t('common.fullName'),
       dataIndex: 'name',
     },
     {
-        title: 'Ngày sinh',
+        title: i18n.t('common.birthday'),
         dataIndex: 'birthday',
     },
     {
-      title: 'Email',
+      title: i18n.t('common.email'),
       dataIndex: 'email'
     },
     {
-      title: 'Số điện thoại',
+      title: i18n.t('common.phone'),
       dataIndex: 'phone'
     },
     {
-      title: 'Số CMT/CCCD',
+      title: i18n.t('common.idCard'),
       dataIndex: 'idcard',
     },
     {
-      title: 'Địa chỉ',
+      title: i18n.t('common.address'),
       dataIndex: 'address',
     }
   ]
@@ -120,70 +121,70 @@ const ListUser = ({setLoading}) => {
     direction="vertical" 
     size="middle" 
     className="w-full h-full bg-white p-10">
-    <Title level={4} className="whitespace-pre-wrap">Quản lý khách hàng</Title>
+    <Title level={4} className="whitespace-pre-wrap">{i18n.t('listUser.title')}</Title>
     <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-bgGray">
        <Breadcrumb.Item 
          onClick={() => navigate('/admin/dashboard')}
          className="hover:text-black cursor-pointer">
-         Bảng điều khiển
+         {i18n.t('common.dashboard')}
        </Breadcrumb.Item>
        <Breadcrumb.Item className="font-semibold">
-         Quản lý khách hàng
+         {i18n.t('listUser.title')}
        </Breadcrumb.Item>
      </Breadcrumb>
     <Row className="p-10 bg-bgGray w-full rounded">
        <Form form={form} layout="vertical" autoComplete="off" className="w-full" onFinish={onSubmit}>
          <Row gutter={{xs: 0, md: 20, xl: 50}}>
              <Col className="gutter-row" xs={24} md={8}>
-               <Form.Item name="userId" label={<Row className="font-semibold text-[1.6rem]">User ID</Row>}>
+               <Form.Item name="userId" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('common.id')}</Row>}>
                    <Input 
                       size="large" 
                       className="rounded"
-                      placeholder="Tìm kiếm" 
+                      placeholder={i18n.t('common.search')}
                       suffix={
                         <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                       } />
                </Form.Item>
              </Col>
              <Col className="gutter-row" xs={24} md={8}>
-               <Form.Item name="name" label={<Row className="font-semibold text-[1.6rem]">Họ tên</Row>}>
+               <Form.Item name="name" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('common.fullName')}</Row>}>
                    <Input 
                       size="large" 
                       className="rounded"
-                      placeholder="Tìm kiếm" 
+                      placeholder={i18n.t('common.search')} 
                       suffix={
                         <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                       } />
                </Form.Item>
              </Col>
              <Col className="gutter-row" xs={24} md={8}>
-               <Form.Item name="email" label={<Row className="font-semibold text-[1.6rem]">Email</Row>}>
+               <Form.Item name="email" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('common.email')}</Row>}>
                    <Input 
                       size="large" 
                       className="rounded"
-                      placeholder="Tìm kiếm" 
+                      placeholder={i18n.t('common.search')} 
                       suffix={
                         <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                       } />
                </Form.Item>
              </Col>
              <Col className="gutter-row" xs={24} md={8}>
-               <Form.Item name="phone" label={<Row className="font-semibold text-[1.6rem]">Số điện thoại</Row>}>
+               <Form.Item name="phone" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('common.phone')}</Row>}>
                    <Input 
                       size="large" 
                       className="rounded"
-                      placeholder="Tìm kiếm" 
+                      placeholder={i18n.t('common.search')} 
                       suffix={
                         <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                       } />
                </Form.Item>
              </Col>
              <Col className="gutter-row" xs={24} md={8}>
-               <Form.Item name="address" label={<Row className="font-semibold text-[1.6rem]">Địa chỉ</Row>}>
+               <Form.Item name="address" label={<Row className="font-semibold text-[1.6rem]">{i18n.t('common.address')}</Row>}>
                    <Input 
                       size="large" 
                       className="rounded"
-                      placeholder="Tìm kiếm" 
+                      placeholder={i18n.t('common.search')} 
                       suffix={
                         <FiSearch className="text-[2rem] text-[#c6c6c6]" />
                       } />
@@ -194,9 +195,9 @@ const ListUser = ({setLoading}) => {
        </Form>
     </Row>
     <Row className="text-[1.6rem] mt-5 md:mt-0">
-         Tổng số 
+         {i18n.t('common.total')} 
          <Row className="font-semibold text-colorTheme mx-2">{dataInit?.users?.length}</Row> 
-         kết quả
+         {i18n.t('common.result')} 
      </Row>
     <Table 
        rowKey="id"
@@ -213,7 +214,7 @@ const ListUser = ({setLoading}) => {
        pageSizeOptions={PAGE_SIZE_OPTIONS}
        showSizeChanger
        onChange={onChangePagination}
-       locale={{items_per_page: 'kết quả / trang'}}
+       locale={{items_per_page: i18n.t('common.page')}}
        className="mt-10 w-full flex justify-center" />
  </Space>
   )

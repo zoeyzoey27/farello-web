@@ -7,6 +7,7 @@ import { GET_USER_INFO, UPDATE_USER_INFO } from './graphql'
 import { useMutation, useQuery } from '@apollo/client'
 import moment from 'moment'
 import { convertTimeToString, DATE_TIME_FORMAT } from '../../../constant'
+import i18n from '../../../translation'
 
 const EditUserInfo = () => {
   const { Option } = Select
@@ -53,7 +54,7 @@ const EditUserInfo = () => {
       },
       onCompleted: () => {
         setLoading(false)
-        message.success("Chỉnh sửa thông tin thành công!")
+        message.success(i18n.t('editUser.messageSuccess'))
         window.location.reload()
       },
       onError: (error) => {
@@ -104,8 +105,8 @@ const EditUserInfo = () => {
   return (
     <Spin spinning={loading} size="large">
        <Row className="w-fullflex flex-col">
-        <Row className="text-[1.6rem]">Vui lòng nhập thông tin vào các trường bên dưới.</Row>
-        <Row className="mb-5 text-[1.6rem]">(*) là thông tin bắt buộc.</Row>
+        <Row className="text-[1.6rem]">{i18n.t('common.enterInfo')}</Row>
+        <Row className="mb-5 text-[1.6rem]">{i18n.t('common.subtitle')}</Row>
         <Form
           layout="vertical"
           form={form}
@@ -116,7 +117,7 @@ const EditUserInfo = () => {
             name="name"
             label={
               <Row className="font-semibold text-[1.6rem]">
-                  Họ tên
+                  {i18n.t('common.fullName')}
                   <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }
@@ -128,7 +129,7 @@ const EditUserInfo = () => {
             name="birthday"
             label={
               <Row className="font-semibold text-[1.6rem]">
-                  Ngày sinh
+                  {i18n.t('common.birthday')}
               </Row>
             }
             required={false}>
@@ -137,7 +138,7 @@ const EditUserInfo = () => {
           <Form.Item 
               label={
                   <Row className="font-semibold text-[1.6rem]">
-                     Địa chỉ
+                     {i18n.t('common.address')}
                      <Row className="text-red-500 ml-3">*</Row>
                   </Row>
                 }>
@@ -151,7 +152,7 @@ const EditUserInfo = () => {
                           showSearch
                           size="large"
                           className="w-full text-[1.6rem]"
-                          placeholder="Tỉnh/Thành Phố"
+                          placeholder={i18n.t('common.province')}
                           optionFilterProp="children"
                           onChange={onChangeProvince}
                           filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
@@ -175,7 +176,7 @@ const EditUserInfo = () => {
                         showSearch
                         size="large"
                         className="w-full text-[1.6rem]"
-                        placeholder="Quận/Huyện"
+                        placeholder={i18n.t('common.district')}
                         optionFilterProp="children"
                         onChange={onChangeDistrict}
                         filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
@@ -200,7 +201,7 @@ const EditUserInfo = () => {
                         showSearch
                         size="large"
                         className="w-full text-[1.6rem]"
-                        placeholder="Phường/Xã"
+                        placeholder={i18n.t('common.commune')}
                         optionFilterProp="children"
                         filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
                         filterSort={(optionA, optionB) =>
@@ -220,7 +221,7 @@ const EditUserInfo = () => {
             name="email"
             label={
               <Row className="font-semibold text-[1.6rem]">
-                  Email đăng nhập
+                  {i18n.t('common.email')}
                   <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }
@@ -232,7 +233,7 @@ const EditUserInfo = () => {
             name="phone"
             label={
               <Row className="font-semibold text-[1.6rem]">
-                  Số điện thoại
+                  {i18n.t('common.phone')}
                   <Row className="text-red-500 ml-3">*</Row>
               </Row>
             }
@@ -244,7 +245,7 @@ const EditUserInfo = () => {
             name="idcard"
             label={
               <Row className="font-semibold text-[1.6rem]">
-                  Số CMT/CCCD
+                  {i18n.t('common.idCard')}
               </Row>
             }
             required={false}
@@ -256,7 +257,7 @@ const EditUserInfo = () => {
               htmlType="submit" 
               size="large" 
               className="!bg-colorTheme !text-white !border-colorTheme hover:bg-colorTheme hover:text-white hover:border-colorTheme w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
-              Lưu thay đổi
+              {i18n.t('common.saveChange')}
             </Button>
           </Form.Item>
           <Form.Item>
@@ -264,7 +265,7 @@ const EditUserInfo = () => {
               size="large" 
               onClick={() => form.resetFields()}
               className="!border-colorTheme border-1 !text-colorTheme hover:text-colorTheme hover:border-colorTheme w-full font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
-              Xóa thay đổi
+              {i18n.t('common.save')}
             </Button>
           </Form.Item>
         </Form> 

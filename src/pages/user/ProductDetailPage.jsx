@@ -9,6 +9,7 @@ import ProductDetail from '../../components/user/ProductDetail'
 import { AiOutlineToTop } from 'react-icons/ai'
 import { gql } from '@apollo/client'
 import ListRate from '../../components/user/ListRate'
+import i18n from '../../translation'
 
 const { Content } = Layout
 
@@ -103,10 +104,10 @@ const ProductDetailPage = () => {
        <Content className="px-[20px] md:px-[35px] lg:px-[50px] bg-white">
            <ProductDetail product={data?.product} />
            <Divider />
-           <Row className="title-header">Đánh giá sản phẩm</Row>
+           <Row className="title-header">{i18n.t('reviewProduct')}</Row>
            <ListRate product={data?.product} setLoading={setLoading} />
            <Divider />
-           <Row className="title-header">Có thể bạn quan tâm</Row>
+           <Row className="title-header">{i18n.t('similar')}</Row>
            <ListProduct products={products} />
        </Content>
        <Footer />

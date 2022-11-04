@@ -8,6 +8,8 @@ import './style.css'
 import { AiOutlineMenuFold } from 'react-icons/ai'
 import { menu } from './menu'
 import { GET_CATEGORIES, GET_POSTS, GET_TOTAL_CART } from './graphql'
+import { ASC } from '../../../constant'
+import i18n from '../../../translation'
 
 const Topbar = () => {
   const { Search } = Input
@@ -28,7 +30,7 @@ const Topbar = () => {
       skip: null,
       take: null,
       orderBy: {
-          createdAt: "asc"
+          createdAt: ASC
       }
     }
   })
@@ -45,7 +47,7 @@ const Topbar = () => {
       skip: null,
       take: null,
       orderBy: {
-        createdAt: "asc"
+        createdAt: ASC
       }
     }
   })
@@ -61,7 +63,7 @@ const Topbar = () => {
     {
       label: (
         <Link to="/" className="link mx-3 text-[1.6rem] font-medium">
-          Trang chủ
+          {i18n.t('common.home')}
         </Link>
       ),
       key: '/',
@@ -69,7 +71,7 @@ const Topbar = () => {
     {
       label: (
         <Link to="/aboutus" className="link mx-3 text-[1.6rem] font-medium">
-          Giới thiệu
+          {i18n.t('topbar.aboutus')}
         </Link>
       ),
       key: '/aboutus',
@@ -77,14 +79,14 @@ const Topbar = () => {
     {
       label: (
         <Row className="link mx-3 text-[1.6rem] font-medium">
-          Sản phẩm
+          {i18n.t('topbar.product')}
         </Row>
       ),
       key: '/products',
       children: [
         {
           type: 'group',
-          label: 'Danh mục sản phẩm',
+          label: i18n.t('topbar.productCategory'),
           children: 
             data?.categories.map((item) => (
               {
@@ -103,14 +105,14 @@ const Topbar = () => {
     {
       label: (
         <Row className="link mx-3 text-[1.6rem] font-medium">
-          Bài viết
+          {i18n.t('topbar.posts')}
         </Row>
       ),
       key: '/posts',
       children: [
         {
           type: 'group',
-          label: 'Danh mục bài viết',
+          label: i18n.t('topbar.postCategory'),
           children: 
             dataCategoryPost?.postCategories?.map((item) => (
               {
@@ -129,7 +131,7 @@ const Topbar = () => {
     {
       label: (
         <Link to="/contact" className="link mx-3 text-[1.6rem] font-medium">
-          Liên hệ
+          {i18n.t('topbar.contact')}
         </Link>
       ),
       key: '/contact',
@@ -157,7 +159,7 @@ const Topbar = () => {
       </Row>
       <Row className="flex items-center justify-between gap-5">
         <Search 
-          placeholder="Tìm kiếm" 
+          placeholder={i18n.t('common.search')} 
           onSearch={onSearch} 
           style={{ width: 200 }}
           className="hidden md:block" 

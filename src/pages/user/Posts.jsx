@@ -8,6 +8,7 @@ import NoData from '../../components/common/NoData'
 import { AiOutlineToTop } from 'react-icons/ai'
 import { gql } from '@apollo/client'
 import ListPostsByCategory from '../../components/user/ListPostsByCategory'
+import i18n from '../../translation'
 
 const { Content} = Layout
 const GET_POSTS = gql`
@@ -52,9 +53,9 @@ const Posts = () => {
        <Topbar />
        <Content className="px-[20px] md:px-[35px] lg:px-[50px] bg-white">
           <Breadcrumb className="my-10 px-10 py-2 bg-[#f8f8f8]">
-            <Breadcrumb.Item href="/" className="text-[1.6rem]">Trang chủ</Breadcrumb.Item>
+            <Breadcrumb.Item href="/" className="text-[1.6rem]">{i18n.t('common.home')}</Breadcrumb.Item>
             <Breadcrumb.Item className="text-[1.6rem] font-semibold">
-                {`Danh mục bài viết: ${title}`}
+                {`${i18n.t('postCategory.heading')}: ${title}`}
             </Breadcrumb.Item>
           </Breadcrumb> 
           {data?.posts?.length > 0 ? <ListPostsByCategory posts={data?.posts} /> : <NoData />}

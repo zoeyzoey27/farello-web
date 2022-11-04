@@ -8,6 +8,8 @@ import { useQuery } from '@apollo/client'
 import { GET_ADMIN, GET_INQUIRIES } from './graphql'
 import { AiOutlineMail } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
+import { GrLanguage } from 'react-icons/gr'
+import { menuLanguage } from './menuLanguage'
 
 const Topbar = ({onClick}) => {
   const navigate = useNavigate()
@@ -38,15 +40,21 @@ const Topbar = ({onClick}) => {
   }
   return (
     <Row className="bg-white h-[65px] flex items-center justify-between px-[50px] w-full">
-        <Row className="logo text-[3.5rem]">Farello</Row>
+        <Row className="logo text-[3rem] md:text-[3.5rem] -ml-10 md:-ml-0">Farello</Row>
         <Row className="flex items-center -mr-10 md:-mr-0">
+          <Dropdown overlay={menuLanguage}>
+              <Space>
+                 <GrLanguage className="text-[2rem] cursor-pointer" />
+                 <span className="font-medium">LA</span>
+              </Space>
+          </Dropdown>
           <Badge 
             count={dataInquiry?.getInquiries?.length || 0} 
             size="default" 
             showZero={false}
             overflowCount={99} 
             offset={[6, 0]}
-            className="text-black mr-14"
+            className="text-black ml-9 mr-9 md:mr-14"
             style={{ backgroundColor: '#f5222d', color: '#fff' }}>
             <AiOutlineMail className="text-[2.3rem] cursor-pointer" onClick={() => navigate('/admin/inquiryManagement')}  />
           </Badge>

@@ -13,7 +13,7 @@ import {
   message,
   Popconfirm 
 } from 'antd'
-import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
+import { DESC, PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { useMutation, useQuery } from '@apollo/client'
 import { useNavigate } from 'react-router-dom'
 import { FiEdit } from 'react-icons/fi'
@@ -30,6 +30,7 @@ import {
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant'
 import { QuestionCircleOutlined } from '@ant-design/icons'
+import i18n from '../../../translation'
 
 const ListPostCategory = ({setLoading}) => {
   const yupSync = converSchemaToAntdRule(schemaValidate)
@@ -53,7 +54,7 @@ const ListPostCategory = ({setLoading}) => {
       skip: null,
       take: null,
       orderBy: {
-        updatedAt: "desc"
+        updatedAt: DESC
       }
     }
   })
@@ -64,7 +65,7 @@ const ListPostCategory = ({setLoading}) => {
       : SKIP_DEFAULT,
       take: searchCondition?.pageSize || PAGE_SIZE_DEFAULT,
       orderBy: {
-        updatedAt: "desc"
+        updatedAt: DESC
       }
     }
   })
@@ -125,7 +126,7 @@ const ListPostCategory = ({setLoading}) => {
         },
         onCompleted: () => {
           setLoading(false)
-          message.success("Thêm danh mục bài viết thành công!")
+          message.success(i18n.t('postCategory.message.addSuccessful'))
           window.location.reload()
         },
         onError: (err) => {
@@ -147,7 +148,7 @@ const ListPostCategory = ({setLoading}) => {
        },
        onCompleted: () => {
          setLoading(false)
-         message.success("Cập nhật thành công!")
+         message.success(i18n.t('postCategory.message.editingSuccessful'))
          window.location.reload()
        },
        onError: (err) => {
@@ -165,7 +166,7 @@ const ListPostCategory = ({setLoading}) => {
       },
       onCompleted: () => {
         setLoading(false)
-        message.success("Xóa dữ liệu thành công!")
+        message.success(i18n.t('postCategory.message.deleteSuccessful'))
         window.location.reload()
       },
       onError: (err) => {
@@ -177,15 +178,15 @@ const ListPostCategory = ({setLoading}) => {
 
   const columns = [
     {
-      title: 'Mã danh mục',
+      title: i18n.t('postCategory.id'),
       dataIndex: 'postCategoryId',
     },
     {
-      title: 'Tên danh mục',
+      title: i18n.t('postCategory.title'),
       dataIndex: 'title',
     },
     {
-      title: 'Ngày tạo',
+      title: i18n.t('postCategory.date'),
       dataIndex: 'createdAt',
       width: '200px'
     },
@@ -208,9 +209,9 @@ const ListPostCategory = ({setLoading}) => {
       dataIndex: 'delete',
       render: (_, _record) => (
         <Popconfirm 
-          title={<Row className="text-[1.6rem] ml-5">Bạn có chắc muốn xóa dữ liệu này không？</Row>}
-          okText="Xóa"
-          cancelText="Hủy"
+          title={<Row className="text-[1.6rem] ml-5">{i18n.t('postCategory.deleteConfirm')}</Row>}
+          okText={i18n.t('common.reset')}
+          cancelText={i18n.t('common.cancel')}
           onConfirm={() => confirm(_record.id)}
           icon={<QuestionCircleOutlined className="!text-[2rem] !text-red-500" />}>
           <MdDeleteOutline className="text-[2rem] cursor-pointer hover:opacity-80 !text-red-500" />
@@ -224,15 +225,15 @@ const ListPostCategory = ({setLoading}) => {
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
-       <Title level={4} className="whitespace-pre-wrap">Danh mục bài viết</Title>
+       <Title level={4} className="whitespace-pre-wrap">{i18n.t('postCategory.heading')}</Title>
        <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-bgGray">
           <Breadcrumb.Item 
             onClick={() => navigate('/admin/dashboard')}
             className="hover:text-black cursor-pointer">
-            Bảng điều khiển
+            {i18n.t('common.dashboard')}
           </Breadcrumb.Item>
           <Breadcrumb.Item className="font-semibold">
-            Danh mục bài viết
+            {i18n.t('postCategory.heading')}
           </Breadcrumb.Item>
         </Breadcrumb>
         <Row className="flex justify-end">
@@ -240,7 +241,7 @@ const ListPostCategory = ({setLoading}) => {
             size="large"
             onClick={showModal}
             className="w-full md:w-[100px] !bg-colorTheme !text-white !border-colorTheme hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-            Thêm mới
+            {i18n.t('postCategory.buttonAdd')}
           </Button>
         </Row>
        <Table 
@@ -258,10 +259,10 @@ const ListPostCategory = ({setLoading}) => {
           pageSizeOptions={PAGE_SIZE_OPTIONS}
           showSizeChanger
           onChange={onChangePagination}
-          locale={{items_per_page: 'kết quả / trang'}}
+          locale={{items_per_page: i18n.t('common.page')}}
           className="mt-10 w-full flex justify-center" />
         <Modal 
-           title={isEdit ? 'Chỉnh sửa danh mục bài viết' : 'Tạo danh mục bài viết'}
+           title={isEdit ? i18n.t('postCategory.edit') : i18n.t('postCategory.create')}
            centered 
            visible={isModalOpen} 
            onCancel={handleCancel} 
@@ -278,11 +279,11 @@ const ListPostCategory = ({setLoading}) => {
                 rules={[yupSync]}
                 label={
                   <Row className="font-semibold text-[1.6rem]">
-                    Tên danh mục
+                    {i18n.t('postCategory.title')}
                     <Row className="text-red-500 ml-3">*</Row>
                   </Row>
                 }>
-                <Input size="large" placeholder="Bảo vệ mắt" className="rounded" />
+                <Input size="large" placeholder={i18n.t('postCategory.protectEyes')} className="rounded" />
             </Form.Item>
             <Row className="w-full flex justify-center">
               <Form.Item>
@@ -290,7 +291,7 @@ const ListPostCategory = ({setLoading}) => {
                       size="large" 
                       htmlType="submit"
                       className="mt-5 w-full md:min-w-[150px] !border-colorTheme !bg-colorTheme !text-white hover:bg-colorTheme hover:text-white hover:border-colorTheme hover:opacity-90 !text-[1.6rem] hover:shadow-md rounded">
-                      {isEdit ? 'Lưu thay đổi' : 'Lưu'}
+                      {isEdit ? i18n.t('common.saveChange') : i18n.t('common.save')}
                   </Button>
               </Form.Item>
             </Row>

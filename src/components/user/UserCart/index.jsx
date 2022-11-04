@@ -9,6 +9,7 @@ import numberWithCommas from '../../../utils/NumberWithCommas'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant'
 import NoData from '../../common/NoData'
+import i18n from '../../../translation'
 
 const UserCart = ({setLoading}) => {
   const navigate = useNavigate()
@@ -55,7 +56,7 @@ const UserCart = ({setLoading}) => {
        },
        onCompleted: () => {
          setLoading(false)
-         message.success("Đã xóa sản phẩm khỏi giỏ hàng!")
+         message.success(i18n.t('userCart.deleteSuccessful'))
          window.location.reload()
        },
        onError: (err) => {
@@ -70,9 +71,9 @@ const UserCart = ({setLoading}) => {
       size="middle" 
       className="w-full h-full mb-10">
       <Breadcrumb className="my-10 px-10 py-2 bg-[#f8f8f8]">
-          <Breadcrumb.Item href="/" className="text-[1.6rem]">Trang chủ</Breadcrumb.Item>
+          <Breadcrumb.Item href="/" className="text-[1.6rem]">{i18n.t('common.home')}</Breadcrumb.Item>
           <Breadcrumb.Item className="text-[1.6rem] font-semibold">
-              Giỏ hàng
+             {i18n.t('userCart.title')}
           </Breadcrumb.Item>
       </Breadcrumb> 
       { data?.getProductsAddedToCart?.length > 0 ? (
@@ -81,7 +82,7 @@ const UserCart = ({setLoading}) => {
           header={
             <Row className="text-[1.6rem] font-semibold flex items-center">
               <ShoppingOutlined className="text-[2rem] mr-3" />
-              {`Tổng giỏ hàng: ${data?.getProductsAddedToCart?.length || 0}`}
+              {`${i18n.t('userCart.totalCart')}: ${data?.getProductsAddedToCart?.length || 0}`}
             </Row>
           }
           className="w-full lg:w-[60%] lg:mr-10"
@@ -96,8 +97,8 @@ const UserCart = ({setLoading}) => {
                     className="w-full md:w-[200px] mb-3 md:mb-0 md:mr-10" />
                   <Row className="flex flex-col text-[1.6rem] w-full md:flex-1">
                       <Row>{item.name}</Row>
-                      <Row>{`Phân loại: ${item.color}`}</Row>
-                      <Row>Giá tiền: <b className="ml-1">{item.price && numberWithCommas(item.price)}</b></Row>
+                      <Row>{`${i18n.t('userCart.color')}: ${item.color}`}</Row>
+                      <Row>{`${i18n.t('userCart.price')}:`} <b className="ml-1">{item.price && numberWithCommas(item.price)}</b></Row>
                       <Form initialValues={{ quantity: item.quantity }}>
                          <Form.Item name="quantity" className="w-fit mb-0">
                             <InputNumber 
@@ -112,7 +113,7 @@ const UserCart = ({setLoading}) => {
                         onClick={() => handleDelete(item.id)}
                         className="rounded self-end !border-red-500 !text-red-500 hover:border-red-500 hover:text-red-500 hover:opacity-90 hover:shadow-lg flex items-center justify-center">
                         <MdOutlineDelete className="text-[1.7rem] mr-2" />
-                        Xóa
+                        {i18n.t('userCart.buttonDelete')}
                       </Button>
                   </Row>
               </List.Item>
@@ -129,22 +130,22 @@ const UserCart = ({setLoading}) => {
           className="mt-5 lg:mt-0 flex-1 h-fit"
           bordered>
           <List.Item className="flex items-start justify-between">
-              <Row className="text-[1.6rem]">Đơn hàng:</Row>
+              <Row className="text-[1.6rem]">{`${i18n.t('orderDetailAdmin.order')}:`}</Row>
               <Row className="text-[1.6rem]">{numberWithCommas(totalCart)}</Row>
           </List.Item>
           <List.Item className="flex items-start justify-between">
-              <Row className="text-[1.6rem]">Ship:</Row>
+              <Row className="text-[1.6rem]">{`${i18n.t('orderDetailAdmin.ship')}:`}</Row>
               <Row className="text-[1.6rem]">{numberWithCommas(transferFee)}</Row>
           </List.Item>
           <List.Item className="flex items-start justify-between">
-              <Row className="text-[2rem] font-semibold uppercase">Tổng đơn:</Row>
+              <Row className="text-[2rem] font-semibold uppercase">{`${i18n.t('orderDetailAdmin.total')}:`}</Row>
               <Row className="text-[2rem] font-semibold">{numberWithCommas(totalCart+transferFee)}</Row>
           </List.Item>
           <Button 
             size="large" 
             onClick={() => navigate(`/userOrderProduct?id=${id}`)}
             className="mt-20 w-full border-b-0 border-x-0 text-white bg-colorTheme text-[1.6rem] font-semibold hover:opacity-90 hover:bg-colorTheme hover:text-white hover:border-colorTheme">
-            Tiếp tục thanh toán
+            {i18n.t('orderDetailAdmin.buttonOrder')}
           </Button>
       </List>
       </Row>

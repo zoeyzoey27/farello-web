@@ -3,6 +3,8 @@ import React from 'react'
 import { Row, Col, Card } from 'antd'
 import { GET_POSTS } from './graphql'
 import { useNavigate } from 'react-router-dom'
+import i18n from '../../../translation'
+import { DESC } from '../../../constant'
 
 const ListPostComponent = () => {
   const { Meta } = Card
@@ -13,13 +15,13 @@ const ListPostComponent = () => {
       skip: null,
       take: 4,
       orderBy: {
-        updatedAt: "desc"
+        updatedAt: DESC
       }
     }
   })
   return (
     <Row className="my-[50px] lg:!mx-[50px] xl:!mx-[100px] flex flex-col">
-        <Row className="title-header">Danh sách bài viết</Row>
+        <Row className="title-header">{i18n.t('listPostUser.title')}</Row>
         <Row gutter={16}>
             {
                  data?.posts?.map((item) => (
@@ -40,7 +42,7 @@ const ListPostComponent = () => {
                                     <Row 
                                       onClick={() => navigate(`/postDetail?id=${item.id}`)}
                                       className="italic text-blue-500">
-                                      Xem thêm
+                                      {i18n.t('listPostUser.readMore')}
                                     </Row>
                                  </Row>
                                }

@@ -8,6 +8,7 @@ import { FiUser, FiLogOut, FiUsers } from 'react-icons/fi'
 import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import { AiOutlineDashboard } from 'react-icons/ai'
 import { ImNewspaper } from 'react-icons/im'
+import i18n from '../../../translation'
 
 const MenuAdmin = () => {
     const navigate = useNavigate()
@@ -26,114 +27,114 @@ const MenuAdmin = () => {
             <Menu.Item key="/admin/dashboard" onClick={() => navigate('/admin/dashboard')}>
                 <Row className="flex items-center">
                     <AiOutlineDashboard className="mr-3 text-[2rem]" />
-                    Bảng điều khiển
+                    {i18n.t('common.dashboard')}
                 </Row>
             </Menu.Item>
             <Menu.SubMenu title={
                 <Row className="flex items-center">
                     <AiOutlineProfile className="mr-3 text-[2rem]" />
-                    Danh mục sản phẩm
+                    {i18n.t('menuAdmin.productCategory')}
                 </Row>
             } key="sub1">
                 <Menu.Item 
                    key="/admin/categoryManagement" 
                    className="text-[1.6rem]"
                    onClick={() => navigate('/admin/categoryManagement')}>
-                   Danh sách danh mục
+                   {i18n.t('menuAdmin.listProductCategory')}
                 </Menu.Item>
                 <Menu.Item 
                    key="/admin/addCategory" 
                    className="text-[1.6rem]"
                    onClick={() => navigate('/admin/addCategory')}>
-                   Thêm mới danh mục
+                   {i18n.t('menuAdmin.addProductCategory')}
                 </Menu.Item>
             </Menu.SubMenu>
             <Menu.SubMenu title={
                 <Row className="flex items-center">
                     <AiOutlineShoppingCart className="mr-3 text-[2rem]" />
-                    Quản lý sản phẩm
+                    {i18n.t('menuAdmin.product')}
                 </Row>
             } key="sub2">
                 <Menu.Item 
                    key="/admin/productManagement" 
                    className="text-[1.6rem]"
                    onClick={() => navigate('/admin/productManagement')}>
-                   Danh sách sản phẩm
+                   {i18n.t('menuAdmin.listProduct')}
                 </Menu.Item>
                 <Menu.Item 
                    key="/admin/addProduct" 
                    className="text-[1.6rem]"
                    onClick={() => navigate('/admin/addProduct')}>
-                   Thêm mới sản phẩm
+                   {i18n.t('menuAdmin.addProduct')}
                 </Menu.Item>
             </Menu.SubMenu>
             <Menu.Item key="/admin/orderManagement" onClick={() => navigate('/admin/orderManagement')}>
                 <Row className="flex items-center">
                     <FaShippingFast className="mr-3 text-[2rem]" />
-                    Quản lý đơn hàng
+                    {i18n.t('menuAdmin.order')}
                 </Row>
             </Menu.Item>
             <Menu.SubMenu title={
                 <Row className="flex items-center">
                     <ImNewspaper className="mr-3 text-[2rem]" />
-                    Quản lý bài viết
+                    {i18n.t('menuAdmin.post')}
                 </Row>
             } key="sub3">
                 <Menu.Item 
                    key="/admin/postManagement" 
                    className="text-[1.6rem]"
                    onClick={() => navigate('/admin/postManagement')}>
-                   Danh sách bài viết
+                   {i18n.t('menuAdmin.listPost')}
                 </Menu.Item>
                 <Menu.Item 
                    key="/admin/addPostCategory" 
                    className="text-[1.6rem]"
                    onClick={() => navigate('/admin/postCategory')}>
-                   Danh mục bài viết
+                   {i18n.t('menuAdmin.postCategory')}
                 </Menu.Item>
                 <Menu.Item 
                    key="/admin/addPost" 
                    className="text-[1.6rem]"
                    onClick={() => navigate('/admin/addPost')}>
-                   Tạo bài viết
+                   {i18n.t('menuAdmin.createPost')}
                 </Menu.Item>
             </Menu.SubMenu>
             <Menu.SubMenu title={
                 <Row className="flex items-center">
                     <MdOutlineAdminPanelSettings className="mr-3 text-[2rem]" />
-                    Quản lý Admin
+                    {i18n.t('menuAdmin.admins')}
                 </Row>
             } key="sub4">
                 <Menu.Item 
                    key="/admin/adminList" 
                    className="text-[1.6rem]"
                    onClick={() => navigate('/admin/adminList')}>
-                   Danh sách Admin
+                   {i18n.t('menuAdmin.listAdmin')}
                 </Menu.Item>
                 <Menu.Item 
                    key="/admin/addAdmin" 
                    className="text-[1.6rem]"
                    onClick={() => navigate('/admin/addAdmin')}>
-                   Tạo tài khoản
+                   {i18n.t('menuAdmin.createAccount')}
                 </Menu.Item>
             </Menu.SubMenu>
             <Menu.Item key="/admin/userList" onClick={() => navigate('/admin/userList')}>
                 <Row className="flex items-center">
                     <FiUsers className="mr-3 text-[2rem]" />
-                    Quản lý khách hàng
+                    {i18n.t('menuAdmin.user')}
                 </Row>
             </Menu.Item>
             <Divider />
             <Menu.Item key="/admin/adminInfo" onClick={() => navigate(`/admin/adminInfo?id=${id}`)}>
                 <Row className="flex items-center">
                     <FiUser className="mr-3 text-[2rem]" />
-                    Thông tin tài khoản
+                    {i18n.t('menuAdmin.accountInfo')}
                 </Row>
             </Menu.Item>
             <Menu.Item key="/admin/login" onClick={logout}>
                 <Row className="flex items-center">
                     <FiLogOut className="mr-3 text-[2rem]" />
-                    Đăng xuất
+                    {i18n.t('menuAdmin.logout')}
                 </Row>
             </Menu.Item>
         </Menu>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Space, Typography, Row, Table, Pagination, Image, Form, Popconfirm, message, Breadcrumb } from 'antd'
-import { PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
+import { DESC, PAGE_DEFAULT, PAGE_SIZE_DEFAULT, PAGE_SIZE_OPTIONS, SKIP_DEFAULT } from '../../../constant'
 import { useNavigate } from 'react-router-dom'
 import FormSearchProduct from './FormSearchProduct'
 import { FiEdit } from 'react-icons/fi'
@@ -10,6 +10,7 @@ import { DELETE_PRODUCT, GET_PRODUCTS } from './graphql'
 import numberWithCommas from '../../../utils/NumberWithCommas'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import BaseTitleHeader from '../../common/BaseTitleHeader'
+import i18n from '../../../translation'
 
 const ListProduct = ({setLoading}) => {
   const { Title } = Typography
@@ -24,11 +25,11 @@ const ListProduct = ({setLoading}) => {
   })
   const columns = [
     {
-      title: 'Mã sản phẩm',
+      title: i18n.t('product.id'),
       dataIndex: 'productId',
     },
     {
-      title: 'Tên sản phẩm',
+      title: i18n.t('product.name'),
       dataIndex: 'name',
       render: (_,_record) => (
          <Row onClick={() => navigate(`/admin/productDetail?id=${_record.id}`)} className="text-sky-500 cursor-pointer">
@@ -37,46 +38,46 @@ const ListProduct = ({setLoading}) => {
       ),
     },
     {
-      title: 'Mô tả sản phẩm',
+      title: i18n.t('product.description'),
       dataIndex: 'description',
       width: '550px'
     },
     {
-      title: 'Ảnh sản phẩm',
+      title: i18n.t('product.image'),
       dataIndex: 'image',
       render: (value) => <Image src={value} alt='' width={200} />,
     },
     {
-      title: 'Số lượng',
+      title: i18n.t('product.quantity'),
       dataIndex: 'quantity',
   },
     {
-      title: 'Giá nhập',
+      title: i18n.t('product.priceIn'),
       dataIndex: 'priceIn',
       render: (value) => <Row>
         {`${value ? `${numberWithCommas(value)} VND` : ''}`}
       </Row>,
     },
     {
-        title: 'Giá bán',
+        title: i18n.t('product.priceOut'),
         dataIndex: 'priceOut',
         render: (value) => <Row>
         {`${value ? `${numberWithCommas(value)} VND` : ''}`}
         </Row>,
     },
     {
-        title: 'Giá khuyến mại',
+        title: i18n.t('product.priceSale'),
         dataIndex: 'priceSale',
         render: (value) => <Row>
         {`${value ? `${numberWithCommas(value)} VND` : ''}`}
         </Row>,
     },
     {
-        title: 'Danh mục sản phẩm',
+        title: i18n.t('product.category'),
         dataIndex: 'category',
     },
     {
-        title: 'Trạng thái',
+        title: i18n.t('product.status'),
         dataIndex: 'status',
     },
     {
@@ -94,9 +95,9 @@ const ListProduct = ({setLoading}) => {
       dataIndex: 'delete',
       render: (_, _record) => (
         <Popconfirm 
-          title={<Row className="text-[1.6rem] ml-5">Bạn có chắc muốn xóa sản phẩm này không？</Row>}
-          okText="Xóa"
-          cancelText="Hủy"
+          title={<Row className="text-[1.6rem] ml-5">{i18n.t('listProduct.deleteConfirm')}</Row>}
+          okText={i18n.t('common.reset')}
+          cancelText={i18n.t('common.cancel')}
           onConfirm={() => confirm(_record.id)}
           icon={<QuestionCircleOutlined className="!text-[2rem] !text-red-500" />}>
           <MdDeleteOutline className="text-[2rem] cursor-pointer hover:opacity-80 !text-red-500" />
@@ -111,7 +112,7 @@ const ListProduct = ({setLoading}) => {
       skip: null,
       take: null,
       orderBy: {
-        createdAt: "desc"
+        createdAt: DESC
       }
     }
   })
@@ -123,7 +124,7 @@ const ListProduct = ({setLoading}) => {
       : SKIP_DEFAULT,
       take: searchCondition?.pageSize || PAGE_SIZE_DEFAULT,
       orderBy: {
-        createdAt: "desc"
+        createdAt: DESC
       }
     },
     onCompleted: () => {
@@ -174,7 +175,7 @@ const ListProduct = ({setLoading}) => {
             priceIn: item.priceIn,
             priceOut: item.priceOut,
             priceSale: item.priceSale,
-            status: item.quantity > 0 ? 'Còn hàng' : 'Hết hàng',
+            status: item.quantity > 0 ? i18n.t('product.stock') : i18n.t('product.outOfStock'),
           }
       })
       setDataTable(items)
@@ -187,7 +188,7 @@ const ListProduct = ({setLoading}) => {
         deleteProductId: id
       },
       onCompleted: () => {
-        message.success('Xóa sản phẩm thành công!')
+        message.success(i18n.t('listProduct.deleteSuccessful'))
       },
       onError: (err) => {
         message.success(`${err.message}`)
@@ -202,7 +203,7 @@ const ListProduct = ({setLoading}) => {
           : SKIP_DEFAULT,
           take: searchCondition?.pageSize || PAGE_SIZE_DEFAULT,
           orderBy: {
-            createdAt: "desc"
+            createdAt: DESC
           }
         },
         onCompleted: () => {
@@ -216,7 +217,7 @@ const ListProduct = ({setLoading}) => {
           skip: null,
           take: null,
           orderBy: {
-            createdAt: "desc"
+            createdAt: DESC
           }
         }
       },
@@ -228,19 +229,22 @@ const ListProduct = ({setLoading}) => {
        direction="vertical" 
        size="middle" 
        className="w-full h-full bg-white p-10">
-       <Title level={4} className="whitespace-pre-wrap">Danh sách sản phẩm</Title>
+       <Title level={4} className="whitespace-pre-wrap">{i18n.t('listProduct.title')}</Title>
        <Breadcrumb className="text-[1.6rem] mb-5 px-10 py-2 bg-[#f8f8f8]">
           <Breadcrumb.Item 
             onClick={() => navigate('/admin/dashboard')}
             className="hover:text-black cursor-pointer">
-            Bảng điều khiển
+            {i18n.t('common.dashboard')}
           </Breadcrumb.Item>
           <Breadcrumb.Item className="font-semibold">
-            Danh sách sản phẩm
+            {i18n.t('listProduct.title')}
           </Breadcrumb.Item>
         </Breadcrumb>
        <FormSearchProduct form={form} resetFields={resetFields} onSubmit={onSubmit} />
-       <BaseTitleHeader totalCount={dataInit?.products?.length} handleClick={() => navigate('/admin/addProduct')} buttonLabel="Thêm mới sản phẩm" />
+       <BaseTitleHeader 
+          totalCount={dataInit?.products?.length} 
+          handleClick={() => navigate('/admin/addProduct')} 
+          buttonLabel={i18n.t('listProduct.buttonAdd')} />
        <Table 
           columns={columns} 
           dataSource={dataTable} 
@@ -255,7 +259,7 @@ const ListProduct = ({setLoading}) => {
           pageSizeOptions={PAGE_SIZE_OPTIONS}
           showSizeChanger
           onChange={onChangePagination}
-          locale={{items_per_page: 'kết quả / trang'}}
+          locale={{items_per_page: i18n.t('common.page')}}
           className="mt-10 w-full flex justify-center" />
     </Space>
   )

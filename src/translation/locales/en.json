@@ -30,7 +30,10 @@
         "search": "Search",
         "total": "Total",
         "result": "result",
-        "page": "results / page"
+        "page": "results / page",
+        "cancel": "Cancel",
+        "home": "Home",
+        "notLogin": "You are not logged in!"
     },
     "addAdmin": {
         "message": {
@@ -130,7 +133,7 @@
         "buttonBack": "Back"
     },
     "deleteAccountReason": {
-        "subtext": "Please choose one reason to delete your account",
+        "subtext": "Please choose a reason to delete your account",
         "option1": "The account is not in use",
         "option2": "The account has no access to the system",
         "option3": "Others",
@@ -152,5 +155,348 @@
         "read": "Read",
         "unread": "Unread",
         "titleModal": "Customer's feedback"
-    }
+    },
+    "adminList": {
+        "title": "Admin Management",
+        "heading": "List of Admins"
+    },
+    "categoryList": {
+        "message": {
+            "deleteSuccessful": "Deleted data successfully!"
+        },
+        "id": "Product category ID",
+        "name": "Product category name",
+        "description": "Category description",
+        "image": "Image",
+        "products": "Total number of products",
+        "deleteConfirm": "Are you sure you want to delete this data？",
+        "title": "List of product categories",
+        "buttonAdd": "Add new category"
+    },
+    "orderList": {
+        "id": "Order ID",
+        "fullName": "Receiver",
+        "phone": "Phone number",
+        "address": "Receiver's address",
+        "totalProducts": "The number of products",
+        "payment": "Total order",
+        "status": "Status",
+        "date": "Order date",
+        "title": "Order List",
+        "email": "Recipient's email",
+        "waitForConfirmation": "Wait for confirmation"
+    },
+    "postCategory": {
+        "message": {
+            "addSuccessful": "Add post category successfully!",
+            "editingSuccessful": "Update successful!",
+            "deleteSuccessful": "Deleted data successfully!"
+        },
+        "id": "Post category ID",
+        "title": "Title",
+        "date": "Date created",
+        "deleteConfirm": "Are you sure you want to delete this data？",
+        "heading": "Post category",
+        "buttonAdd": "Add new",
+        "edit": "Edit post category",
+        "create": "Create post category",
+        "protectEyes": "Protect eyes"
+    },
+    "product": {
+        "id": "Product ID",
+        "name": "Name",
+        "description": "Product description",
+        "image": "Image",
+        "quantity": "Quantity",
+        "priceIn": "Cost price",
+        "priceOut": "Selling price",
+        "priceSale": "Promotional price",
+        "category": "Post category",
+        "status": "Status",
+        "stock": "Stocking",
+        "outOfStock": "Out of stock",
+        "glasses": "Glasses",
+        "color":"Colours",
+        "noData": "No data",
+        "inventory": "Inventory"
+    },
+    "listProduct": {
+        "deleteConfirm": "Are you sure you want to delete this product?",
+        "deleteSuccessful": "Delete product successfully!",
+        "title": "List of products",
+        "buttonAdd": "Add new product"
+    },
+    "listUser": {
+        "title": "Customer management"
+    },
+    "login": {
+        "title": "Login",
+        "messageSuccess": "Logged in successfully!",
+        "email": "Email",
+        "password": "Password",
+        "forgotPassword": "Forgot password?",
+        "dontHaveAccount": "Do not have an account?",
+        "signup": "Sign up"
+    },
+    "menuAdmin": {
+        "productCategory": "Product category",
+        "listProductCategory": "List of product categories",
+        "addProductCategory": "Add new category",
+        "product": "Product management",
+        "listProduct": "List of products",
+        "addProduct": "Add new product",
+        "order": "Order management",
+        "post": "Post management",
+        "listPost": "List of posts",
+        "postCategory": "Post category",
+        "createPost": "Create post",
+        "admins": "Admin management",
+        "listAdmin": "List of admins",
+        "createAccount": "Create account",
+        "user": "Customer management",
+        "accountInfo": "Account information",
+        "logout": "Log out"
+    },
+    "orderDetailAdmin": {
+        "messageSuccess": "Status update successful!",
+        "cancelSuccess": "Canceled order successfully!",
+        "title": "Order details",
+        "listOrder": "Order List",
+        "order": "Order",
+        "userInfo": "Customer information",
+        "address": "Delivery address",
+        "canceledAt": "Cancellation date",
+        "reasonCancel": "Reason for cancellation",
+        "note": "Note",
+        "empty": "Empty",
+        "orderInfo": "Order information",
+        "product": "Product's name",
+        "quantity": "Quantity",
+        "color": "Color",
+        "payment": "Price",
+        "ship": "Ship",
+        "total": "Total order",
+        "cancelOrder": "Cancel order",
+        "paymentMethod": "Payment method",
+        "createdAt": "Order date",
+        "status": "Status",
+        "totalProducts": "Total:"
+    },
+    "postDetailAdmin": {
+        "deleteConfirm": "Are you sure you want to delete this post?",
+        "deleteSuccessful": "Post deleted successfully",
+        "title": "Post detail",
+        "listPost": "List of posts",
+        "post": "Bài viết",
+        "deletePost": "Delete post",
+        "editPost": "Edit post",
+        "postCategory": "Post category",
+        "time": "Update time",
+        "admin": "Admin"
+    },
+    "listPost": {
+        "title": "Title",
+        "id": "Post ID",
+        "postCategory": "Post category",
+        "admin": "Admin",
+        "createdAt": "Created at",
+        "updatedAt": "Updated at",
+        "heading": "Post management",
+        "adminID": "Admin ID"
+    },
+    "productDetailAdmin": {
+        "title": "Product detail",
+        "listProduct": "List of products",
+        "productInfo": "Product information",
+        "editButton": "Edit"
+    },
+    "aboutus": {
+        "title": "About us",
+        "heading": "FARELLO'S INSPIRATION",
+        "graph1": "Step out from the story of young people with the desire to find 'definition' of themselves amidst doubts about awareness, ability and life. Farello was created as a companion, a multi-dimensional and open prism for you to 'see' yourself and the world around you.",
+        "graph2": "With the message 'WHEN IN DOUBT, WEAR GLASSES', Farello wishes to be present in your life every day, giving you different perspectives, inspiring you to find the positive even in the most difficult times. the moment you are confused, confused.",
+        "graph3": "For Farello, you are the 'unique'. We want you to have a wide enough perspective, good enough to make choices that make you happy, and confident enough to pursue what you're passionate about. We know that you have personality, knowledge, and stand. You don't have to follow the crowd, you just need to catch up with your own 'ideal'.",
+        "title1": "Vision",
+        "subtitle": "Constantly CREATIVE to improve service quality, Farello has a mission to become the national title - 'Top of Mind' of all ages and styles, from elegance, luxury, knowledge to personality, popularity. chaos.",
+        "title2": "MISSION",
+        "title3": "CORE VALUES",
+        "title4": "DESIGN",
+        "title5": "PRODUCT",
+        "desc1": "Farello believes that the savvy consumer doesn't want designs that are only 'trendy' for a short time. We create designs that are simple, sophisticated, suitable for any occasion, easy to apply to your everyday outfits and fashionable for years. You don't have to be a fashion savvy to 'dress up' with a pair of Farello glasses. Farello is a 'national' glass that can support any style of eating, whether it's elegant, youthful or personality, liberal. You just need to choose the 'right glasses' only.",
+        "desc2": "For Farello, a successful product not only truly 'touches' the customer, but also 'touches' nature. Each Farello glasses is a combination of two factors: friendly to the skin, eyes and friendly to the environment. We use Titanium, Acetate, Stainless steel materials and Italian processing technology to ensure the glasses feel as comfortable as possible and avoid negative impacts on the green planet.",
+        "graph4": "To get products that fit and fit the Vietnamese face, flexible and convenient for all activities, each Farello glasses goes through up to 60 design and processing steps to get the specifications. most suitable technique. Combined with high-quality materials and advanced manufacturing technology perfected by skilled artisans, you will be amazed not only with its fashionable beauty but also its outstanding durability."
+    },
+    "userCancelOrder": {
+        "title": "Please choose a reason to cancel your order:",
+        "placeholder": "Please enter a reason for canceling your order..."
+    },
+    "contactForm": {
+        "messageSuccess": "Feedback sent!",
+        "title": "Contact",
+        "subtext": "Give us feedback",
+        "subtext1": "Are you still wondering or have an idea you want to contribute? Please leave your information and submit your feedback here so we can assist you as soon as Farello has received the information!",
+        "content": "Content",
+        "buttonSubmit": "Send feedback"
+    },
+    "userDeleteAccount": {
+        "modalTitle": "Are you sure you want to delete your account?",
+        "modalContent": "Once you delete your account, you will no longer be able to access it.",
+        "accountInfo": "Account information",
+        "title": "Delete account",
+        "subtitle": "Please choose a reason to delete your account",
+        "subtitle1": "We're sorry you left and would love to know why you deleted your account so we can assist you with some common issues.",
+        "option1": "I don't use this account anymore",
+        "option2": "I'm concerned about privacy",
+        "option3": "I have a problem with this account",
+        "option4": "I'm worried about spending too much time on the website",
+        "option5": "I don't find the website useful anymore",
+        "option6": "Others",
+        "buttonBack": "Back",
+        "buttonNext": "Continue deleting accounts",
+        "deleteSuccessful": "Account deleted!",
+        "subtext": "Thank you for using our website",
+        "returnHome": "Go back to the main page"
+    },
+    "editUser": {
+        "messageSuccess": "Editing successful information!"
+    },
+    "footer": {
+        "hotline": "Hotline",
+        "workTime": "Mon - Sun:",
+        "store": "Store Hanoi",
+        "address": "115 Kim Ma, Ba Dinh District, Hanoi",
+        "map": "View the map",
+        "product": "Products",
+        "policy": "Policies",
+        "policy1": "Free eye exam",
+        "policy2": "Insurance",
+        "policy3": "Product return",
+        "policy4": "Transport",
+        "policy5": "Drop old - Renovate",
+        "news": "News",
+        "subtext": "Legal representative: Nguyen Tien Dung. License date: August 14, 2019. Operation date: August 14, 2019"
+    },
+    "forgotPassword": {
+        "messageError": "Email address does not match any account!",
+        "title": "Forgot password?",
+        "subtitle": "Please enter your email address in the box below. We will send you a confirmation code.",
+        "buttonNext": "Next"
+    },
+    "formRate": {
+        "option1": "Very bad",
+        "option2": "Bad",
+        "option3": "Normal",
+        "option4": "Chất lượng sản phẩm tốt",
+        "option5": "Chất lượng sản phẩm tuyệt vời",
+        "messageSuccess": "Successful product review!",
+        "subtext": "Please rate and share your opinion about this product.",
+        "content": "Content",
+        "buttonSubmit": "Send"
+    },
+    "listPostUser": {
+        "title": "List of posts",
+        "readMore": "Read more"
+    },
+    "listRate": {
+        "like": "Useful",
+        "dislike": "Not useful",
+        "rate": "Write a review",
+        "total": "Total:",
+        "review": "reviews",
+        "noData": "Sorry, this product has no reviews yet!",
+        "modalTitle": "Product Reviews"
+    },
+    "userOrderPage": {
+        "cart": "Cart",
+        "paymentPage": "Payment page",
+        "userInfo": "Customer information",
+        "addressInfo": "Delivery address",
+        "address": "Specific address",
+        "addressPlaceholder": "House number",
+        "note": "Note",
+        "paymentMethod": "Payment method",
+        "orderInfo": "Order information",
+        "buttonOrder": "Order",
+        "orderSuccess": "Order Success!",
+        "subtext": "Thank you for trusting and ordering at Farello.",
+        "button1": "View order",
+        "button2": "Continue shopping"
+    },
+    "policyList": {
+        "title1": "Warranty Policy",
+        "title2": "Drop old - Renovate",
+        "title3": "Free eye exam",
+        "title4": "Cleaning and maintaining glasses",
+        "desc1": "We are confident to be the unit with the best after-sales service in Vietnam when applying a two-year warranty policy and returning products without reason in 30 days. The data system is constantly and accurately updated to easily look up information.",
+        "desc2": "Instead of spending a lot of money to buy eyeglasses with the 'Renew Old Collection' service - 10% OFF on Farello's eyeglasses orders, customers will be supported to collect old eyeglasses and lenses at extremely low prices. Discount period, save costs as much as possible.",
+        "desc3": "Farello performs free eye exams for customers when booking 24 hours in advance. With specialized doctors, high professional qualifications. Consulting eyewear suitable for each type of eye disease for customers.",
+        "desc4": "Farello has recognized this problem of everyone, so today Farello will guide you how to clean and clean your glasses every day, to have a clear and fresh vision."
+    },
+    "userPostDetail": {
+        "post": "Post",
+        "postCategory": "Post category",
+        "updatedAt": "Updated at",
+        "author": "Author"
+    },
+    "productDetail": {
+        "addCartSuccess": "Product added to cart!",
+        "buttonAdd": "Add to cart",
+        "buttonLabel": "Privilege to buy products at Farello",
+        "title": "SET OF PRODUCTS WHEN BUYING GLASS AT FARELLO",
+        "subtitle": "When buying at Farello, you will receive accessories such as: Eyeglasses, tote bag, glasses case, warranty card, glass cleaner set, glasses case"
+    },
+    "purchasePrivileges": {
+        "title": "Privileges of customers buying products at Farello",
+        "item1": "50% off replacement frames. Applicable in case your frame is damaged and does not meet the warranty conditions within 2 years from the date of purchase.",
+        "item2": "10% discount on lenses when replacing new lenses for existing Farello frames for the sake of environmental protection.",
+        "item3": "Free 1 time glass change. If you feel uncomfortable with your vision within 2 years from the date of purchase, Farello will give you 1 free re-examination and change the lenses to suit your vision condition.",
+        "item4": "Free cleaning, changing ticks, changing screws, adjusting frames for life.",
+        "item5": "Lifetime free eye test and vision test. Applicable to all customers, including those who have not used Farello's services."
+    },
+    "register": {
+        "messageError": "Password incorrect!",
+        "messageSuccess": "Sign Up Success!",
+        "title": "Register",
+        "passwordConfirm": "Confirm password",
+        "goToLogin": "Do you already have an account?",
+        "loginButton": "Log in"
+    },
+    "resetPassword": {
+        "messageError": "Confirmation code is incorrect!",
+        "messageSuccess": "Password update successful!",
+        "title": "Reset Password",
+        "verification": "Verification",
+        "buttonLabel": "Next"
+    },
+    "showroom": "COME TO FARELLO FOR FREE EYE EXAMINATION",
+    "topbar": {
+        "aboutus": "About us",
+        "product": "Products",
+        "productCategory": "Product category",
+        "posts": "Posts",
+        "postCategory": "Post category",
+        "contact": "Contact"
+    },
+    "userCart": {
+        "deleteSuccessful": "Product removed from cart!",
+        "title": "Cart",
+        "totalCart": "Total shopping cart",
+        "color": "Color",
+        "price": "Price",
+        "buttonDelete": "Delete",
+        "buttonOrder": "Payment"
+    },
+    "userInfo": {
+        "title": "Account information",
+        "editButton": "Edit",
+        "order": "Order",
+        "orderList": "Order List",
+        "deleteAccount": "Delete account",
+        "modalTitle": "Edit personal information"
+    },
+    "notFound": "Sorry, the page you visited does not exist.",
+    "backHome": "Back to homepage",
+    "bestSeller": "BEST SELLERS",
+    "reviewProduct": "Product Reviews",
+    "similar": "Maybe you are interested"
 }

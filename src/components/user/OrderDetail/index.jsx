@@ -20,6 +20,7 @@ import CancelOrderReason from '../CancelOrderReason'
 import { CancelReasonAdmin, CancelReasonUser } from '../../../constant/cancelReason'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant'
+import i18n from '../../../translation'
 
 const OrderDetail = ({setLoading}) => {
   const [searchParams] = useSearchParams()
@@ -62,7 +63,7 @@ const OrderDetail = ({setLoading}) => {
         },
         onCompleted: () => {
             setLoading(false)
-            message.success("Hủy đơn hàng thành công!")
+            message.success(i18n.t('orderDetailAdmin.cancelSuccess'))
         },
         onError: (err) => {
             setLoading(false)
@@ -79,37 +80,37 @@ const OrderDetail = ({setLoading}) => {
     size="middle" 
     className="w-full h-full mb-10">
     <Breadcrumb className="my-10 px-10 py-2 bg-[#f8f8f8]">
-      <Breadcrumb.Item href="/" className="text-[1.6rem]">Trang chủ</Breadcrumb.Item>
-      <Breadcrumb.Item href="/listOrderUser" className="text-[1.6rem]">Danh sách đơn hàng</Breadcrumb.Item>
+      <Breadcrumb.Item href="/" className="text-[1.6rem]">{i18n.t('common.home')}</Breadcrumb.Item>
+      <Breadcrumb.Item href="/listOrderUser" className="text-[1.6rem]">{i18n.t('orderDetailAdmin.listOrder')}</Breadcrumb.Item>
       <Breadcrumb.Item className="text-[1.6rem] font-semibold">
-          Đơn hàng (ID: {data?.order?.orderId})
+          {`${i18n.t('orderDetailAdmin.order')} (ID: ${data?.order?.orderId})`}
       </Breadcrumb.Item>
     </Breadcrumb>
-    <Row className="font-semibold text-[1.8rem]">Thông tin khách hàng</Row>
+    <Row className="font-semibold text-[1.8rem]">{i18n.t('orderDetailAdmin.userInfo')}</Row>
     <Descriptions layout={screens.lg ? 'horizontal' : 'vertical'}>
-        <Descriptions.Item label={<Row className="font-semibold text-[1.6rem]">Họ tên</Row>}>
+        <Descriptions.Item label={<Row className="font-semibold text-[1.6rem]">{i18n.t('common.fullName')}</Row>}>
            <Row className="text-[1.6rem]">{data?.order?.receiverName}</Row>
         </Descriptions.Item>
-        <Descriptions.Item label={<Row className="font-semibold text-[1.6rem]">Số điện thoại</Row>}>
+        <Descriptions.Item label={<Row className="font-semibold text-[1.6rem]">{i18n.t('common.phone')}</Row>}>
            <Row className="text-[1.6rem]">{data?.order?.phoneNumber}</Row>
         </Descriptions.Item>
-        <Descriptions.Item label={<Row className="font-semibold text-[1.6rem]">Email</Row>}>
+        <Descriptions.Item label={<Row className="font-semibold text-[1.6rem]">{i18n.t('common.email')}</Row>}>
           <Row className="text-[1.6rem]">{data?.order?.email}</Row>
         </Descriptions.Item>
         <Descriptions.Item 
-           label={<Row className="font-semibold text-[1.6rem]">Địa chỉ nhận hàng</Row>}
+           label={<Row className="font-semibold text-[1.6rem]">{i18n.t('orderDetailAdmin.address')}</Row>}
            span={3}>
            <Row className="text-[1.6rem]">{data?.order?.address}</Row>
         </Descriptions.Item>
         <Descriptions.Item 
-           label={<Row className="font-semibold text-[1.6rem]">Phương thức thanh toán</Row>}
+           label={<Row className="font-semibold text-[1.6rem]">{i18n.t('orderDetailAdmin.paymentMethod')}</Row>}
            span={3}>
            <Row className="text-[1.6rem]">
              {data?.order?.paymentMethod && PaymentMethod.find(item => item.value === data?.order?.paymentMethod).name}
            </Row>
         </Descriptions.Item>
         <Descriptions.Item 
-           label={<Row className="font-semibold text-[1.6rem]">Ngày đặt</Row>}
+           label={<Row className="font-semibold text-[1.6rem]">{i18n.t('orderDetailAdmin.createdAt')}</Row>}
            span={3}>
            <Row className="text-[1.6rem]">
              {data?.order?.createdAt}
@@ -119,14 +120,14 @@ const OrderDetail = ({setLoading}) => {
             data?.order?.status === "CANCEL" && (
                 <>
                 <Descriptions.Item 
-                    label={<Row className="font-semibold text-[1.6rem]">Ngày hủy</Row>}
+                    label={<Row className="font-semibold text-[1.6rem]">{i18n.t('orderDetailAdmin.canceledAt')}</Row>}
                     span={3}>
                     <Row className="text-[1.6rem]">
                         {data?.order?.updatedAt}
                     </Row>
                 </Descriptions.Item>
                 <Descriptions.Item 
-                    label={<Row className="font-semibold text-[1.6rem]">Lý do hủy</Row>}
+                    label={<Row className="font-semibold text-[1.6rem]">{i18n.t('orderDetailAdmin.reasonCancel')}</Row>}
                     span={3}>
                     <Row className="text-[1.6rem]">
                         {data?.order?.cancelBy === "USER" ? (
@@ -145,29 +146,29 @@ const OrderDetail = ({setLoading}) => {
                 </>
             )
         }
-        <Descriptions.Item label={<Row className="font-semibold text-[1.6rem]">Ghi chú</Row>}>
-           <Row className="text-[1.6rem]">{data?.order?.userNote || 'Không'}</Row>
+        <Descriptions.Item label={<Row className="font-semibold text-[1.6rem]">{i18n.t('orderDetailAdmin.note')}</Row>}>
+           <Row className="text-[1.6rem]">{data?.order?.userNote || i18n.t('orderDetailAdmin.empty')}</Row>
         </Descriptions.Item>
     </Descriptions>
     <hr/>
-    <Row className="font-semibold text-[1.8rem]">Thông tin đơn hàng</Row>
+    <Row className="font-semibold text-[1.8rem]">{i18n.t('orderDetailAdmin.orderInfo')}</Row>
     <Row className="flex flex-col w-full">
         <Row className={`text-[1.6rem] self-end mb-10 ${data?.order?.status === 'CANCEL' ? 'text-red-500' : 'text-green-500'}`}>
-           {`Trạng thái: ${data?.order?.status && OrderStatus.find(item => item.value === data?.order?.status).name}`}
+           {`${i18n.t('orderDetailAdmin.status')}: ${data?.order?.status && OrderStatus.find(item => item.value === data?.order?.status).name}`}
         </Row>
         <Row className="flex flex-col">
         <List
-            header={<Row className="text-[1.6rem] font-semibold">{`Tổng số: ${data?.order?.products?.length}`}</Row>}
+            header={<Row className="text-[1.6rem] font-semibold">{`${i18n.t('orderDetailAdmin.totalProducts')} ${data?.order?.products?.length}`}</Row>}
             footer={false}
             bordered>
             {
                 data?.order?.products?.map((item) => (
                     <List.Item key={item.id} className="flex flex-col md:flex-row items-start md:justify-between">
                         <Row className="flex flex-col text-[1.6rem]">
-                            <Row>{`Tên sản phẩm: ${item.name}`}</Row>
-                            <Row>{`Số lượng: ${item.quantity}`}</Row>
-                            <Row>{`Màu sắc: ${item.color}`}</Row>
-                            <Row>{`Giá tiền: ${item.price && numberWithCommas(item.price)}`}</Row>
+                            <Row>{`${i18n.t('orderDetailAdmin.product')}: ${item.name}`}</Row>
+                            <Row>{`${i18n.t('orderDetailAdmin.quantity')}: ${item.quantity}`}</Row>
+                            <Row>{`${i18n.t('orderDetailAdmin.color')}: ${item.color}`}</Row>
+                            <Row>{`${i18n.t('orderDetailAdmin.payment')}: ${item.price && numberWithCommas(item.price)}`}</Row>
                         </Row>
                         <img src={item.imageKey} alt="" className="w-[200px] mt-3 md:mt-0" />
                     </List.Item>
@@ -180,19 +181,19 @@ const OrderDetail = ({setLoading}) => {
             className="mt-5"
             bordered>
             <List.Item className="flex items-start justify-between">
-                <Row className="text-[1.6rem]">Đơn hàng:</Row>
+                <Row className="text-[1.6rem]">{`${i18n.t('orderDetailAdmin.order')}:`}</Row>
                 <Row className="text-[1.6rem]">
                    {data?.order?.totalPaymentWithoutShipment && numberWithCommas(data?.order?.totalPaymentWithoutShipment)}
                 </Row>
             </List.Item>
             <List.Item className="flex items-start justify-between">
-                <Row className="text-[1.6rem]">Ship:</Row>
+                <Row className="text-[1.6rem]">{`${i18n.t('orderDetailAdmin.ship')}:`}</Row>
                 <Row className="text-[1.6rem]">
                    {data?.order?.transferFee && numberWithCommas(data?.order?.transferFee)}
                 </Row>
             </List.Item>
             <List.Item className="flex items-start justify-between">
-                <Row className="text-[2rem] font-semibold uppercase">Tổng đơn:</Row>
+                <Row className="text-[2rem] font-semibold uppercase">{`${i18n.t('orderDetailAdmin.total')}:`}</Row>
                 <Row className="text-[2rem] font-semibold">
                    {data?.order?.totalPayment && numberWithCommas(data?.order?.totalPayment)}
                 </Row>
@@ -207,11 +208,11 @@ const OrderDetail = ({setLoading}) => {
           onClick={showModal}
           disabled={OrderStatusDisable.includes(data?.order?.status)}
           className="rounded self-end w-full md:w-fit">
-          Hủy đơn hàng
+          {i18n.t('orderDetailAdmin.cancelOrder')}
       </Button>
     </Row>
     <Modal 
-       title="Hủy đơn hàng" 
+       title={i18n.t('orderDetailAdmin.cancelOrder')} 
        centered 
        visible={isModalOpen} 
        onOk={handleOk} 

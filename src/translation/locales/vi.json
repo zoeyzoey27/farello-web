@@ -31,7 +31,11 @@
        "search": "Tìm kiếm",
        "total": "Tổng số",
        "result": "kết quả",
-       "page": "kết quả / trang"
+       "page": "kết quả / trang",
+       "cancel": "Hủy",
+       "noData": "Không có dữ liệu hiển thị",
+       "home": "Trang chủ",
+       "notLogin": "Bạn chưa đăng nhập!"
     },
     "addAdmin": {
         "message": {
@@ -153,5 +157,348 @@
         "read": "Đã đọc",
         "unread": "Chưa đọc",
         "titleModal": "Phản hồi của khách hàng"
-    }
+    },
+    "adminList": {
+        "title": "Quản lý admin",
+        "heading": "Danh sách Admin"
+    },
+    "categoryList": {
+        "message": {
+            "deleteSuccessful": "Xóa dữ liệu thành công!"
+        },
+        "id": "Mã danh mục",
+        "name": "Tên danh mục",
+        "description": "Mô tả danh mục",
+        "image": "Ảnh minh họa",
+        "products": "Tổng sản phẩm",
+        "deleteConfirm": "Bạn có chắc muốn xóa dữ liệu này không？",
+        "title": "Danh sách danh mục sản phẩm",
+        "buttonAdd": "Thêm mới danh mục"
+    },
+    "orderList": {
+        "id": "Mã đơn hàng",
+        "fullName": "Người nhận",
+        "phone": "Số điện thoại",
+        "address": "Địa chỉ người nhận",
+        "totalProducts": "Số lượng sản phẩm",
+        "payment": "Tổng đơn hàng",
+        "status": "Trạng thái",
+        "date": "Ngày đặt",
+        "title": "Danh sách đơn hàng",
+        "email": "Email người nhận",
+        "waitForConfirmation": "Chờ xác nhận"
+    },
+    "postCategory": {
+        "message": {
+            "addSuccessful": "Thêm danh mục bài viết thành công!",
+            "editingSuccessful": "Cập nhật thành công!",
+            "deleteSuccessful": "Xóa dữ liệu thành công!"
+        },
+        "id": "Mã danh mục",
+        "title": "Tên danh mục",
+        "date": "Ngày tạo",
+        "deleteConfirm": "Bạn có chắc muốn xóa dữ liệu này không？",
+        "heading": "Danh mục bài viết",
+        "buttonAdd": "Thêm mới",
+        "edit": "Chỉnh sửa danh mục bài viết",
+        "create": "Tạo danh mục bài viết",
+        "protectEyes": "Bảo vệ mắt"
+    },
+    "product": {
+        "id": "Mã sản phẩm",
+        "name": "Tên sản phẩm",
+        "description": "Mô tả sản phẩm",
+        "image": "Ảnh sản phẩm",
+        "quantity": "Số lượng",
+        "priceIn": "Giá nhập",
+        "priceOut": "Giá bán",
+        "priceSale": "Giá khuyến mại",
+        "category": "Danh mục sản phẩm",
+        "status": "Trạng thái",
+        "stock": "Còn hàng",
+        "outOfStock": "Hết hàng",
+        "glasses": "Gọng kính",
+        "color":"Màu sắc",
+        "inventory": "Còn lại"
+    },
+    "listProduct": {
+        "deleteConfirm": "Bạn có chắc muốn xóa sản phẩm này không？",
+        "deleteSuccessful": "Xóa sản phẩm thành công!",
+        "title": "Danh sách sản phẩm",
+        "buttonAdd": "Thêm mới sản phẩm"
+    },
+    "listUser": {
+        "title": "Quản lý khách hàng"
+    },
+    "login": {
+        "title": "Đăng nhập",
+        "messageSuccess": "Đăng nhập thành công!",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "forgotPassword": "Quên mật khẩu?",
+        "dontHaveAccount": "Bạn chưa có tài khoản?",
+        "signup": "Đăng ký tài khoản"
+    },
+    "menuAdmin": {
+        "productCategory": "Danh mục sản phẩm",
+        "listProductCategory": "Danh sách danh mục",
+        "addProductCategory": "Thêm mới danh mục",
+        "product": "Quản lý sản phẩm",
+        "listProduct": "Danh sách sản phẩm",
+        "addProduct": "Thêm mới sản phẩm",
+        "order": "Quản lý đơn hàng",
+        "post": "Quản lý bài viết",
+        "listPost": "Danh sách bài viết",
+        "postCategory": "Danh mục bài viết",
+        "createPost": "Tạo bài viết",
+        "admins": "Quản lý Admin",
+        "listAdmin": "Danh sách Admin",
+        "createAccount": "Tạo tài khoản",
+        "user": "Quản lý khách hàng",
+        "accountInfo": "Thông tin tài khoản",
+        "logout": "Đăng xuất"
+    },
+    "orderDetailAdmin": {
+        "messageSuccess": "Cập nhật trạng thái thành công!",
+        "cancelSuccess": "Hủy đơn hàng thành công!",
+        "title": "Chi tiết đơn hàng",
+        "listOrder": "Danh sách đơn hàng",
+        "order": "Đơn hàng",
+        "userInfo": "Thông tin khách hàng",
+        "address": "Địa chỉ nhận hàng",
+        "canceledAt": "Ngày hủy",
+        "reasonCancel": "Lý do hủy",
+        "note": "Ghi chú",
+        "empty": "Không",
+        "orderInfo": "Thông tin đơn hàng",
+        "product": "Tên sản phẩm",
+        "quantity": "Số lượng",
+        "color": "Màu sắc",
+        "payment": "Giá tiền",
+        "ship": "Ship",
+        "total": "Tổng đơn",
+        "cancelOrder": "Hủy đơn hàng",
+        "paymentMethod": "Phương thức thanh toán",
+        "createdAt": "Ngày đặt",
+        "status": "Trạng thái",
+        "totalProducts": "Tổng số:"
+    },
+    "postDetailAdmin": {
+        "deleteConfirm": "Bạn có chắc muốn xóa bài viết này không?",
+        "deleteSuccessful": "Xóa bài viết thành công",
+        "title": "Chi tiết bài viết",
+        "listPost": "Danh sách bài viết",
+        "post": "Bài viết",
+        "deletePost": "Xóa bài viết",
+        "editPost": "Chỉnh sửa bài viết",
+        "postCategory": "Danh mục bài viết",
+        "time": "Thời gian cập nhật",
+        "admin": "Người đăng bài"
+    },
+    "listPost": {
+        "title": "Tiêu đề",
+        "id": "Mã bài viết",
+        "postCategory": "Danh mục bài viết",
+        "admin": "Admin",
+        "createdAt": "Ngày đăng",
+        "updatedAt": "Ngày cập nhật",
+        "heading": "Quản lý bài viết",
+        "adminID": "Admin ID"
+    },
+    "productDetailAdmin": {
+        "title": "Chi tiết sản phẩm",
+        "listProduct": "Danh sách sản phẩm",
+        "productInfo": "Thông tin sản phẩm",
+        "editButton": "Chỉnh sửa"
+    },
+    "aboutus": {
+        "title": "Giới thiệu",
+        "heading": "NGUỒN CẢM HỨNG CỦA FARELLO",
+        "graph1": "Bước ra từ câu chuyện của những người trẻ với khát khao tìm thấy 'định nghĩa' về chính bản thân mình giữa những hoài nghi về nhận thức,năng lực và cuộc sống. Farello được tạo ra như một người bạn đồng hành, một lăng kính đa chiều và rộng mở để bạn 'nhìn rõ' chính mình và thế giới xung quanh.",
+        "graph2": "Với thông điệp 'WHEN IN DOUBT, WEAR GLASSES', Farello mong muốn được hiện diện trong cuộc sống của bạn hàng ngày, đưa cho bạn những góc nhìn thật khác biệt, gợi cho bạn cảm hứng tìm ra điều tích cực ngay cả trong những khoảnh khắc bạn bối rối, mông lung.",
+        "graph3": "Đối với Farello, bạn chính là 'độc bản'. Chúng tôi mong muốn bạn có một góc nhìn đủ rộng, đủ tốt để đưa ra những lựa chọn khiến bạn hạnh phúc, đủ tự tin để theo đuổi những gì bạn đam mê. Chúng tôi biết rằng bạn có cá tính, có tri thức, có lập trường riêng. Đâu cần phải chạy theo sống đông, bạn chỉ cần bắt kịp 'lý tưởng' của riêng mình.",
+        "title1": "Tầm nhìn",
+        "subtitle": "Không ngừng SÁNG TẠO để nâng cao chất lượng dịch vụ, Farello mang sứ mệnh trở thành danh hiệu quốc dân -'Top of Mind' của mọi độ tuổi và phong cách, từ thanh lịch, sang trọng, tri thức đến cá tính, nổi loạn.",
+        "title2": "SỨ MỆNH",
+        "title3": "GIÁ TRỊ CỐT LÕI",
+        "title4": "THIẾT KẾ",
+        "title5": "SẢN PHẨM",
+        "desc1": "Farello tin rằng người khách hàng thông thái không muốn những thiết kế chỉ 'hợp thời' trong một thời gian ngắn. Chúng tôi tạo ra những mẫu thiết kế đơn giản, tinh tế, phù hợp trong mọi hoàn cảnh, dễ ứng dụng với các trang phục hàng ngày của bạn và hợp mốt nhiều năm. Bạn không cần phải là người am hiểu thời trang mới có thể 'diện đẹp' một chiếc kính Farello. Farello là chiếc kính 'quốc dân' có thể hỗ trợ cho mọi phong cách ăn mặc dù là thanh lịch, trẻ trung hay cá tính, phóng khoáng. Bạn chỉ cần chọn 'đúng kính' mà thôi.",
+        "desc2": "Đối với Farello, một sản phẩm thành công không chỉ thực sự 'chạm' đến khách hàng mà còn 'chạm' đến thiên nhiên. Mỗi chiếc kính Farello là sự tổng hòa của hai yếu tố : Thân thiện với làn da, đôi mắt và thân thiện với môi trường. Chúng tôi sử dụng chất liệu Titanium, Acetate, Stainless steel và công nghệ gia công từ Ý để đảm bảo chiếc kính đem lại cảm giác dễ chịu nhất có thể và tránh xa những tác động tiêu cực cho hành tinh xanh.",
+        "graph4": "Để có được những sản phẩm vừa vặn và phù hợp với gương mặt phù hợp của người Việt, linh hoạt và thuận lợi cho mọi hoạt động, mỗi chiếc kính Farello trải qua đến 60 bước thiết kế và gia công mới có được thông số kỹ thuật phù hợp nhất. Kết hợp với vật liệu cao cấp và công nghệ sản xuất tiên tiến được hoàn thiện bởi nghệ nhân có tay nghề cao, bạn sẽ bất ngờ không chỉ với vẻ đẹp thời trang mà còn là độ bền vượt trội mà sản phẩm mang lại."
+    },
+    "userCancelOrder": {
+        "title": "Vui lòng chọn một lý do hủy đơn hàng:",
+        "placeholder": "Vui lòng nhập lý do hủy đơn hàng của bạn ..."
+    },
+    "contactForm": {
+        "messageSuccess": "Đã gửi phản hồi!",
+        "title": "Liên hệ",
+        "subtext": "Gửi phản hồi cho chúng tôi",
+        "subtext1": "Bạn vẫn còn băn khoăn hoặc có ý kiến muốn đóng góp? Hãy để lại thông tin và gửi phản hồi của bạn tại đây để chúng tôi có thể hỗ trợ bạn ngay khi Farello đã tiếp nhận được thông tin nhé!",
+        "content": "Nội dung",
+        "buttonSubmit": "Gửi phản hồi"
+    },
+    "userDeleteAccount": {
+        "modalTitle": "Bạn có chắc muốn xóa tài khoản?",
+        "modalContent": "Sau khi xóa tài khoản, bạn sẽ không thể truy cập bằng tài khoản này nữa.",
+        "accountInfo": "Thông tin tài khoản",
+        "title": "Xóa tài khoản",
+        "subtitle": "Vui lòng chọn 1 lý do xóa tài khoản",
+        "subtitle1": "Chúng tôi rất tiếc khi bạn rời đi và rất muốn biết lý do bạn xóa tài khoản để có thể hỗ trợ bạn về một số vấn đề thường gặp.",
+        "option1": "Tôi không sử dụng tài khoản này nữa",
+        "option2": "Tôi lo ngại về quyền riêng tư",
+        "option3": "Tôi gặp vấn đề với tài khoản này",
+        "option4": "Tôi lo ngại dành quá nhiều thời gian cho website",
+        "option5": "Tôi không thấy website hữu ích nữa",
+        "option6": "Lý do khác",
+        "buttonBack": "Quay lại",
+        "buttonNext": "Tiếp tục xóa tài khoản",
+        "deleteSuccessful": "Đã xóa tài khoản!",
+        "subtext": "Cảm ơn bạn đã sử dụng trang website của chúng tôi",
+        "returnHome": "Quay lại Trang chủ"
+    },
+    "editUser": {
+        "messageSuccess": "Chỉnh sửa thông tin thành công!"
+    },
+    "footer": {
+        "hotline": "Hotline",
+        "workTime": "Mon - Sun:",
+        "store": "Store Hà Nội",
+        "address": "115 Kim Mã, Quận Ba Đình, Hà Nội",
+        "map": "Xem bản đồ",
+        "product": "Sản phẩm",
+        "policy": "Các chính sách",
+        "policy1": "Khám mắt miễn phí",
+        "policy2": "Bảo hành",
+        "policy3": "Đổi trả",
+        "policy4": "Vận chuyển",
+        "policy5": "Thả cũ - Đổi mới",
+        "news": "Tin tức",
+        "subtext": "Đại diện pháp luật: Nguyễn Tiến Dũng. Ngày cấp giấy phép: 14/08/2019. Ngày hoạt động: 14/08/2019"
+    },
+    "forgotPassword": {
+        "messageError": "Địa chỉ email không khớp với tài khoản nào!",
+        "title": "Quên mật khẩu?",
+        "subtitle": "Hãy nhập địa chỉ email vào ô dưới đây. Chúng tôi sẽ gửi cho bạn một mã xác nhận.",
+        "emailLabel": "Nhập địa chỉ Email của bạn",
+        "buttonNext": "Tiếp tục"
+    },
+    "formRate": {
+        "option1": "Chất lượng sản phẩm rất tệ",
+        "option2": "Chất lượng sản phẩm tệ",
+        "option3": "Chất lượng sản phẩm bình thường",
+        "option4": "Chất lượng sản phẩm tốt",
+        "option5": "Chất lượng sản phẩm tuyệt vời",
+        "messageSuccess": "Đánh giá sản phẩm thành công!",
+        "subtext": "Vui lòng đánh giá và chia sẻ cảm nhận của bạn về sản phẩm này.",
+        "content": "Nội dung",
+        "buttonSubmit": "Gửi đánh giá"
+    },
+    "listPostUser": {
+        "title": "Danh sách bài viết",
+        "readMore": "Xem thêm"
+    },
+    "listRate": {
+        "like": "Hữu ích",
+        "dislike": "Không hữu ích",
+        "rate": "Viết đánh giá",
+        "total": "Tất cả:",
+        "review": "đánh giá",
+        "noData": "Rất tiếc, sản phẩm chưa có đánh giá nào!",
+        "modalTitle": "Đánh giá sản phẩm"
+    },
+    "userOrderPage": {
+        "cart": "Giỏ hàng",
+        "paymentPage": "Thanh toán",
+        "userInfo": "Thông tin khách hàng",
+        "addressInfo": "Địa chỉ giao hàng",
+        "address": "Địa chỉ cụ thể",
+        "addressPlaceholder": "Số nhà/khu/ngõ/ngách",
+        "note": "Ghi chú",
+        "paymentMethod": "Phương thức thanh toán",
+        "orderInfo": "Đơn hàng",
+        "buttonOrder": "Đặt hàng",
+        "orderSuccess": "Đặt hàng thành công!",
+        "subtext": "Cảm ơn bạn đã tin tưởng và đặt hàng tại Farello.",
+        "button1": "Xem lại đơn hàng",
+        "button2": "Tiếp tục mua hàng"
+    },
+    "policyList": {
+        "title1": "Chính sách bảo hành",
+        "title2": "Thả cũ - Đổi mới",
+        "title3": "Khám mắt miễn phí",
+        "title4": "Vệ sinh và bảo quản mắt kính",
+        "desc1": "Chúng tôi tự tin là đơn vị có chế độ hậu mãi tốt nhất Việt Nam khi áp dụng chính sách bảo hành hai năm và đổi trả sản phẩm không cần lí do trong 30 ngày. Hệ thống dữ liệu được cập nhật liên tục và chính xác để dễ dàng tra cứu thông tin.",
+        "desc2": "Thay vì bỏ ra một số tiền lớn để mua kính mắt với dịch vụ 'Thu Cũ Đổi Mới”- GIẢM 10%' đơn hàng kính mắt của Farello, quý khách hàng sẽ được hỗ trợ thu lại kính mắt và tròng cũ với giá cực kỳ ưu đãi, tiết kiệm chi phí nhất có thể.",
+        "desc3": "Farello thực hiện đo khám mắt miễn phí cho khách hàng khi đặt lịch trước 24 tiếng. Với các bác sĩ chuyên khoa, trình độ chuyên môn cao. Tư vấn kính mắt phù với từng loại bệnh về mắt cho khách hàng.",
+        "desc4": "Farello đã nhận biết được vấn đề này của mọi người, vậy nên hôm nay Farello sẽ hướng dẫn bạn cách lau chùi, vệ sinh chiếc kính của bạn thật sạch sẽ mỗi ngày, để có một tầm mình thật sáng rõ và tươi mới."
+    },
+    "userPostDetail": {
+        "post": "Bài viết",
+        "postCategory": "Danh mục bài viết",
+        "updatedAt": "Thời gian cập nhật",
+        "author": "Tác giả"
+    },
+    "productDetail": {
+        "addCartSuccess": "Đã thêm sản phẩm vào giỏ hàng!",
+        "buttonAdd": "Thêm vào giỏ hàng",
+        "buttonLabel": "Đặc quyền mua sản phẩm tại Farello",
+        "title": "BỘ SẢN PHẨM KHI MUA KÍNH TẠI FARELLO",
+        "subtitle": "Khi mua hàng tại Farello bạn sẽ nhận được các phụ kiện như: Kính mắt, túi tote, bao da đựng kính, thẻ bảo hành, set nước lau kính, hộp đựng kính"
+    },
+    "purchasePrivileges": {
+        "title": "Đặc quyền của khách hàng mua sản phẩm tại Farello",
+        "item1": "Giảm giá 50% cho gọng kính thay thế. Áp dụng trong trường hợp gọng kính của bạn bị hỏng và không đạt điều kiện bảo hành trong vòng 2 năm từ ngày mua.",
+        "item2": "Giảm giá 10% tròng kính khi thay tròng kính mới cho gọng Farello đang sử dụng vì mục tiêu bảo vệ môi trường.",
+        "item3": "Miễn phí 1 lần thay đổi độ kính. Nếu bạn cảm thấy không thoải mái với thị lực trong vòng 2 năm từ ngày mua, Farello sẽ miễn phí 1 lần khám lại và thay đổi độ tròng kính phù hợp với tình trạng thị lực của bạn.",
+        "item4": "Miễn phí vệ sinh, thay ve, thay ốc, điều chỉnh gọng kính trọn đời.",
+        "item5": "Đo mắt và kiểm tra thị lực miễn phí trọn đời. Áp dụng với mọi khách hàng, kể cả những khách hàng chưa sử dụng dịch vụ của Farello."
+    },
+    "register": {
+        "messageError": "Mật khẩu không khớp!",
+        "messageSuccess": "Đăng ký thành công!",
+        "title": "Đăng ký",
+        "passwordConfirm": "Nhập lại mật khẩu",
+        "goToLogin": "Bạn đã có tài khoản?",
+        "loginButton": "Đăng nhập"
+    },
+    "resetPassword": {
+        "messageError": "Mã xác nhận không chính xác!",
+        "messageSuccess": "Cập nhật mật khẩu thành công!",
+        "title": "Đặt lại mật khẩu",
+        "verification": "Mã xác nhận",
+        "buttonLabel": "Tiếp tục"
+    },
+    "showroom": "ĐẾN FARELLO ĐỂ ĐƯỢC KHÁM MẮT MIỄN PHÍ",
+    "topbar": {
+        "aboutus": "Giới thiệu",
+        "product": "Sản phẩm",
+        "productCategory": "Danh mục sản phẩm",
+        "posts": "Bài viết",
+        "postCategory": "Danh mục bài viết",
+        "contact": "Liên hệ"
+    },
+    "userCart": {
+        "deleteSuccessful": "Đã xóa sản phẩm khỏi giỏ hàng!",
+        "title": "Giỏ hàng",
+        "totalCart": "Tổng giỏ hàng",
+        "color": "Màu sắc",
+        "price": "Giá tiền",
+        "buttonDelete": "Xóa",
+        "buttonOrder": "Tiếp tục thanh toán"
+    },
+    "userInfo": {
+        "title": "Thông tin tài khoản",
+        "editButton": "Chỉnh sửa",
+        "order": "Đơn mua",
+        "orderList": "Danh sách đơn hàng",
+        "deleteAccount": "Xóa tài khoản",
+        "modalTitle": "Chỉnh sửa thông tin cá nhân"
+    },
+    "notFound": "Xin lỗi, trang bạn đã truy cập không tồn tại.",
+    "backHome": "Trở lại trang chủ",
+    "bestSeller": "BEST SELLERS",
+    "reviewProduct": "Đánh giá sản phẩm",
+    "similar": "Có thể bạn quan tâm"
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Result } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import i18n from '../../translation'
 
 const NotFound = () => {
   const navigate = useNavigate()
@@ -8,10 +9,10 @@ const NotFound = () => {
     <Result
         status="404"
         title="404"
-        subTitle="Xin lỗi, trang bạn đã truy cập không tồn tại."
+        subTitle={i18n.t('notFound')}
         extra={
            <Button type="primary" className="bg-[#1890ff]" size="large" onClick={()=> navigate("/")}>
-              Trở lại trang chủ
+              {i18n.t('backHome')}
            </Button>
         }
     />

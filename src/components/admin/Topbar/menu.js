@@ -1,5 +1,6 @@
 import { Menu, Row, Space, Avatar } from 'antd'
 import { FiUser, FiLogOut } from 'react-icons/fi'
+import i18n from '../../../translation'
 
 export const menu = (name,newName,id_token_admin,logout) => {
   return (
@@ -20,14 +21,14 @@ export const menu = (name,newName,id_token_admin,logout) => {
        <Menu.Item key={1}>
           <a href={`/admin/adminInfo?id=${id_token_admin}`} className="text-[1.6rem] flex items-center mt-3">
             <FiUser className="mr-5" />
-            Thông tin tài khoản
+            {i18n.t('menuAdmin.accountInfo')}
           </a>
        </Menu.Item>
        <hr className="my-3" />
        <Menu.Item key={2} onClick={logout}>
           <a href="/admin/login" className="text-[1.6rem] flex items-center">
             <FiLogOut className="mr-5" />
-            Đăng xuất
+            {i18n.t('menuAdmin.logout')}
           </a>
        </Menu.Item>
     </Menu>

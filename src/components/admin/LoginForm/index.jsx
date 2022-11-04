@@ -5,6 +5,7 @@ import { converSchemaToAntdRule } from '../../../validation'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
 import { ADMIN_LOGIN } from './graphql'
+import i18n from '../../../translation'
 
 const LoginForm = ({setLoading}) => {
   const { Title } = Typography
@@ -25,7 +26,7 @@ const LoginForm = ({setLoading}) => {
         localStorage.setItem('token_admin', data?.loginAdmin?.token)
         localStorage.setItem('id_token_admin', data?.loginAdmin?.id)
         navigate('/admin/dashboard')
-        message.success('Đăng nhập thành công!')
+        message.success(i18n.t('login.messageSuccess'))
       },
       onError: (err) => {
         setLoading(false)
@@ -40,7 +41,7 @@ const LoginForm = ({setLoading}) => {
        </Row>
        <Row className="w-full flex justify-center">
           <Row className="py-10 px-20 rounded bg-white w-full md:w-[60%] lg:w-[40%] xl:w-[35%] 2xl:w-[30%] flex flex-col shadow-lg">
-            <Title level={3} className="block self-center !mb-10 !text-[#343a40]">Đăng nhập</Title>
+            <Title level={3} className="block self-center !mb-10 !text-[#343a40]">{i18n.t('login.title')}</Title>
             <Form
               layout="vertical"
               autoComplete="off"
@@ -50,7 +51,7 @@ const LoginForm = ({setLoading}) => {
                 name="email"
                 label={
                   <Row className="font-semibold text-[1.6rem]">
-                     Email
+                     {i18n.t('login.email')}
                      <Row className="text-red-500 ml-3">*</Row>
                   </Row>
                 }
@@ -62,7 +63,7 @@ const LoginForm = ({setLoading}) => {
                 name="password"
                 label={
                   <Row className="font-semibold text-[1.6rem]">
-                     Mật khẩu
+                     {i18n.t('login.password')}
                      <Row className="text-red-500 ml-3">*</Row>
                   </Row>
                 }
@@ -75,7 +76,7 @@ const LoginForm = ({setLoading}) => {
                   htmlType="submit" 
                   size="large" 
                   className="!bg-colorTheme !text-white !border-colorTheme hover:bg-colorTheme hover:text-white hover:border-colorTheme w-full mt-5 font-semibold !text-[1.6rem] hover:opacity-90 hover:shadow-lg rounded">
-                  Đăng nhập
+                  {i18n.t('login.title')}
                 </Button>
               </Form.Item>
             </Form> 
