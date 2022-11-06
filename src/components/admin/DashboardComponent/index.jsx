@@ -78,7 +78,7 @@ const DashboardComponent = ({setLoading}) => {
        <OrdersComponent setLoading={setLoading} />
        <ProductsComponent setLoading={setLoading} />
        <Space direction="vertical" size="middle" className="bg-white shadow-md p-10 w-full mt-5 rounded">
-          <Row className="text-[1.6rem] font-semibold">{i18n.t('common.dashboard')}</Row>
+          <Row className="text-[1.6rem] font-semibold">{i18n.t('dashboard.users')}</Row>
           <hr className="mb-5" />
           <Table 
             rowKey="id"

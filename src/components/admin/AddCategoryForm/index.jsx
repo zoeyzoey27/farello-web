@@ -146,7 +146,9 @@ const AddCategoryForm = ({action, id, setLoading}) => {
         name: i18n.t('addCategory.image'),
         url: data?.category?.imageKey,
       }])
+      setLoading(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[data, form])
   return (
     <Space 

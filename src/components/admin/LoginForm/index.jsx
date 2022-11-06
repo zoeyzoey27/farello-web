@@ -25,8 +25,8 @@ const LoginForm = ({setLoading}) => {
         setLoading(false)
         localStorage.setItem('token_admin', data?.loginAdmin?.token)
         localStorage.setItem('id_token_admin', data?.loginAdmin?.id)
-        navigate('/admin/dashboard')
         message.success(i18n.t('login.messageSuccess'))
+        setTimeout(navigate('/admin/dashboard'), 3000)
       },
       onError: (err) => {
         setLoading(false)
