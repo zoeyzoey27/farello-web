@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/user/HomePage'
 import Product from './pages/user/Products'
 import ProductDetailPage from './pages/user/ProductDetailPage'
@@ -41,51 +41,56 @@ import ForgotPassword from './pages/user/ForgotPassword'
 import ResetPassword from './pages/user/ResetPassword'
 import Contact from './pages/user/Contact'
 import InquiryManagement from './pages/admin/InquiryManagement'
+import { PrivateRoutes, UserRoutes, UnLoggedRoutes } from './PrivateRoutes'
 
 const Routers = () => {
-  const tokenAdmin = localStorage.getItem("token_admin")
-  const token = localStorage.getItem("token")
   return (
       <BrowserRouter>
           <Routes>
               <Route path="/admin/login" element = {<AdminLogin />} />
-              <Route path="/admin/dashboard" element = {tokenAdmin ? <Dashboard /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/categoryManagement" element = {tokenAdmin ? <CategoryManagement /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/addCategory" element = {tokenAdmin ? <AddCategory /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/productManagement" element = {tokenAdmin ? <ProductManagement /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/addProduct" element = {tokenAdmin ? <AddProduct /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/productDetail" element = {tokenAdmin ? <ProductDetail /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/adminList" element = {tokenAdmin ? <AdminManagement /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/addAdmin" element = {tokenAdmin ? <AddAdmin /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/adminInfo" element = {tokenAdmin ? <AdminInformation /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/deleteAccount" element = {tokenAdmin ? <DeleteAccount /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/deleteAccountConfirm" element = {tokenAdmin ? <DeleteAccountComfirm /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/orderManagement" element = {tokenAdmin ? <OrderManagement /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/orderDetail" element = {tokenAdmin ? <OrderDetail /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/userList" element = {tokenAdmin ? <UserManagement /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/postManagement" element = {tokenAdmin ? <PostManagement /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/postCategory" element = {tokenAdmin ? <PostCategory /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/addPost" element = {tokenAdmin ? <AddPost /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/postDetail" element = {tokenAdmin ? <PostDetail /> : <Navigate to="/admin/login" />} />
-              <Route path="/admin/inquiryManagement" element = {tokenAdmin ? <InquiryManagement /> : <Navigate to="/admin/login" />} />
+              <Route element={<PrivateRoutes />}>
+                <Route path="/admin/dashboard" element = {<Dashboard />} />
+                <Route path="/admin/categoryManagement" element = {<CategoryManagement />} />
+                <Route path="/admin/addCategory" element = {<AddCategory />} />
+                <Route path="/admin/productManagement" element = {<ProductManagement />} />
+                <Route path="/admin/addProduct" element = {<AddProduct />} />
+                <Route path="/admin/productDetail" element = {<ProductDetail />} />
+                <Route path="/admin/adminList" element = {<AdminManagement />} />
+                <Route path="/admin/addAdmin" element = {<AddAdmin />} />
+                <Route path="/admin/adminInfo" element = {<AdminInformation />} />
+                <Route path="/admin/deleteAccount" element = {<DeleteAccount />} />
+                <Route path="/admin/deleteAccountConfirm" element = {<DeleteAccountComfirm />} />
+                <Route path="/admin/orderManagement" element = {<OrderManagement />} />
+                <Route path="/admin/orderDetail" element = {<OrderDetail />} />
+                <Route path="/admin/userList" element = {<UserManagement />} />
+                <Route path="/admin/postManagement" element = {<PostManagement />} />
+                <Route path="/admin/postCategory" element = {<PostCategory />} />
+                <Route path="/admin/addPost" element = {<AddPost />} />
+                <Route path="/admin/postDetail" element = {<PostDetail />} />
+                <Route path="/admin/inquiryManagement" element = {<InquiryManagement />} />
+              </Route>
+              <Route element={<UserRoutes />}>
+                 <Route path="/cart" element = {<Cart/>} />
+                 <Route path="/userInfo" element = {<UserInfo/>} />
+                 <Route path="/userDeleteAccount" element = {<UserDeleteAccount />} />
+                 <Route path="/userDeleteAccountCompleted" element = {<UserDeleteAccountCompleted />} />
+                 <Route path="/listOrderUser" element = {<ListOrderUser/>} />
+                 <Route path="/orderDetail" element = {<UserOrderDetail/>} />
+                 <Route path="/userOrderProduct" element = {<UserOrderPage/>} />
+                 <Route path="/paymentCompleted" element = {<UserPaymentCompleted/>} />
+              </Route>
+              <Route element={<UnLoggedRoutes />}>
+                 <Route path="/login" element = {<Login/>} />
+                 <Route path="/signup" element = {<Register/>} />
+                 <Route path="/forgotPassword" element = {<ForgotPassword/>} />
+                 <Route path="/resetPassword" element = {<ResetPassword/>} />
+              </Route>
               <Route path="/product" element = {<ProductDetailPage/>} />
-              <Route path="/cart" element = {token ? <Cart/> : <Navigate to="/login" />} />
               <Route path="/products" element = {<Product/>} />
               <Route path="/listProduct" element = {<SearchProductsResult/>} />
-              <Route path="/login" element = {!token ? <Login/> : <Navigate to="/" />} />
-              <Route path="/signup" element = {!token ? <Register/> : <Navigate to="/" />} />
-              <Route path="/userInfo" element = {token ? <UserInfo/> : <Navigate to="/login" />} />
-              <Route path="/userDeleteAccount" element = {token ? <UserDeleteAccount /> : <Navigate to="/login" />} />
-              <Route path="/userDeleteAccountCompleted" element = {token ? <UserDeleteAccountCompleted /> : <Navigate to="/login" />} />
-              <Route path="/listOrderUser" element = {token ? <ListOrderUser/> : <Navigate to="/login" />} />
-              <Route path="/orderDetail" element = {token ? <UserOrderDetail/> : <Navigate to="/login" />} />
-              <Route path="/userOrderProduct" element = {token ? <UserOrderPage/> : <Navigate to="/login" />} />
-              <Route path="/paymentCompleted" element = {token ? <UserPaymentCompleted/> : <Navigate to="/login" />} />
               <Route path="/aboutus" element = {<AboutUsPage/>} />
               <Route path="/posts" element = {<Posts/>} />
               <Route path="/postDetail" element = {<PostDetailUser/>} />
-              <Route path="/forgotPassword" element = {!token ? <ForgotPassword/> : <Navigate to="/" />} />
-              <Route path="/resetPassword" element = {!token ? <ResetPassword/> : <Navigate to="/login" />} />
               <Route path="/contact" element = {<Contact/>} />
               <Route path="/" element = {<Home/>} />
               <Route path="*" element = {<NotFound/>} />

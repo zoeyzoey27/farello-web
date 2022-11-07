@@ -25,11 +25,11 @@ const CategoriesList = () => {
         <Row gutter={16}>
             {
                 data?.categories.map((item) => (
-                    <Col xs={24} lg={8} key={item.id} className="mb-5 lg:mb-0">
+                    <Col xs={24} lg={6} key={item.id} className="mb-5">
                         <Card
                             hoverable
                             className="w-full"
-                            cover={<img alt="" src={item.imageKey} className="h-[250px] md:h-[400px] lg:h-[300px]" />}
+                            cover={<img alt="" src={item.imageKey} className="h-[250px] md:h-[400px] lg:h-[250px] object-cover object-center" />}
                             >
                             <Meta 
                               title={<Row className="uppercase font-semibold text-[1.8rem]">{item.name}</Row>} 
