@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client"
 
 export const GET_CATEGORIES_POST = gql`
-  query PostCategories($skip: Int, $take: Int, $orderBy: PostCategorySortInput) {
+  query PostCategories($skip: Int, $take: Int, $orderBy: OrderByInputByTime) {
     postCategories(skip: $skip, take: $take, orderBy: $orderBy) {
       id
       categoryId

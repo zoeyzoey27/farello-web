@@ -19,10 +19,13 @@ const SingleProduct = ({productId}) => {
             <Title level={5} className="uppercase">{data?.product?.name}</Title>
             <Row className="flex items-center justify-center">
                 <Text className="mr-3 text-[#606060] text-[1.6rem] font-semibold">
-                   {data?.product?.priceSale ? `${numberWithCommas(Number(data?.product?.priceSale))} VND` : ''}
+                   {data?.product?.priceSale ? 
+                   `${numberWithCommas(Number(data?.product?.priceSale))} VND` : 
+                   (data?.product?.priceOut ? `${numberWithCommas(Number(data?.product?.priceOut))} VND` : '')}
                 </Text>
                 <Text className="line-through text-[1.2rem] text-[#afaaaa]">
-                   {data?.product?.priceOut ? `${numberWithCommas(Number(data?.product?.priceOut))} VND` : ''}
+                   {data?.product?.priceSale ? 
+                    data?.product?.priceOut ? `${numberWithCommas(Number(data?.product?.priceOut))} VND` : '' : ''}
                 </Text>
             </Row>
        </Row>
