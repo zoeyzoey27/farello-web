@@ -16,7 +16,7 @@ const SingleProduct = ({productId}) => {
     return (
        <Row className="flex flex-col items-center justify-center">
             <img src={data?.product?.images[0]} alt="" className="mb-3 h-auto md:h-[250px] object-top object-cover" />
-            <Title level={5} className="uppercase">{data?.product?.name}</Title>
+            <Title level={5} className="uppercase block-ellipsis-title-product">{data?.product?.name}</Title>
             <Row className="flex items-center justify-center">
                 <Text className="mr-3 text-[#606060] text-[1.6rem] font-semibold">
                    {data?.product?.priceSale ? 

@@ -167,7 +167,7 @@ const OrderDetail = ({setLoading}) => {
                         <Row className="flex flex-col text-[1.6rem]">
                             <Row>{`${i18n.t('orderDetailAdmin.product')}: ${item.name}`}</Row>
                             <Row>{`${i18n.t('orderDetailAdmin.quantity')}: ${item.quantity}`}</Row>
-                            <Row>{`${i18n.t('orderDetailAdmin.color')}: ${item.color}`}</Row>
+                            {item.color && <Row>{`${i18n.t('orderDetailAdmin.color')}: ${item.color}`}</Row>}
                             <Row>{`${i18n.t('orderDetailAdmin.payment')}: ${item.price && numberWithCommas(item.price)}`}</Row>
                         </Row>
                         <img src={item.imageKey} alt="" className="w-[200px] mt-3 md:mt-0" />

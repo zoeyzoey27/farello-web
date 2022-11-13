@@ -7,7 +7,7 @@ import { GET_ORDERS } from './graphql'
 import { DESC } from '../../../constant'
 import i18n from '../../../translation'
 
-const OrdersComponent = ({setLoading}) => {
+const OrdersComponent = () => {
   const navigate = useNavigate()
   const { data } = useQuery(GET_ORDERS, {
     variables: {
@@ -18,9 +18,6 @@ const OrdersComponent = ({setLoading}) => {
             updatedAt: DESC
         }
     },
-    onCompleted: () => {
-        setLoading(false)
-    }
   })
   const countFunc = (status) => {
     let count = 0

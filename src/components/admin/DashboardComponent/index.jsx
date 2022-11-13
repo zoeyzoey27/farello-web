@@ -19,9 +19,6 @@ const DashboardComponent = ({setLoading}) => {
             createdAt: DESC
         }
     },
-    onCompleted: () => {
-        setLoading(false)
-    }
   })
   useEffect(() => {
     if (data) {
@@ -75,7 +72,7 @@ const DashboardComponent = ({setLoading}) => {
        size="middle" 
        className="w-full h-full">
        <Title level={4} className="whitespace-pre-wrap w-full bg-white p-10 shadow-md rounded">{i18n.t('common.dashboard')}</Title>
-       <OrdersComponent setLoading={setLoading} />
+       <OrdersComponent />
        <ProductsComponent setLoading={setLoading} />
        <Space direction="vertical" size="middle" className="bg-white shadow-md p-10 w-full mt-5 rounded">
           <Row className="text-[1.6rem] font-semibold">{i18n.t('dashboard.users')}</Row>

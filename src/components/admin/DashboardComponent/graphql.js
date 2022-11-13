@@ -45,3 +45,18 @@ export const GET_USERS = gql`
     }
   }
 `
+export const GET_CATEGORIES = gql`
+  query Categories($categorySearchInput: CategorySearchInput, $skip: Int, $take: Int, $orderBy: OrderByInputByTime) {
+    categories(categorySearchInput: $categorySearchInput, skip: $skip, take: $take, orderBy: $orderBy) {
+      id
+      categoryId
+      name
+      imageKey
+      description
+      products {
+        id
+        name
+      }
+    }
+  }
+`;

@@ -15,4 +15,13 @@
     text-overflow: ellipsis;
     white-space: normal;
     height: 100%;
-   }
+}
+.block-ellipsis-title-product {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    height: 100%;
+}

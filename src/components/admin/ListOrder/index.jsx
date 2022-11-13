@@ -39,7 +39,7 @@ const ListOrder = ({setLoading}) => {
      skip: null,
      take: null,
      orderBy: {
-       updatedAt: DESC
+      createdAt: DESC
      }
     }
   })
@@ -51,7 +51,7 @@ const ListOrder = ({setLoading}) => {
       : SKIP_DEFAULT,
       take: searchCondition?.pageSize || PAGE_SIZE_DEFAULT,
       orderBy: {
-        updatedAt: DESC
+        createdAt: DESC
       }
     },
     onCompleted: () => {

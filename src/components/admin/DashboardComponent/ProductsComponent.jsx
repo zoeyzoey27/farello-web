@@ -7,6 +7,7 @@ import { GET_PRODUCTS } from './graphql'
 import numberWithCommas from '../../../utils/NumberWithCommas'
 import i18n from '../../../translation'
 import { DESC } from '../../../constant'
+import Chart from './Chart'
 
 const ProductsComponent = ({setLoading}) => {
   const navigate = useNavigate()
@@ -118,6 +119,7 @@ const ProductsComponent = ({setLoading}) => {
     <Space direction="vertical" size="middle" className="bg-white shadow-md p-10 w-full mt-5 rounded">
         <Row className="text-[1.6rem] font-semibold">{i18n.t('dashboard.productStatus')}</Row>
         <hr className="mb-5" />
+        <Chart />
         <Row 
             onClick={() => navigate("/admin/productManagement")}
             className="flex items-center justify-end text-[1.6rem] cursor-pointer hover:opacity-80 text-blue-500">

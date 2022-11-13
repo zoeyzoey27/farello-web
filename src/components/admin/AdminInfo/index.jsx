@@ -21,7 +21,7 @@ const AdminInfo = ({id, setLoading}) => {
   const screens = useBreakpoint()
   const { data } = useQuery(GET_ADMIN, {
    variables: {
-      adminId: id
+      adminId: id || localStorage.getItem("id_token_admin")
    },
    onCompleted: () => {
       setLoading(false)

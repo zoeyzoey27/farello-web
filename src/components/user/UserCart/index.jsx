@@ -97,7 +97,7 @@ const UserCart = ({setLoading}) => {
                     className="w-full md:w-[200px] mb-3 md:mb-0 md:mr-10" />
                   <Row className="flex flex-col text-[1.6rem] w-full md:flex-1">
                       <Row>{item.name}</Row>
-                      <Row>{`${i18n.t('userCart.color')}: ${item.color}`}</Row>
+                      {item.color && <Row>{`${i18n.t('userCart.color')}: ${item.color}`}</Row>}
                       <Row>{`${i18n.t('userCart.price')}:`} <b className="ml-1">{item.price && numberWithCommas(item.price)}</b></Row>
                       <Form initialValues={{ quantity: item.quantity }}>
                          <Form.Item name="quantity" className="w-fit mb-0">

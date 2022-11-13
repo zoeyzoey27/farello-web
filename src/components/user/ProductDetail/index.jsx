@@ -117,11 +117,13 @@ const ProductDetail = ({product}) => {
                        {product?.priceOut ? `${numberWithCommas(product?.priceOut)} VND` : ''}
                     </Row>
                 )}
-                <Row className="mt-10 mb-5 text-[1.6rem]">{`${i18n.t('product.description')}`}</Row>
-                <Row className="text-[1.6rem] my-5 flex flex-col bg-[#f8f8f8] rounded py-5 px-10 whitespace-pre-wrap">
-                     {product?.description}
-                </Row>
-                <Row className="flex items-end">
+                {product?.description && <>
+                    <Row className="mt-10 mb-5 text-[1.6rem]">{`${i18n.t('product.description')}`}</Row>
+                    <Row className="text-[1.6rem] my-5 flex flex-col bg-[#f8f8f8] rounded py-5 px-10 whitespace-pre-wrap">
+                       {product?.description}
+                    </Row>
+                </>}
+                {product?.colours.length > 0 && <Row className="flex items-end">
                     <Row className="text-[1.6rem] mr-10">{`${i18n.t('product.color')}`}</Row>
                     <Radio.Group
                         options={product?.colours}
@@ -130,7 +132,7 @@ const ProductDetail = ({product}) => {
                         optionType="button"
                         buttonStyle="solid"
                     />
-                </Row>
+                </Row>}
                 <Row className="flex items-end mt-5">
                     <Row className="text-[1.6rem] mr-10">{`${i18n.t('product.quantity')}`}</Row>
                     <InputNumber min={1} max={product?.quantity} value={quantityValue} onChange={onChangeQuantity} className="rounded" />

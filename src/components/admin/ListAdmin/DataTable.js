@@ -1,30 +1,33 @@
+
+import i18n from '../../../translation'
+
 export const columns = [
   {
-    title: 'Admin ID',
+    title: i18n.t('common.id'),
     dataIndex: 'adminId',
   },
   {
-    title: 'Họ tên',
+    title: i18n.t('common.fullName'),
     dataIndex: 'name',
   },
   {
-    title: 'Ngày sinh',
+    title: i18n.t('common.birthday'),
     dataIndex: 'birthday',
   },
   {
-    title: 'Email',
+    title: i18n.t('common.email'),
     dataIndex: 'email'
   },
   {
-    title: 'Số điện thoại',
+    title: i18n.t('common.phone'),
     dataIndex: 'phone'
   },
   {
-    title: 'CMT/CCCD',
+    title: i18n.t('common.idCard'),
     dataIndex: 'idcard'
   },
   {
-    title: 'Địa chỉ',
+    title: i18n.t('common.address'),
     dataIndex: 'address',
   }
 ]  
