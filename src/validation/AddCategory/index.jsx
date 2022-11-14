@@ -1,10 +1,11 @@
 import * as Yup from 'yup'
+import i18n from '../../translation'
 
 export const schemaValidate = Yup.object().shape({
   categoryName: Yup.string()
-    .required('Vui lòng nhập tên danh mục sản phẩm!'),
+    .required(i18n.t('validation.categoryNameRequired')),
   description: Yup.string()
-    .required('Vui lòng nhập mô tả chi tiết danh mục sản phẩm!'),
+    .required(i18n.t('validation.categoryDescriptionRequired')),
   image: Yup.mixed()
-    .required('Vui lòng tải lên ảnh minh họa!'),
+    .required(i18n.t('validation.imageRequired')),
 })

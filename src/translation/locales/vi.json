@@ -363,7 +363,7 @@
     },
     "footer": {
         "hotline": "Hotline",
-        "workTime": "Mon - Sun:",
+        "workTime": "Mon - Sun",
         "store": "Store Hà Nội",
         "address": "115 Kim Mã, Quận Ba Đình, Hà Nội",
         "map": "Xem bản đồ",
@@ -393,7 +393,8 @@
         "messageSuccess": "Đánh giá sản phẩm thành công!",
         "subtext": "Vui lòng đánh giá và chia sẻ cảm nhận của bạn về sản phẩm này.",
         "content": "Nội dung",
-        "buttonSubmit": "Gửi đánh giá"
+        "buttonSubmit": "Gửi đánh giá",
+        "placeholder": "Hãy chia sẻ những cảm nhận của bạn về sản phẩm này nhé!"
     },
     "listPostUser": {
         "title": "Danh sách bài viết",
@@ -494,11 +495,35 @@
         "order": "Đơn mua",
         "orderList": "Danh sách đơn hàng",
         "deleteAccount": "Xóa tài khoản",
-        "modalTitle": "Chỉnh sửa thông tin cá nhân"
+        "modalTitle": "Chỉnh sửa thông tin cá nhân",
+        "infoDetail": "Thông tin chi tiết"
     },
     "notFound": "Xin lỗi, trang bạn đã truy cập không tồn tại.",
     "backHome": "Trở lại trang chủ",
     "bestSeller": "BEST SELLERS",
     "reviewProduct": "Đánh giá sản phẩm",
-    "similar": "Có thể bạn quan tâm"
+    "similar": "Có thể bạn quan tâm",
+    "validation": {
+        "nameRequired": "Vui lòng nhập họ tên!",
+        "emailRequired": "Vui lòng nhập địa chỉ email!",
+        "emailIncorrect": "Địa chỉ email không hợp lệ!",
+        "passwordRequired": "Vui lòng nhập mật khẩu!",
+        "passwordMin": "Mật khẩu phải có ít nhất 8 ký tự!",
+        "passwordMax": "Mật khẩu chỉ có tối đa 50 ký tự!",
+        "passwordFormat": "Mật khẩu bao gồm các ký tự chữ và số!",
+        "rePasswordRequired": "Vui lòng nhập lại mật khẩu!",
+        "phoneRequired": "Vui lòng nhập số điện thoại!",
+        "phoneIncorrect": "Số điện thoại không hợp lệ!",
+        "phoneFormat": "Số điện thoại phải có 10 số!",
+        "provinceRequired": "Vui lòng nhập tỉnh/thành phố!",
+        "districtRequired": "Vui lòng nhập quận/huyện!",
+        "communeRequired": "Vui lòng nhập xã/phường!",
+        "idCardRequired": "Vui lòng nhập số CMT hoặc CCCD!",
+        "idCardIncorrect": "Số CMT/CCCD không hợp lệ!",
+        "idCardMin": "CMT/CCCD phải có ít nhất 9 số!",
+        "idCardMax": "CMT/CCCD có tối đa 12 số!",
+        "categoryNameRequired": "Vui lòng nhập tên danh mục sản phẩm!",
+        "categoryDescriptionRequired": "Vui lòng nhập mô tả chi tiết danh mục sản phẩm!",
+        "imageRequired": "Vui lòng tải lên ảnh minh họa!"
+    }
 }

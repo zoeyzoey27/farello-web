@@ -18,7 +18,7 @@ const ProductsComponent = ({setLoading}) => {
         skip: null,
         take: null,
         orderBy: {
-            updatedAt: DESC
+          createdAt: DESC
         }
     },
     onCompleted: () => {

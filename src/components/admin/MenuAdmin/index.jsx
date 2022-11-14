@@ -87,7 +87,7 @@ const MenuAdmin = () => {
                    {i18n.t('menuAdmin.listPost')}
                 </Menu.Item>
                 <Menu.Item 
-                   key="/admin/addPostCategory" 
+                   key="/admin/postCategory" 
                    className="text-[1.6rem]"
                    onClick={() => navigate('/admin/postCategory')}>
                    {i18n.t('menuAdmin.postCategory')}

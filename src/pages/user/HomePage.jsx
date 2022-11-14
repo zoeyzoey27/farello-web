@@ -13,6 +13,7 @@ import { AiOutlineToTop } from 'react-icons/ai'
 import { gql } from '@apollo/client'
 import ListPostComponent from '../../components/user/ListPostComponent'
 import i18n from '../../translation'
+import { DESC } from '../../constant'
 
 const { Content} = Layout
 const GET_PRODUCTS = gql `
@@ -26,6 +27,7 @@ const GET_PRODUCTS = gql `
         colours
         images
         status
+        createdAt
       }
     }
   `
@@ -40,7 +42,7 @@ const Home = () => {
       skip: null,
       take: 4,
       orderBy: {
-        updatedAt: "desc"
+        createdAt: DESC
       }
     },
     onCompleted: () => {
@@ -53,7 +55,7 @@ const Home = () => {
        <Topbar />
        <VideoBanner />
        <Content className="px-[20px] md:px-[35px] lg:px-[50px] bg-white">
-           <Row className="title-header">{i18n.t('bestSeller')}</Row>
+           <Row className="title-header">{i18n.t('dashboard.newProduct')}</Row>
            <ListProduct products={data?.products} />
            <BannerImages />
            <Showroom />

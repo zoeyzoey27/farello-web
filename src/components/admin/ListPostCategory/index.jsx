@@ -106,6 +106,7 @@ const ListPostCategory = ({setLoading}) => {
 
 
   const onChangePagination = (page, limit) => {
+    setLoading(true)
     setSearchCondition({
       pageIndex: page,
       pageSize: limit,

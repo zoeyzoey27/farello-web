@@ -49,25 +49,25 @@ const Footer = () => {
                  {`${i18n.t('footer.store')}:`}
               </Row>
               <Row className="my-3 text-[1.6rem]">
-                 {`${i18n.t('footer.address')}:`}
+                 {`${i18n.t('footer.address')}`}
               </Row>
               <Button 
                  size="large" 
                  href="https://www.google.com/maps/place/115+P.+Kim+M%C3%A3,+Kim+M%C3%A3,+Ba+%C4%90%C3%ACnh,+H%C3%A0+N%E1%BB%99i,+Vi%E1%BB%87t+Nam/@21.0313603,105.8224493,17z/data=!3m1!4b1!4m5!3m4!1s0x3135ab74eb4ad6a7:0x23a170b554639773!8m2!3d21.0313603!4d105.824638?shorturl=1"
                  className="mt-3 mb-6 hover:bg-black hover:text-white hover:border-black">
-                 {`${i18n.t('footer.map')}:`}
+                 {`${i18n.t('footer.map')}`}
               </Button>
               <Row>
                  <Button 
                      shape="circle" 
                      href='https://www.facebook.com/kinhmatfarello'
                      icon={<FaFacebookF className="w-full" />} 
-                     className="mr-3 hover:bg-black hover:border-black hover:text-white flex items-center" />
+                     className="mr-3 hover:bg-black hover:border-black hover:text-white flex items-center justify-center" />
                  <Button 
                      shape="circle" 
                      href='https://www.instagram.com/farello_vn/'
                      icon={<BsInstagram className="w-full " />}
-                     className="mr-3 hover:bg-black hover:border-black hover:text-white flex items-center" />
+                     className="mr-3 hover:bg-black hover:border-black hover:text-white flex items-center justify-center" />
               </Row>
           </Col>
           <Col className="gutter-row mt-10 lg:mt-0 w-full" xs={24} lg={14}>

@@ -20,9 +20,9 @@ const ListPostsByCategory = ({posts}) => {
                             title={<Row className="uppercase font-semibold text-[1.8rem] block-ellipsis-title">{item.title}</Row>} 
                             description={
                                 <Row className="text-[1.4rem] flex flex-col">
-                                    <Row className="italic">{`Danh mục: ${item.category.title}`}</Row>
+                                    <Row className="italic">{`${i18n.t('listPost.postCategory')}: ${item.category.title}`}</Row>
                                     <Row className="italic">
-                                        {`Ngày đăng: ${item.createdAt}`}
+                                        {`${i18n.t('listPost.createdAt')}: ${item.createdAt}`}
                                     </Row>
                                     <Row 
                                       onClick={() => navigate(`/postDetail?id=${item.id}`)}

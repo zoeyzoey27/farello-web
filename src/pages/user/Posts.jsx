@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout, BackTop, Row, Spin, Breadcrumb } from 'antd'
 import Topbar from '../../components/user/Topbar'
 import Footer from '../../components/user/Footer'
@@ -9,6 +9,7 @@ import { AiOutlineToTop } from 'react-icons/ai'
 import { gql } from '@apollo/client'
 import ListPostsByCategory from '../../components/user/ListPostsByCategory'
 import i18n from '../../translation'
+import { DESC } from '../../constant'
 
 const { Content} = Layout
 const GET_POSTS = gql`
@@ -40,13 +41,16 @@ const Posts = () => {
         skip: null,
         take: null,
         orderBy: {
-            updatedAt: "desc"
+          createdAt: DESC
         }
     },
     onCompleted: () => {
         setLoading(false)
     }
   })
+  useEffect(() => {
+    data ? setLoading(false) : setLoading(true)
+  }, [id, data])
   return (
     <Spin spinning={loading} size="large">
       <Layout className="layout max-w-screen min-h-screen overflow-x-hidden">

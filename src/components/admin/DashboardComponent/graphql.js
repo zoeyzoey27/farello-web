@@ -28,6 +28,7 @@ export const GET_PRODUCTS = gql`
             id
             name
         }
+        createdAt
     }
   }
 `
@@ -42,6 +43,7 @@ export const GET_USERS = gql`
       phoneNumber
       address
       birthday
+      createdAt
     }
   }
 `
@@ -57,6 +59,7 @@ export const GET_CATEGORIES = gql`
         id
         name
       }
+      createdAt
     }
   }
 `;

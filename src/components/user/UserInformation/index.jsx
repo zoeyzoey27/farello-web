@@ -43,7 +43,7 @@ const UserInformation = ({userInfo}) => {
                 {i18n.t('userInfo.editButton')}
             </Button>
         </Row>
-        <Descriptions title="Thông tin chi tiết" layout={screens.md ? 'horizontal' : 'vertical'} bordered>
+        <Descriptions title={i18n.t('userInfo.infoDetail')} layout={screens.md ? 'horizontal' : 'vertical'} bordered>
             <Descriptions.Item 
                label={<Row className="font-semibold">{i18n.t('common.fullName')}</Row>} 
                span={12} 
@@ -102,7 +102,7 @@ const UserInformation = ({userInfo}) => {
             <Button 
                size="large"
                onClick={() => navigate(`/userDeleteAccount?id=${userInfo?.id}`)}
-               className="w-full md:w-fit bg-white text-black border-colorTheme rounded hover:text-black hover:bg-white hover:border-colorTheme hover:opacity-90 text-[1.6rem] hover:shadow-md">
+               className="w-full md:w-fit bg-white text-red-500 border-red-500 rounded hover:text-red-500 hover:bg-white hover:border-red-500 hover:opacity-90 text-[1.6rem] hover:shadow-md">
                {i18n.t('userInfo.deleteAccount')}
             </Button>
         </Row>

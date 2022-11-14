@@ -123,7 +123,7 @@ const UserCart = ({setLoading}) => {
         <List
            header={
             <Row className="text-[1.6rem] font-semibold">
-              Đơn hàng
+              {i18n.t('orderDetailAdmin.order')}
             </Row>
           }
           footer={false}
@@ -145,7 +145,7 @@ const UserCart = ({setLoading}) => {
             size="large" 
             onClick={() => navigate(`/userOrderProduct?id=${id}`)}
             className="mt-20 w-full border-b-0 border-x-0 text-white bg-colorTheme text-[1.6rem] font-semibold hover:opacity-90 hover:bg-colorTheme hover:text-white hover:border-colorTheme">
-            {i18n.t('orderDetailAdmin.buttonOrder')}
+            {i18n.t('userOrderPage.buttonOrder')}
           </Button>
       </List>
       </Row>

@@ -19,9 +19,9 @@ const Dashboard = () => {
   }
   return (
     <Spin spinning={loading} size="large">
-      <Layout className="max-w-screen min-h-screen">
+      <Layout className="w-screen min-h-screen !overflow-x-hidden">
       <Topbar onClick={onOpen}  />
-      <Layout className="w-hull h-full">
+      <Layout className="w-full h-full">
       {screens.lg && (
         <Sider
           id="side-bar"

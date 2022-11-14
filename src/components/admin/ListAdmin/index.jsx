@@ -46,6 +46,7 @@ const ListAdmin = ({setLoading}) => {
   })
   const resetFields = () => {
     form.resetFields()
+    setLoading(true)
     setSearchCondition({
       items: {},
       pageIndex: PAGE_DEFAULT,
@@ -53,6 +54,7 @@ const ListAdmin = ({setLoading}) => {
     })
   }
   const onSubmit = (values) => {
+     setLoading(true)
      setSearchCondition((pre) => ({
       ...pre,
       items: {
@@ -66,6 +68,7 @@ const ListAdmin = ({setLoading}) => {
      }))
   }
   const onChangePagination = (page, limit) => {
+    setLoading(true)
     setSearchCondition({
       ...searchCondition,
       pageIndex: page,

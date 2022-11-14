@@ -9,7 +9,7 @@ import { GET_USER_INFO, GET_PRODUCT_ADDED, CREATE_ORDER } from './graphql'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '../../../constant' 
 import numberWithCommas from '../../../utils/NumberWithCommas'
-import { PaymentMethod } from '../../../constant/paymentMethod'
+import { PaymentMethod, PaymentMethodEn } from '../../../constant/paymentMethod'
 import i18n from '../../../translation'
 
 const OrderPage = ({setLoading}) => {
@@ -301,6 +301,11 @@ const OrderPage = ({setLoading}) => {
                    <Radio.Group onChange={onChange} value={value}>
                         <Space direction="vertical">
                             {
+                               localStorage.getItem('language') === 'en' ? PaymentMethodEn.map((item) => (
+                                 <Radio key={item.value} value={item.value} className="!text-[1.6rem]">
+                                    {item.name}
+                                  </Radio>
+                               )) : 
                                PaymentMethod.map((item) => (
                                  <Radio key={item.value} value={item.value} className="!text-[1.6rem]">
                                     {item.name}

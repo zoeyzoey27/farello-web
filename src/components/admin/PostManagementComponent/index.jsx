@@ -36,7 +36,7 @@ const PostManagementComponent = ({setLoading}) => {
       skip: null,
       take: null,
       orderBy: {
-        updatedAt: DESC
+        createdAt: DESC
       }
     }
   })
@@ -82,6 +82,7 @@ const PostManagementComponent = ({setLoading}) => {
   }, [data, form])
   const resetFields = () => {
     form.resetFields()
+    setLoading(true)
     setSearchCondition({
       items: {},
       pageIndex: PAGE_DEFAULT,
@@ -89,6 +90,7 @@ const PostManagementComponent = ({setLoading}) => {
     })
   }
   const onSubmit = (values) => {
+    setLoading(true)
     setSearchCondition((pre) => ({
      ...pre,
      items: {
@@ -100,6 +102,7 @@ const PostManagementComponent = ({setLoading}) => {
     }))
  }
  const onChangePagination = (page, limit) => {
+  setLoading(true)
    setSearchCondition({
      ...searchCondition,
      pageIndex: page,

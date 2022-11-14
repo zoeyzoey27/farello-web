@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Header } from 'antd/lib/layout/layout'
 import { useQuery } from '@apollo/client'
-import { Row, Input, Badge, Menu, Grid, Drawer, Dropdown } from 'antd'
+import { Row, Input, Badge, Menu, Grid, Drawer, Dropdown, Space } from 'antd'
 import { UserOutlined, ShoppingOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import './style.css'
@@ -10,6 +10,8 @@ import { menu } from './menu'
 import { GET_CATEGORIES, GET_POSTS, GET_TOTAL_CART } from './graphql'
 import { ASC } from '../../../constant'
 import i18n from '../../../translation'
+import { GrLanguage } from 'react-icons/gr'
+import { menuLanguage } from './menuLanguage'
 
 const Topbar = () => {
   const { Search } = Input
@@ -177,6 +179,12 @@ const Topbar = () => {
           style={{ backgroundColor: '#F3F3F7', color: '#000' }}>
           <ShoppingOutlined className="text-[1.8rem] cursor-pointer" onClick={() => navigate('/cart')}  />
         </Badge>
+        <Dropdown overlay={menuLanguage} className="ml-3">
+          <Space>
+              <GrLanguage className="text-[2rem] cursor-pointer" />
+              <span className="font-medium">LA</span>
+          </Space>
+        </Dropdown>
         <AiOutlineMenuFold className="text-[2.5rem] ml-5 md:ml-10 cursor-pointer block xl:hidden" onClick={onOpen} />
       </Row>
     </Header>

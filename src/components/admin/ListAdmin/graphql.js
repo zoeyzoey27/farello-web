@@ -11,6 +11,7 @@ export const GET_ADMIN_LIST = gql`
             address
             idCard
             birthday
+            createdAt
         }
     }
 `;

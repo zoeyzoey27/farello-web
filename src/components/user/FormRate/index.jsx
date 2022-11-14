@@ -76,7 +76,7 @@ const FormRate = ({product}) => {
                         <Row className="text-red-500 ml-3">*</Row>
                     </Row>
                     }>
-                    <TextArea placeholder="Hãy chia sẻ những cảm nhận của bạn về sản phẩm này nhé!" className="resize-none text-[1.6rem] !h-[150px] rounded" />
+                    <TextArea placeholder={i18n.t('formRate.placeholder')} className="resize-none text-[1.6rem] !h-[150px] rounded" />
                 </Form.Item>
                 <Form.Item className="flex justify-center w-full">
                     <Button 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Radio, Space, Input } from 'antd'
-import { CancelReasonUser } from '../../../constant/cancelReason'
+import { CancelReasonUser, CancelReasonUserEn } from '../../../constant/cancelReason'
 import i18n from '../../../translation'
 
 const CancelOrderReason = ({onChange, valueChecked, valueTextarea, onChangeTextarea}) => {
@@ -11,6 +11,11 @@ const CancelOrderReason = ({onChange, valueChecked, valueTextarea, onChangeTexta
         <Radio.Group onChange={onChange} value={valueChecked} className="w-full">
             <Space direction="vertical" className="w-full">
                 {
+                    localStorage.getItem('language') === 'en' ? CancelReasonUserEn.map((item) => (
+                        <Radio key={item.value} value={item.value} className="text-[1.6rem]">
+                            {item.name}
+                        </Radio>
+                    )) : 
                     CancelReasonUser.map((item) => (
                         <Radio key={item.value} value={item.value} className="text-[1.6rem]">
                             {item.name}

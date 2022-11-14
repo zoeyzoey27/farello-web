@@ -133,6 +133,7 @@ const ListProduct = ({setLoading}) => {
   })
   const resetFields = () => {
     form.resetFields()
+    setLoading(true)
     setSearchCondition({
       items: {},
       pageIndex: PAGE_DEFAULT,
@@ -140,6 +141,7 @@ const ListProduct = ({setLoading}) => {
     })
   }
   const onSubmit = (values) => {
+    setLoading(true)
     setSearchCondition((pre) => ({
      ...pre,
      items: {
@@ -155,6 +157,7 @@ const ListProduct = ({setLoading}) => {
     }))
   }
   const onChangePagination = (page, limit) => {
+    setLoading(true)
     setSearchCondition({
       ...searchCondition,
       pageIndex: page,

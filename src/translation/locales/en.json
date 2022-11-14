@@ -34,7 +34,8 @@
         "page": "results / page",
         "cancel": "Cancel",
         "home": "Home",
-        "notLogin": "You are not logged in!"
+        "notLogin": "You are not logged in!",
+        "noData": "No data displayed"
     },
     "addAdmin": {
         "message": {
@@ -363,7 +364,7 @@
     },
     "footer": {
         "hotline": "Hotline",
-        "workTime": "Mon - Sun:",
+        "workTime": "Mon - Sun",
         "store": "Store Hanoi",
         "address": "115 Kim Ma, Ba Dinh District, Hanoi",
         "map": "View the map",
@@ -381,18 +382,20 @@
         "messageError": "Email address does not match any account!",
         "title": "Forgot password?",
         "subtitle": "Please enter your email address in the box below. We will send you a confirmation code.",
-        "buttonNext": "Next"
+        "buttonNext": "Next",
+        "emailLabel": "Enter your Email address"
     },
     "formRate": {
         "option1": "Very bad",
         "option2": "Bad",
         "option3": "Normal",
-        "option4": "Chất lượng sản phẩm tốt",
-        "option5": "Chất lượng sản phẩm tuyệt vời",
+        "option4": "Good",
+        "option5": "Very good",
         "messageSuccess": "Successful product review!",
         "subtext": "Please rate and share your opinion about this product.",
         "content": "Content",
-        "buttonSubmit": "Send"
+        "buttonSubmit": "Send",
+        "placeholder": "Please share your comments about this product!"
     },
     "listPostUser": {
         "title": "List of posts",
@@ -493,11 +496,35 @@
         "order": "Order",
         "orderList": "Order List",
         "deleteAccount": "Delete account",
-        "modalTitle": "Edit personal information"
+        "modalTitle": "Edit personal information",
+        "infoDetail": "Details"
     },
     "notFound": "Sorry, the page you visited does not exist.",
     "backHome": "Back to homepage",
     "bestSeller": "BEST SELLERS",
     "reviewProduct": "Product Reviews",
-    "similar": "Maybe you are interested"
+    "similar": "Maybe you are interested",
+    "validation": {
+        "nameRequired": "Please enter your name!",
+        "emailRequired": "Please enter your email address!",
+        "emailIncorrect": "Email address is not valid!",
+        "passwordRequired": "Please enter a password!",
+        "passwordMin": "Password must be at least 8 characters!",
+        "passwordMax": "Passwords can only be up to 50 characters!",
+        "passwordFormat": "Passwords consist of alphanumeric characters!",
+        "rePasswordRequired": "Please re-enter your password!",
+        "phoneRequired": "Please enter the phone number!",
+        "phoneIncorrect": "Invalid phone number!",
+        "phoneFormat": "Phone number must have 10 numbers!",
+        "provinceRequired": "Please enter province/city!",
+        "districtRequired": "Please enter county/district!",
+        "communeRequired": "Please enter commune/ward!",
+        "idCardRequired": "Please enter your ID number or citizenship number!",
+        "idCardIncorrect": "Invalid ID/Citizen identification number!",
+        "idCardMin": "Identity card/Citizen identification number must have at least 9 numbers!",
+        "idCardMax": "The number of ID card/Citizen identification has a maximum of 12 numbers!",
+        "categoryNameRequired": "Please enter the product category name!",
+        "categoryDescriptionRequired": "Please enter a detailed product category description!",
+        "imageRequired": "Please upload image!"
+    }
 }

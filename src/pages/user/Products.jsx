@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout, BackTop, Row, Spin } from 'antd'
 import Topbar from '../../components/user/Topbar'
 import Footer from '../../components/user/Footer'
@@ -9,6 +9,7 @@ import { useSearchParams } from 'react-router-dom'
 import NoData from '../../components/common/NoData'
 import { AiOutlineToTop } from 'react-icons/ai'
 import { gql } from '@apollo/client'
+import { DESC } from '../../constant'
 
 const { Content} = Layout
 const GET_PRODUCTS = gql `
@@ -22,6 +23,7 @@ const GET_PRODUCTS = gql `
         colours
         images
         status
+        createdAt
       }
     }
 `
@@ -39,13 +41,16 @@ const Products = () => {
       skip: null,
       take: null,
       orderBy: {
-        updatedAt: "desc"
+        createdAt: DESC
       }
     },
     onCompleted: () => {
       setLoading(false)
     }
   })
+  useEffect(() => {
+    data?.products?.length > 0 ? setLoading(false) : setLoading(true)
+  }, [id, data?.products?.length])
   return (
     <Spin spinning={loading} size="large">
       <Layout className="layout max-w-screen min-h-screen overflow-x-hidden">

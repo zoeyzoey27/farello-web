@@ -73,6 +73,7 @@ const InquiryList = ({setLoading}) => {
   })
   const resetFields = () => {
     form.resetFields()
+    setLoading(true)
     setSearchCondition({
       items: {},
       pageIndex: PAGE_DEFAULT,
@@ -80,6 +81,7 @@ const InquiryList = ({setLoading}) => {
     })
   }
   const onSubmit = (values) => {
+    setLoading(true)
      setSearchCondition((pre) => ({
       ...pre,
       items: {
@@ -91,6 +93,7 @@ const InquiryList = ({setLoading}) => {
      }))
   }
   const onChangePagination = (page, limit) => {
+    setLoading(true)
     setSearchCondition({
       ...searchCondition,
       pageIndex: page,

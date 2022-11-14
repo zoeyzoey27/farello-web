@@ -10,6 +10,7 @@ import { AiOutlineToTop } from 'react-icons/ai'
 import { gql } from '@apollo/client'
 import ListRate from '../../components/user/ListRate'
 import i18n from '../../translation'
+import { DESC, STOCKING } from '../../constant'
 
 const { Content } = Layout
 
@@ -60,6 +61,7 @@ const GET_PRODUCTS = gql`
       colours
       images
       status
+      createdAt
     }
   }
 `
@@ -68,9 +70,6 @@ const ProductDetailPage = () => {
   const [loading, setLoading] = useState(true)
   const [searchParams] = useSearchParams()
   const id = searchParams.get('id')
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  },[id])
   const { data } = useQuery(GET_PRODUCT, {
       variables: {
         productId: id
@@ -80,16 +79,20 @@ const ProductDetailPage = () => {
         setLoading(false)
       }
   })
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    data ? setLoading(false) : setLoading(true)
+  },[id, data])
   const { data: dataProducts  } = useQuery(GET_PRODUCTS, {
     variables: {
       productSearchInput: {
-        status: "STOCKING",
+        status: STOCKING,
         categoryId: data?.product?.category?.id
       },
       skip: null,
       take: 8,
       orderBy: {
-        updatedAt: "desc"
+        createdAt: DESC
       }
     },
     onCompleted: () => {
@@ -106,9 +109,11 @@ const ProductDetailPage = () => {
            <Divider />
            <Row className="title-header">{i18n.t('reviewProduct')}</Row>
            <ListRate product={data?.product} setLoading={setLoading} />
-           <Divider />
-           <Row className="title-header">{i18n.t('similar')}</Row>
-           <ListProduct products={products} />
+           {products?.length > 0 && <>
+            <Divider />
+            <Row className="title-header">{i18n.t('similar')}</Row>
+            <ListProduct products={products} />
+           </>}
        </Content>
        <Footer />
        <BackTop>
