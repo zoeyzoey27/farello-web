@@ -524,6 +524,22 @@
         "idCardMax": "CMT/CCCD có tối đa 12 số!",
         "categoryNameRequired": "Vui lòng nhập tên danh mục sản phẩm!",
         "categoryDescriptionRequired": "Vui lòng nhập mô tả chi tiết danh mục sản phẩm!",
-        "imageRequired": "Vui lòng tải lên ảnh minh họa!"
+        "imageRequired": "Vui lòng tải lên ảnh minh họa!",
+        "titlePostRequired": "Vui lòng nhập tiêu đề bài viết!",
+        "postCategoryRequired": "Vui lòng chọn danh mục bài viết!",
+        "contentPostRequired": "Vui lòng nhập nội dung bài viết!",
+        "postCategoryName": "Vui lòng nhập tên danh mục bài viết!",
+        "productNameRequired": "Vui lòng nhập tên sản phẩm!",
+        "productCategoryRequired": "Vui lòng chọn danh mục sản phẩm!",
+        "priceInIncorrect": "Giá nhập không hợp lệ!",
+        "priceOutIncorrect": "Giá bán không hợp lệ!",
+        "priceOutRequired": "Vui lòng nhập giá bán!",
+        "priceSaleIncorrect": "Giá khuyến mại không hợp lệ!",
+        "quantityIncorrect": "Số lượng không hợp lệ!",
+        "quantityRequired": "Vui lòng nhập số lượng sản phẩm!",
+        "contentRateRequired": "Vui lòng nhập nội dung đánh giá!",
+        "contentInquiry": "Vui lòng nhập nội dung!",
+        "codeRequired": "Vui lòng nhập mã xác nhận!",
+        "addressRequired": "Vui lòng nhập địa chỉ cụ thể!"
     }
 }

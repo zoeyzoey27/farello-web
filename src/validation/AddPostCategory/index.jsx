@@ -1,6 +1,7 @@
 import * as Yup from 'yup'
+import i18n from '../../translation'
 
 export const schemaValidate = Yup.object().shape({
   categoryName: Yup.string()
-    .required('Vui lòng nhập tên danh mục bài viết!'),
+    .required(i18n.t('validation.postCategoryName')),
 })

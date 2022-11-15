@@ -1,22 +1,23 @@
 import * as Yup from 'yup';
 import { PHONE_REG_EXP } from '../../constant'
+import i18n from '../../translation'
 
 export const schemaValidate = Yup.object().shape({
   name: Yup.string()
-    .required('Vui lòng nhập họ tên!'),
+    .required(i18n.t('validation.nameRequired')),
   email: Yup.string()
-    .email('Địa chỉ email không hợp lệ!')
-    .required('Vui lòng nhập địa chỉ email!'),
+    .email(i18n.t('validation.emailIncorrect'))
+    .required(i18n.t('validation.emailRequired')),
   phone: Yup.string()
-    .required('Vui lòng nhập số điện thoại!')
-    .matches(PHONE_REG_EXP, 'Số điện thoại không hợp lệ!')
-    .length(10, 'Số điện thoại phải có 10 số!'),
+    .required(i18n.t('validation.phoneRequired'))
+    .matches(PHONE_REG_EXP, i18n.t('validation.phoneIncorrect'))
+    .length(10, i18n.t('validation.phoneFormat')),
   province: Yup.string()
-    .required('Vui lòng nhập tỉnh/thành phố!'),
+    .required(i18n.t('validation.provinceRequired')),
   district: Yup.string()
-    .required('Vui lòng nhập quận/huyện!'),
+    .required(i18n.t('validation.districtRequired')),
   commune: Yup.string()
-    .required('Vui lòng nhập xã/phường!'),
+    .required(i18n.t('validation.communeRequired')),
   address: Yup.string()
-    .required('Vui lòng nhập địa chỉ cu thể!'),
+    .required(i18n.t('validation.addressRequired')),
 })

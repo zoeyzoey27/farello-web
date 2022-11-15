@@ -525,6 +525,22 @@
         "idCardMax": "The number of ID card/Citizen identification has a maximum of 12 numbers!",
         "categoryNameRequired": "Please enter the product category name!",
         "categoryDescriptionRequired": "Please enter a detailed product category description!",
-        "imageRequired": "Please upload image!"
+        "imageRequired": "Please upload image!",
+        "titlePostRequired": "Please enter post title!",
+        "postCategoryRequired": "Please select article category!",
+        "contentPostRequired": "Please enter post content!",
+        "postCategoryName": "Please enter post category name!",
+        "productNameRequired": "Please enter product name!",
+        "productCategoryRequired": "Vui lòng chọn danh mục sản phẩm!",
+        "priceInIncorrect": "Invalid product entry price!",
+        "priceOutIncorrect": "Invalid price!",
+        "priceOutRequired": "Please enter the selling price!",
+        "priceSaleIncorrect": "Promotional price is not valid!",
+        "quantityIncorrect": "Invalid quantity!",
+        "quantityRequired": "Please enter product quantity!",
+        "contentRateRequired": "Please enter review text!",
+        "contentInquiry": "Please enter content!",
+        "codeRequired": "Please enter the confirmation code!",
+        "addressRequired": "Please enter specific address!"
     }
 }

@@ -1,6 +1,7 @@
 import * as Yup from 'yup'
+import i18n from '../../translation'
 
 export const schemaValidate = Yup.object().shape({
   content: Yup.string()
-    .required('Vui lòng nhập nội dung đánh giá!'),
+    .required(i18n.t('validation.contentRateRequired')),
 })

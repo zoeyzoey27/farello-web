@@ -1,46 +1,47 @@
 import * as Yup from 'yup';
 import { PASSWORD_REG_EXP, PHONE_REG_EXP } from '../../constant'
+import i18n from '../../translation'
 
 export const schemaValidate = Yup.object().shape({
   name: Yup.string()
-    .required('Vui lòng nhập họ tên!'),
+    .required(i18n.t('validation.nameRequired')),
   email: Yup.string()
-    .email('Địa chỉ email không hợp lệ!')
-    .required('Vui lòng nhập địa chỉ email!'),
+    .email(i18n.t('validation.emailIncorrect'))
+    .required(i18n.t('validation.emailRequired')),
   password: Yup.string()
-    .required('Vui lòng nhập mật khẩu!')
+    .required(i18n.t('validation.passwordRequired'))
     .min(
       8,
-      'Mật khẩu phải có ít nhất 8 ký tự!',
+      i18n.t('validation.passwordMin'),
     )
     .max(
       50,
-      'Mật khẩu chỉ có tối đa 50 ký tự!',
+      i18n.t('validation.passwordMax'),
     )
     .matches(
       PASSWORD_REG_EXP,
-      'Mật khẩu bao gồm các ký tự chữ và số!',
+      i18n.t('validation.passwordFormat'),
     ),
   rePassword: Yup.string()
-    .required('Vui lòng nhập lại mật khẩu!'),
+    .required(i18n.t('validation.rePasswordRequired')),
   phone: Yup.string()
-    .required('Vui lòng nhập số điện thoại!')
-    .matches(PHONE_REG_EXP, 'Số điện thoại không hợp lệ!')
-    .length(10, 'Số điện thoại phải có 10 số!'),
+    .required(i18n.t('validation.phoneRequired'))
+    .matches(PHONE_REG_EXP, i18n.t('validation.phoneIncorrect'))
+    .length(10, i18n.t('validation.phoneFormat')),
   province: Yup.string()
-    .required('Vui lòng nhập tỉnh/thành phố!'),
+    .required(i18n.t('validation.provinceRequired')),
   district: Yup.string()
-    .required('Vui lòng nhập quận/huyện!'),
+    .required(i18n.t('validation.districtRequired')),
   commune: Yup.string()
-    .required('Vui lòng nhập xã/phường!'),
+    .required(i18n.t('validation.communeRequired')),
   idcard: Yup.string()
-    .matches(PHONE_REG_EXP, 'Số CMT/CCCD không hợp lệ!')
+    .matches(PHONE_REG_EXP, i18n.t('validation.idCardIncorrect'))
     .min(
       9,
-      'CMT/CCCD phải có ít nhất 9 số!',
+      i18n.t('validation.idCardMin'),
     )
     .max(
       12,
-      'CMT/CCCD có tối đa 12 số!',
+      i18n.t('validation.idCardMax'),
     )
 })

@@ -1,17 +1,18 @@
 import * as Yup from 'yup'
+import i18n from '../../translation'
 
 export const schemaValidate = Yup.object().shape({
   priceIn: Yup.number()
-    .typeError('Giá nhập không hợp lệ!')
-    .integer('Giá nhập không hợp lệ!'),
+    .typeError(i18n.t('validation.priceInIncorrect'))
+    .integer(i18n.t('validation.priceInIncorrect')),
   priceOut: Yup.number()
-    .typeError('Giá bán không hợp lệ!')
-    .integer('Giá bán không hợp lệ!'),
+    .typeError(i18n.t('validation.priceOutIncorrect'))
+    .integer(i18n.t('validation.priceOutIncorrect')),
   priceSale: Yup.number()
-    .typeError('Giá khuyến mại không hợp lệ!')
-    .integer('Giá khuyến không hợp lệ!'),
+    .typeError(i18n.t('validation.priceSaleIncorrect'))
+    .integer(i18n.t('validation.priceSaleIncorrect')),
   quantity: Yup.number()
-    .typeError('Số lượng sản phẩm không hợp lệ!')
-    .integer('Số lượng sản phẩm không hợp lệ!')
-    .positive('Số lượng sản phẩm không hợp lệ!')
+    .typeError(i18n.t('validation.quantityIncorrect'))
+    .integer(i18n.t('validation.quantityIncorrect'))
+    .positive(i18n.t('validation.quantityIncorrect'))
 })

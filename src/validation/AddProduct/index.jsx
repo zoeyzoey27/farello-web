@@ -1,28 +1,29 @@
 import * as Yup from 'yup'
+import i18n from '../../translation'
 
 export const schemaValidate = Yup.object().shape({
   name: Yup.string()
-    .required('Vui lòng nhập tên sản phẩm!'),
+    .required(i18n.t('validation.productNameRequired')),
   categoryId: Yup.string()
-    .required('Vui lòng chọn danh mục sản phẩm!'),
+    .required(i18n.t('validation.productCategoryRequired')),
   priceIn: Yup.number()
-    .typeError('Giá nhập không hợp lệ!')
-    .positive('Giá nhập không hợp lệ!')
-    .integer('Giá nhập không hợp lệ!'),
+    .typeError(i18n.t('validation.priceInIncorrect'))
+    .positive(i18n.t('validation.priceInIncorrect'))
+    .integer(i18n.t('validation.priceInIncorrect')),
   priceOut: Yup.number()
-    .typeError('Giá bán không hợp lệ!')
-    .positive('Giá bán không hợp lệ!')
-    .integer('Giá bán không hợp lệ!')
-    .required('Vui lòng nhập giá bán!'),
+    .typeError(i18n.t('validation.priceOutIncorrect'))
+    .positive(i18n.t('validation.priceOutIncorrect'))
+    .integer(i18n.t('validation.priceOutIncorrect'))
+    .required(i18n.t('validation.priceOutRequired')),
   priceSale: Yup.number()
-    .typeError('Giá khuyến mại không hợp lệ!')
-    .positive('Giá khuyến mại không hợp lệ!')
-    .integer('Giá khuyến mại không hợp lệ!'),
+    .typeError(i18n.t('validation.priceSaleIncorrect'))
+    .positive(i18n.t('validation.priceSaleIncorrect'))
+    .integer(i18n.t('validation.priceSaleIncorrect')),
   quantity: Yup.number()
-    .typeError('Giá khuyến mại không hợp lệ!')
-    .positive('Giá khuyến mại không hợp lệ!')
-    .integer('Giá khuyến mại không hợp lệ!')
-    .required('Vui lòng nhập số lượng sản phẩm!'),
+    .typeError(i18n.t('validation.quantityIncorrect'))
+    .positive(i18n.t('validation.quantityIncorrect'))
+    .integer(i18n.t('validation.quantityIncorrect'))
+    .required(i18n.t('validation.quantityRequired')),
   images: Yup.mixed()
-    .required('Vui lòng tải lên ảnh minh họa!'),
+    .required(i18n.t('validation.imageRequired')),
 })

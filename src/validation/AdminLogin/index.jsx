@@ -1,22 +1,23 @@
 import * as Yup from 'yup';
 import { PASSWORD_REG_EXP } from '../../constant'
+import i18n from '../../translation'
 
 export const schemaValidate = Yup.object().shape({
   email: Yup.string()
-    .email('Địa chỉ email không hợp lệ!')
-    .required('Vui lòng nhập địa chỉ email của bạn!'),
+    .email(i18n.t('validation.emailIncorrect'))
+    .required(i18n.t('validation.emailRequired')),
   password: Yup.string()
-    .required('Vui lòng nhập mật khẩu của bạn!')
+    .required(i18n.t('validation.passwordRequired'))
     .min(
       8,
-      'Mật khẩu phải có ít nhất 8 ký tự!',
+      i18n.t('validation.passwordMin'),
     )
     .max(
       50,
-      'Mật khẩu chỉ có tối đa 50 ký tự!',
+      i18n.t('validation.passwordMax'),
     )
     .matches(
       PASSWORD_REG_EXP,
-      'Mật khẩu bao gồm các ký tự chữ và số!',
+      i18n.t('validation.passwordFormat'),
     ),
 });
