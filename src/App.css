@@ -29,3 +29,6 @@ html{
 .link:hover {
   color: #000 !important;
 }
+.link:active {
+    color: #000 !important;
+}

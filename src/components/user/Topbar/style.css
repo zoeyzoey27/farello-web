@@ -1,6 +1,3 @@
-.ant-menu-horizontal>.ant-menu-item-selected a {
-    color: #000 !important;
-}
 .ant-menu-horizontal>.ant-menu-item:after{
     display: none;
 }
