@@ -4,9 +4,11 @@ import i18n from '../../translation'
 
 export const schemaValidate = Yup.object().shape({
   email: Yup.string()
+    .trim()
     .email(i18n.t('validation.emailIncorrect'))
     .required(i18n.t('validation.emailRequired')),
   password: Yup.string()
+    .trim()
     .required(i18n.t('validation.passwordRequired'))
     .min(
       8,

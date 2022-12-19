@@ -4,8 +4,10 @@ import i18n from '../../translation'
 
 export const schemaValidate = Yup.object().shape({
   code: Yup.string()
+    .trim()
     .required(i18n.t('validation.codeRequired')),
   password: Yup.string()
+    .trim()
     .required(i18n.t('validation.passwordRequired'))
     .min(
       8,
@@ -20,5 +22,6 @@ export const schemaValidate = Yup.object().shape({
       i18n.t('validation.passwordFormat'),
     ),
   rePassword: Yup.string()
+    .trim()
     .required(i18n.t('validation.rePasswordRequired')),
 });

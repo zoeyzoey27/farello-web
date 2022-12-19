@@ -89,10 +89,10 @@ const AddCategoryForm = ({action, id, setLoading}) => {
     await createCategory({
       variables: {
         categoryInput: {
-          categoryId: customId,
-          name: values.categoryName,
+          categoryId: customId.trim(),
+          name: values.categoryName.trim(),
           imageKey: file.preview,
-          description: values.description,
+          description: values.description.trim(),
           createdAt: moment().format(DATE_TIME_FORMAT),
           updatedAt: moment().format(DATE_TIME_FORMAT),
         }
@@ -119,9 +119,9 @@ const AddCategoryForm = ({action, id, setLoading}) => {
       variables: {
         updateCategoryId: id,
         categoryUpdateInput: {
-          name: values.categoryName,
+          name: values.categoryName.trim(),
           imageKey: values.image ? values.image.fileList[0].preview : data?.category?.imageKey,
-          description: values.description,
+          description: values.description.trim(),
           updatedAt: moment().format(DATE_TIME_FORMAT),
         }
       },
