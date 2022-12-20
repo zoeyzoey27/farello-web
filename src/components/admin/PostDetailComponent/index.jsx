@@ -99,7 +99,7 @@ const PostDetailComponent = ({setLoading}) => {
         </Row>
         <Row className="mb-5 text-[1.6rem] flex flex-col w-full">
            <Row className="italic self-end">{`${i18n.t('postDetailAdmin.time')}: ${data?.post?.updatedAt}`}</Row>
-           <Row className="italic font-semibold self-end">{`${i18n.t('postDetailAdmin.admin')}: ${data?.post?.createdBy?.fullName}`}</Row>
+           <Row className="italic font-semibold self-end">{`${i18n.t('postDetailAdmin.admin')}: ${data?.post?.createdBy?.fullName || 'Người dùng'}`}</Row>
         </Row>
     </Space>
   )

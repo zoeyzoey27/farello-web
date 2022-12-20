@@ -116,10 +116,10 @@ const ListRate = ({product, setLoading}) => {
                         </span>
                     </Tooltip>,
                 ],
-                author: (<Row className="text-[1.6rem]">{item.createdBy.fullName}</Row>),
+                author: (<Row className="text-[1.6rem]">{item?.createdBy?.fullName || 'Người dùng'}</Row>),
                 avatar: (
                   <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} size={45}>
-                    {item.createdBy.fullName && item.createdBy.fullName.slice(0,2).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D")}
+                    {item?.createdBy?.fullName && item?.createdBy?.fullName.slice(0,2).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D")}
                   </Avatar>),
                 content: (
                 <>

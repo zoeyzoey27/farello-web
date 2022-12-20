@@ -12,6 +12,5 @@ export const schemaValidate = Yup.object().shape({
     .trim()
     .required(i18n.t('validation.postCategoryRequired')),
   image: Yup.mixed()
-    .trim()
     .required(i18n.t('validation.imageRequired')),
 })

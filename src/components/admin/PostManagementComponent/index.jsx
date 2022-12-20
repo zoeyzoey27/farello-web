@@ -68,13 +68,13 @@ const PostManagementComponent = ({setLoading}) => {
     if (data) {
       const items = data?.posts?.map((item) => {
           return {
-            id: item.id,
-            postId: item.postId,
-            title: item.title,
-            category: item.category.title,
-            admin: item.createdBy.fullName,
-            createdAt: item.createdAt,
-            updatedAt: item.updatedAt,
+            id: item?.id,
+            postId: item?.postId,
+            title: item?.title,
+            category: item?.category?.title,
+            admin: item?.createdBy?.fullName,
+            createdAt: item?.createdAt,
+            updatedAt: item?.updatedAt,
           }
       })
       setDataTable(items)

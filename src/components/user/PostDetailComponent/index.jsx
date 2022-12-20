@@ -26,7 +26,7 @@ const PostDetailComponent = ({post}) => {
       </Row>
       <Row className="mb-5 text-[1.6rem] flex flex-col w-full">
            <Row className="italic self-end">{`${i18n.t('userPostDetail.updatedAt')}: ${post?.updatedAt}`}</Row>
-           <Row className="italic font-semibold self-end">{`${i18n.t('userPostDetail.author')}: ${post?.createdBy?.fullName}`}</Row>
+           <Row className="italic font-semibold self-end">{`${i18n.t('userPostDetail.author')}: ${post?.createdBy?.fullName || 'Admin'}`}</Row>
       </Row>
     </Col>
   )
