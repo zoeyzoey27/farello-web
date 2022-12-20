@@ -43,7 +43,7 @@ export const schemaValidate = Yup.object().shape({
     .trim()
     .required(i18n.t('validation.communeRequired')),
   idcard: Yup.string()
-    .trim()
+    .nullable()
     .matches(PHONE_REG_EXP, i18n.t('validation.idCardIncorrect'))
     .min(
       9,

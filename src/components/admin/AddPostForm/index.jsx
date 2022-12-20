@@ -96,8 +96,8 @@ const AddPostForm = ({setLoading, action, id}) => {
     await createPost({
         variables: {
             postInput: {
-                postId: customId.trim(),
-                title: values.title.trim(),
+                postId: customId,
+                title: values.title,
                 categoryId: values.categoryName,
                 content: values.content,
                 imageKey: file.preview,
@@ -128,7 +128,7 @@ const AddPostForm = ({setLoading, action, id}) => {
       variables: {
         updatePostId: id,
         postUpdateInput: {
-          title: values.title.trim(),
+          title: values.title,
           categoryId: values.categoryName,
           content: values.content,
           imageKey: values.image ? values.image.fileList[0].preview : dataPost?.post?.imageKey,

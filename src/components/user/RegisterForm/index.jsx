@@ -36,16 +36,16 @@ const RegisterForm = ({setLoading}) => {
       await registerUser({
         variables: {
           userRegisterInput: {
-            userId: customId.trim(),
-            fullName: values.name.trim(),
-            email: values.email.trim(),
-            password: values.password.trim(),
-            phoneNumber: values.phone.trim(),
+            userId: customId,
+            fullName: values.name,
+            email: values.email,
+            password: values.password,
+            phoneNumber: values.phone,
             address: adminAddress,
             provinceCode: values.province,
             districtCode: values.district,
             communeCode: values.commune,
-            idCard: values.idCard.trim(),
+            idCard: values.idCard,
             birthday: convertTimeToString(values.birthday, DATE_TIME_FORMAT),
             status: 'AVAILABLE',
             createdAt: moment().format(DATE_TIME_FORMAT),
